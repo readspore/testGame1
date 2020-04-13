@@ -12,7 +12,7 @@ public static class PlatformHelpers
     {
         if (!WaitForPlatformExit)
         {
-            Debug.Log("PL Ignore " + flag + " course " + course);
+            //Debug.Log("PL Ignore " + flag + " course " + course);
             Physics.IgnoreLayerCollision(Constants.PlayerLayer, Constants.PlatformsLayer, flag);
         }
     }

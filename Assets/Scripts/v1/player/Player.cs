@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody rb;
+    public float distToGround = 0.51f;
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
@@ -17,12 +18,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (rb.velocity.y < 0)
-        {
             PlatformHelpers.IgnorePlayerPlatform(false, "rb.velocity.y < 0");
-            //Debug.Log("rb.velocity.y < 0");
-            //IgnorePlatformAfterTime(1, false);
-            //Debug.Log("rb.velocity.y < 222222222222222222");
-        }
     }
 
     IEnumerator IgnorePlatformAfterTime(float time, bool flag)
@@ -30,5 +26,10 @@ public class Player : MonoBehaviour
         Debug.Log("IgnorePlatformAfterTime");
         yield return new WaitForSeconds(time);
         PlatformHelpers.IgnorePlayerPlatform(flag, "IgnorePlatformAfterTime");
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up,  distToGround );
     }
 }
