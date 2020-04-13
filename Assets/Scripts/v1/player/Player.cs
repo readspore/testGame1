@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Rigidbody rb;
     void Start()
     {
+        rb = transform.GetComponent<Rigidbody>();
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
     }
@@ -14,6 +16,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (rb.velocity.y < 0)
+        {
+            PlatformHelpers.IgnorePlayerPlatform(false, "rb.velocity.y < 0");
+            //Debug.Log("rb.velocity.y < 0");
+            //IgnorePlatformAfterTime(1, false);
+            //Debug.Log("rb.velocity.y < 222222222222222222");
+        }
+    }
+
+    IEnumerator IgnorePlatformAfterTime(float time, bool flag)
+    {
+        Debug.Log("IgnorePlatformAfterTime");
+        yield return new WaitForSeconds(time);
+        PlatformHelpers.IgnorePlayerPlatform(flag, "IgnorePlatformAfterTime");
     }
 }

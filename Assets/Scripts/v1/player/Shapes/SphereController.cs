@@ -21,22 +21,24 @@ public class SphereController : MonoBehaviour, IShapeController
     public void OnMoveUp(Vector3 dir)
     {
         //Debug.Log("OnMove Up");   
+        PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveUp");
         rb.AddForce(dir * speed * upMoveKoef);
     }
 
     public void OnMoveDown()
     {
-        OnMoveUp(new Vector3(0, -applayedForce));
+        OnMoveDown(new Vector3(0, -applayedForce));
     }
     public void OnMoveDown(Vector3 dir)
     {
         //Debug.Log("OnMove Down");
         rb.AddForce(dir * speed);
+        PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveDown", true);
     }
 
     public void OnMoveLeft()
     {
-        OnMoveUp(new Vector3(-applayedForce, 0));
+        OnMoveLeft(new Vector3(-applayedForce, 0));
     }
 
     public void OnMoveLeft(Vector3 dir)
@@ -47,7 +49,7 @@ public class SphereController : MonoBehaviour, IShapeController
 
     public void OnMoveRight()
     {
-        OnMoveUp(new Vector3(applayedForce, 0));
+        OnMoveRight(new Vector3(applayedForce, 0));
     }
     public void OnMoveRight(Vector3 dir)
     {
