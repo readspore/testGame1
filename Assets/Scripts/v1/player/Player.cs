@@ -7,29 +7,43 @@ public class Player : MonoBehaviour
 {
     Rigidbody rb;
     public float distToGround = 0.51f;
+    private int health = 100;
+
+    public int Health 
+    { 
+        get => health; 
+        set {
+            health = value;
+            if (health <= 0)
+                PlayerIsDead();
+        }
+    }
+
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
+        //DamageController.ActivateShield(15);
+        //DamageController.GetDamage(11);
+        Health = -111;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (rb.velocity.y < 0)
             PlatformHelpers.IgnorePlayerPlatform(false, "rb.velocity.y < 0");
     }
 
-    IEnumerator IgnorePlatformAfterTime(float time, bool flag)
-    {
-        Debug.Log("IgnorePlatformAfterTime");
-        yield return new WaitForSeconds(time);
-        PlatformHelpers.IgnorePlayerPlatform(flag, "IgnorePlatformAfterTime");
-    }
-
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up,  distToGround );
+    }
+
+    public void PlayerIsDead()
+    {
+        Radio.Radio.PlayerDeath();
+        Radio.Radio.UpdateDirectionHint("my MSG");
+
     }
 }

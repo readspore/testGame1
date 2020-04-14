@@ -1,18 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Radio
 {
+    public delegate void DirectionHintHandler(string message);
     public static class Radio
     {
-        public static void Test()
+        public static event Action onPlayerDeath;
+        public static void PlayerDeath()
         {
-            Test("");
+            Debug.Log("static PlayerDeath");   
+            if (onPlayerDeath != null)
+                onPlayerDeath();
         }
-        public static void Test( string text)
+
+        public static event DirectionHintHandler OnUpdateDirectionHint;
+        public static void UpdateDirectionHint(string str)
         {
-            Debug.Log("Test " + text);
+            if (OnUpdateDirectionHint != null)
+                OnUpdateDirectionHint(str);
         }
     }
+
 }
