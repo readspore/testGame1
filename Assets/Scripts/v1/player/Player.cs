@@ -29,8 +29,8 @@ public class Player : MonoBehaviour
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
 
-        //DamageController.ActivateShield(15);
-        //DamageController.GetDamage(11);
+        DamageController.ActivateShield(15);
+        DamageController.GetDamage(11);
 
         //PlayerPrefs.SetString("respanUsednOnLvl" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex, "");
 
