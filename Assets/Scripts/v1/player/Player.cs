@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     public float distToGround = 0.51f;
     private int health = 100;
+    Camera mainCamera;
+    GameObject curretnPlatform;
 
     public int Health 
     { 
@@ -22,6 +24,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
+        mainCamera = Camera.main;
+        mainCamera.gameObject.AddComponent<CameraControll>().TheStart(this.gameObject);
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
 
@@ -54,5 +58,17 @@ public class Player : MonoBehaviour
     {
         Radio.Radio.PlayerDeath();
         //Radio.Radio.UpdateDirectionHint("my MSG");
+    }
+
+
+    public void SetParentPlatform()
+    {
+        transform.parent = null;
+        curretnPlatform = null;
+    }
+    public void SetParentPlatform(GameObject platform)
+    {
+        curretnPlatform = platform;
+        transform.parent = curretnPlatform.transform;
     }
 }

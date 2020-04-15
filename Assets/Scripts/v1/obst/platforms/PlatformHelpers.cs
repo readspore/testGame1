@@ -23,4 +23,22 @@ public static class PlatformHelpers
         WaitForPlatformExit = waitForExit;
     }
 
+    public static void DoTrigger(bool isTrigger, GameObject platform)
+    {
+        platform.GetComponent<MeshCollider>().isTrigger = isTrigger;
+    }
+
+    public static void HidAndTrigger(bool hid, GameObject platform)
+    {
+        if (hid)
+        {
+            platform.GetComponent<Renderer>().enabled = false;
+            platform.GetComponent<MeshCollider>().isTrigger = true;
+        }
+        else
+        {
+            platform.GetComponent<Renderer>().enabled = true;
+            platform.GetComponent<MeshCollider>().isTrigger = false;
+        }
+    }
 }

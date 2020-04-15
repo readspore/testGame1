@@ -10,6 +10,7 @@ public class PlatformTrigetExit : MonoBehaviour
         {
             PlatformHelpers.WaitForPlatformExit = false;
             PlatformHelpers.IgnorePlayerPlatform(false, "OnTriggerExit");
+            other.gameObject.GetComponent<Player>().SetParentPlatform();
         }
     }
 }
