@@ -29,7 +29,7 @@ public class NeedKill : MonoBehaviour
             Phase3();
             yield return new WaitForSeconds(timeTo1Phase);
         }
-        //yield return new WaitForSeconds(timeBeforeStart);
+        //yield return new WaitForSeconds(timeBeforeStart);  
         //if (
         //    timeTo1Phase != 0 &&
         //    timeTo2Phase != 0 &&
