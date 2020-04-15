@@ -24,9 +24,18 @@ public class Player : MonoBehaviour
         rb = transform.GetComponent<Rigidbody>();
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
+
         //DamageController.ActivateShield(15);
         //DamageController.GetDamage(11);
-        Health = -111;
+
+        //PlayerPrefs.SetString("respanUsednOnLvl" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex, "");
+
+        //PlayerPrefs.SetInt("FreeRespawns", 20);
+        //RespawHelpers.CreateNewRespawn(new Vector3(1, 0), "first");
+        //RespawHelpers.CreateNewRespawn(new Vector3(1, 2), "Second");
+        //RespawHelpers.CreateNewRespawn(new Vector3(1222, 24), "the last");
+        //var getAllRespawnIdsOnLvl = RespawHelpers.GetAllRespawnIdsOnLvl();
+        Respawn resp8 = new Respawn(10);
     }
 
     void Update()
@@ -43,7 +52,6 @@ public class Player : MonoBehaviour
     public void PlayerIsDead()
     {
         Radio.Radio.PlayerDeath();
-        Radio.Radio.UpdateDirectionHint("my MSG");
-
+        //Radio.Radio.UpdateDirectionHint("my MSG");
     }
 }
