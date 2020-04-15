@@ -10,7 +10,6 @@ public class Respawn
     public Respawn(int id)
     {
         string respInfo = PlayerPrefs.GetString("respawn" + id);
-        Debug.Log(respInfo);
         string delimeter = "|";
         int count = 0;
         while (count < 4)
@@ -40,8 +39,10 @@ public class Respawn
             }
             ++count;
         }
-        Debug.Log("this ID " + id);
-        Debug.Log("this position " + position);
-        Debug.Log("this name " + name);
+    }
+
+    public void MoveToRespawn()
+    {
+        GameObject.Find("Player").transform.position = this.position;
     }
 }

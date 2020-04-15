@@ -31,11 +31,12 @@ public class Player : MonoBehaviour
         //PlayerPrefs.SetString("respanUsednOnLvl" + UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex, "");
 
         //PlayerPrefs.SetInt("FreeRespawns", 20);
-        //RespawHelpers.CreateNewRespawn(new Vector3(1, 0), "first");
+        //RespawHelpers.CreateNewRespawn(new Vector3(10, 10), "New point");
         //RespawHelpers.CreateNewRespawn(new Vector3(1, 2), "Second");
         //RespawHelpers.CreateNewRespawn(new Vector3(1222, 24), "the last");
         //var getAllRespawnIdsOnLvl = RespawHelpers.GetAllRespawnIdsOnLvl();
-        Respawn resp8 = new Respawn(10);
+        //Respawn resp = new Respawn(11);
+        //resp.MoveToRespawn();
     }
 
     void Update()

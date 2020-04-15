@@ -14,7 +14,7 @@ public static class RespawHelpers
         AddIdRespawnsOnLvl(newMaxRespawnId);
         SaveNewRespawnInfo(newMaxRespawnId, position, name);
         UpdateFreeRespawns();
-        Debug.Log("created");
+        Debug.Log("created " + newMaxRespawnId);
     }
 
     public static int GetNewId()
