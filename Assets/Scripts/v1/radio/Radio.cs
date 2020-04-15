@@ -11,7 +11,7 @@ namespace Radio
         public static event Action onPlayerDeath;
         public static void PlayerDeath()
         {
-            Debug.Log("static PlayerDeath");   
+            Debug.Log("Radio PlayerDeath");   
             if (onPlayerDeath != null)
                 onPlayerDeath();
         }

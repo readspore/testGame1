@@ -15,7 +15,7 @@ public class MoneyObj : MonoBehaviour
             int currencyCount = PlayerPrefs.GetInt(moneyType.ToString());
             PlayerPrefs.SetInt(moneyType.ToString(), currencyCount + value);
             Destroy(transform.gameObject);
-            Debug.Log(currencyCount + value);
+            //Debug.Log(currencyCount + value);
         }
     }
 }
