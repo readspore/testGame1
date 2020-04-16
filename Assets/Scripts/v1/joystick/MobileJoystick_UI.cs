@@ -11,7 +11,7 @@ public class MobileJoystick_UI : MonoBehaviour
     public Vector2 moveDirection;
     //Joystick components size
     int circleSize = 120;
-    int buttonSize = 100;
+    int buttonSize = 40;
     //How far the joystick should be placed from the side of the screen
     int marginLeft = 100;
     //How far the joystick should be placed from the bottom of the screen
