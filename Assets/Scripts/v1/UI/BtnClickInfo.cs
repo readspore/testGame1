@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BtnClickActions { 
+public enum BtnClickActions {
+    HomeMenu,
     ShowAllLvl,
     ChooseLvl,
-    PrevoiusMenu
+    PrevoiusMenu,
+    ForgeUpgrade,
+    PauseMenu,
+    GameUI,
+    Byu,
+    Create,
+    ContinueGame,
+    ForgeMain
 };
 public class BtnClickInfo : MonoBehaviour
 {

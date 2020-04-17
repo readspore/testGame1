@@ -24,7 +24,13 @@ public static class ShapeController
 
     static void BeforeSetNewShape(CurrentShapeType value)
     {
-        currentShape?.GetComponent<IShapeController>().OnDisable();
+        try
+        {
+            currentShape?.GetComponent<IShapeController>().OnDisable();
+        }
+        catch (System.Exception)
+        {
+        }
     }
 
     static void AfterSetNewShape()
