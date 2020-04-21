@@ -13,8 +13,8 @@ public static class Forge
             {
                 allItems = new List<IForgeItem>
                 {
-                    new ForgeItem(0, "Test 1", 10, 200, 30),
-                    new ForgeItem(1, "Test 2", 15, 300, 60)
+                    new ForgeItem(0, "Test 1", 10, 200, 30, 3),
+                    new ForgeItem(1, "Test 2", 15, 300, 60, 3)
                 };
             }   
             return allItems;
@@ -63,8 +63,15 @@ public static class Forge
         );
     }
 
-    public static bool CanCreateItem(int id)
+    public static bool CanCreateItem(int id, int createCount)
     {
+        var forgeItem = GetForgeItem(id);
+        if (!Bank.AccountContain(Currency.Silver, forgeItem.CostSilver * createCount))
+            return false;
+        if (forgeItem.IsOnCreationg()) {
+            Debug.Log("IsOnCreationg");
+            return false;
+        }
         return true;
     }
 
@@ -79,9 +86,18 @@ public static class Forge
 
     }
 
-    public static void Create(int id)
+    public static void Create(int id, int createCount)
     {
-        if (!CanCreateItem(id)) return;
-
+        if (!CanCreateItem(id, createCount))
+        {
+            Debug.Log("Cant NOT create id " + id);
+            return;
+        }
+        var forgeItem = GetForgeItem(id);
+        if (Bank.Pay(Currency.Silver, forgeItem.CostSilver * createCount))
+        {
+            forgeItem.StartCreation(createCount);
+            Debug.Log("creating id " + id);
+        }
     }
 }

@@ -12,4 +12,9 @@ public interface IForgeItem
     bool IsOpened { get; set; }
     int TotalPartsForOpen { get; set; }
     int HasPartsForOpen { get; set; }
+
+    int TotalInBag { get; set; }
+    bool IsOnCreationg();
+    void StartCreation(int count);
+    int TakeFromForge();
 }

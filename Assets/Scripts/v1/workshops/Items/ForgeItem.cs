@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,13 +13,18 @@ public class ForgeItem : IForgeItem
     bool isOpened;
     int totalPartsForOpen;
     int hasPartsForOpen;
-    public ForgeItem(int id, string name, int costGold, int costSilver, int timeCreation)
+    int totalInBag;
+    int createPerTime;
+    public ForgeItem(int id, string name, int costGold, int costSilver, int timeCreation, int createPerTime)
     {
         this.id = id;
         this.costGold = costGold;
         this.costSilver = costSilver;
         this.timeCreation = timeCreation;
         this.name = name;
+        this.createPerTime = createPerTime;
+
+        totalInBag = PlayerPrefs.GetInt("totalInBag" + id);
     }
     public int CostGold { get => costGold; set => costGold = value; }
     public int CostSilver { get => costSilver; set => costSilver = value; }
@@ -54,8 +60,35 @@ public class ForgeItem : IForgeItem
         set { }
     }
 
+    public int TotalInBag { get => totalInBag; set => totalInBag = value; }
+
     public void AddPartForItem()
     {
         PlayerPrefs.SetInt("ForgeItemHasPartsForOpen" + id, PlayerPrefs.GetInt("ForgeItemHasPartsForOpen" + id + 1));
+    }
+
+    public bool IsOnCreationg()
+    {
+        return
+            new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()
+            <
+            Convert.ToInt64(
+                PlayerPrefs.GetString("endCreation" + id)
+            );
+    }
+
+    public void StartCreation(int count)
+    {
+        var TimestampStart= new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+        PlayerPrefs.SetString("startCreation" + id, TimestampStart.ToString());
+        var TimestampEnd = new DateTimeOffset(DateTime.UtcNow).AddSeconds(300).ToUnixTimeSeconds();
+        PlayerPrefs.SetString("endCreation" + id, TimestampEnd.ToString());
+        Debug.Log("Start Cretaion " + id);
+        Debug.Log("TimestampStart " + TimestampStart.ToString() + " TimestampEnd " + TimestampEnd.ToString());
+    }
+
+    public int TakeFromForge()
+    {
+        return createPerTime;
     }
 }

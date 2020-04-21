@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoneyObj : MonoBehaviour
 {
-    public Currency currency;
+    public Currency currency; 
     public int value = 1;
 
     private void OnTriggerEnter(Collider other)

@@ -51,7 +51,11 @@ public class UIController : MonoBehaviour
 
     public void ClickedHendler(BtnClickActions action, string info)
     {
-        Debug.Log(action.ToString());
+        ClickedHendler(action, info, null);
+    }
+    public void ClickedHendler(BtnClickActions action, string info, GameObject clickedInfoGO)
+    {
+        //Debug.Log(action.ToString());
         switch (action)
         {
             case BtnClickActions.HomeMenu:
@@ -79,7 +83,7 @@ public class UIController : MonoBehaviour
                 BuyForgeItemHandler(info);
                 break;
             case BtnClickActions.Create:
-                CreateForgeItemHandler(info);
+                CreateForgeItemHandler(clickedInfoGO);
                 break;
         }
     }
@@ -121,17 +125,21 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void CreateForgeItemHandler(string info)
+    void CreateForgeItemHandler(GameObject infoGO)
     {
-        var id = int.Parse(info);
-        if (Forge.CanCreateItem(id))
+        //Debug.Log(infoGO.name);
+        var id = infoGO.GetComponent<ItemGO>().id;
+        var howManyCreate = int.Parse(
+                infoGO.transform.Find("InputField/Text").GetComponent<Text>().text
+            );
+        if (Forge.CanCreateItem(id, howManyCreate))
         {
-            Debug.Log("Can buy");
-            Forge.Create(id);
+            Debug.Log("UI Can create");
+            Forge.Create( id, howManyCreate );
         }
         else
         {
-            Debug.Log("Can not buy");
+            Debug.Log("Can not create");
         }
     }
 

@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickedInfo: 
+  clickedInfoGO: {fileID: 3540219534737279381}
   clickAction: 8
 --- !u!1 &3540219533445371542
 GameObject:
@@ -1374,6 +1375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickedInfo: 
+  clickedInfoGO: {fileID: 3540219534737279381}
   clickAction: 7
 --- !u!1 &3540219534913364441
 GameObject:

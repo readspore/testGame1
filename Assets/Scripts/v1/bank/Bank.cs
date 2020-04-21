@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum Currency { Currency1, Currency2, Currency3 };
+public enum Currency { Gold, Silver };
 
 public static class Bank
 {
