@@ -8,6 +8,8 @@ public class UIController : MonoBehaviour
 {
     GameObject prevoiusMenu;
     GameObject activeMenu;
+    public GameObject forgItemPrefab;
+
     public enum AllMenuPagesEN
     {
         HomeMenu,
@@ -17,6 +19,18 @@ public class UIController : MonoBehaviour
         GameUi
     }
     public List<GameObject> AllMenuPages =  new List<GameObject>();
+
+    public GameObject ForgItemPrefab {
+        get {
+            //Debug.Log("tst");
+            //Debug.Log("forgItemPrefab.name " + forgItemPrefab.name);
+            //return activeMenu;
+            //return forgItemPrefab;
+            return Instantiate(forgItemPrefab, transform.position, transform.rotation);
+        } 
+        set => forgItemPrefab = value; 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +51,11 @@ public class UIController : MonoBehaviour
 
     public void ClickedHendler(BtnClickActions action, string info)
     {
-        Debug.Log(action.ToString());
+        ClickedHendler(action, info, null);
+    }
+    public void ClickedHendler(BtnClickActions action, string info, GameObject clickedInfoGO)
+    {
+        //Debug.Log(action.ToString());
         switch (action)
         {
             case BtnClickActions.HomeMenu:
@@ -61,6 +79,12 @@ public class UIController : MonoBehaviour
                 GameOnPause(false);
                 ShowMenuPage(AllMenuPagesEN.GameUi);
                 break;
+            case BtnClickActions.Buy:
+                BuyForgeItemHandler(info);
+                break;
+            case BtnClickActions.Create:
+                CreateForgeItemHandler(clickedInfoGO);
+                break;
         }
     }
 
@@ -80,6 +104,10 @@ public class UIController : MonoBehaviour
         activeMenu = AllMenuPages.Find(obj => obj.name.ToLower() == pageName.ToString().ToLower());
         activeMenu.SetActive(true);
     }
+    public GameObject GetMenuPage(AllMenuPagesEN pageName)
+    {
+        return AllMenuPages.Find(obj => obj.name.ToLower() == pageName.ToString().ToLower());
+    }
 
     void LoadLvl(int lvlIndex)
     {
@@ -96,4 +124,37 @@ public class UIController : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+
+    void CreateForgeItemHandler(GameObject infoGO)
+    {
+        //Debug.Log(infoGO.name);
+        var id = infoGO.GetComponent<ItemGO>().id;
+        var howManyCreate = int.Parse(
+                infoGO.transform.Find("InputField/Text").GetComponent<Text>().text
+            );
+        if (Forge.CanCreateItem(id, howManyCreate))
+        {
+            Debug.Log("UI Can create");
+            Forge.Create( id, howManyCreate );
+        }
+        else
+        {
+            Debug.Log("Can not create");
+        }
+    }
+
+    void BuyForgeItemHandler(string info)
+    {
+        var id = int.Parse(info);
+        if (Forge.CanBuyItem(id))
+        {
+            Debug.Log("Can buy");
+            Forge.Buy(id);
+        }
+        else
+        {
+            Debug.Log("Can not buy");
+        }
+    }
+
 }

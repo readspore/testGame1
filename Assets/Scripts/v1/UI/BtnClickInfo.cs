@@ -11,7 +11,7 @@ public enum BtnClickActions {
     ForgeUpgrade,
     PauseMenu,
     GameUI,
-    Byu,
+    Buy,
     Create,
     ContinueGame,
     ForgeMain
@@ -19,15 +19,17 @@ public enum BtnClickActions {
 public class BtnClickInfo : MonoBehaviour
 {
     public string clickedInfo = "";
+    public GameObject clickedInfoGO;
     public BtnClickActions clickAction;
 
     void Start()
     {
         transform.GetComponent<Button>().onClick.AddListener(ThisClickedHandler);
+        clickedInfoGO = clickedInfoGO ?? transform.gameObject;
     }
 
     void ThisClickedHandler()
     {
-        GameObject.Find("MenuCanvas").GetComponent<UIController>().ClickedHendler(clickAction, clickedInfo);
+        GameObject.Find("MenuCanvas").GetComponent<UIController>().ClickedHendler(clickAction, clickedInfo, clickedInfoGO);
     }
 }

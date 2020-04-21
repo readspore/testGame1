@@ -32,7 +32,19 @@ public class Player : MonoBehaviour
         DamageController.ActivateShield(15);
         DamageController.GetDamage(35);
 
+        Bank.AddMoney(Currency.Silver, 1000);
+        Debug.Log(
+            PlayerPrefs.GetString("endCreation0")
+        );
 
+        //var ss = Forge.GetForgeItem(1);
+        //Debug.Log(ss.TotalPartsForOpen);
+
+        //Forge.FillForgeItemPrefab(0);
+        //Forge.FillForgeItemPrefab(1);
+        //Forge.FillForgeItemPrefab(1);
+        //Forge.FillForgeItemPrefab(1);
+        //Forge.FillForgeItemPrefab(1);
 
         //комментарий
 
