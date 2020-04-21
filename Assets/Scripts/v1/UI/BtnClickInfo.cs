@@ -11,7 +11,7 @@ public enum BtnClickActions {
     ForgeUpgrade,
     PauseMenu,
     GameUI,
-    Byu,
+    Buy,
     Create,
     ContinueGame,
     ForgeMain

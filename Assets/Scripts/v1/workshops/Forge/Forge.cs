@@ -63,4 +63,25 @@ public static class Forge
         );
     }
 
+    public static bool CanCreateItem(int id)
+    {
+        return true;
+    }
+
+    public static bool CanBuyItem(int id)
+    {
+        return true;
+    }
+
+    public static void Buy(int id)
+    {
+        if (!CanBuyItem(id)) return;
+
+    }
+
+    public static void Create(int id)
+    {
+        if (!CanCreateItem(id)) return;
+
+    }
 }

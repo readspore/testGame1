@@ -346,6 +346,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1090420108}
     m_Modifications:
+    - target: {fileID: 36723751636877819, guid: fd41a48bdefafd94485006b0ddad292f,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3540219533467608196, guid: fd41a48bdefafd94485006b0ddad292f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1655,6 +1660,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1090420108}
     m_Modifications:
+    - target: {fileID: 36723751636877819, guid: fd41a48bdefafd94485006b0ddad292f,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3540219533467608196, guid: fd41a48bdefafd94485006b0ddad292f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4249,7 +4259,7 @@ GameObject:
   - component: {fileID: 650998673}
   - component: {fileID: 650998672}
   m_Layer: 5
-  m_Name: TestWrap
+  m_Name: ItemsWrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6148,6 +6158,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1090420108}
     m_Modifications:
+    - target: {fileID: 36723751636877819, guid: fd41a48bdefafd94485006b0ddad292f,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3540219533467608196, guid: fd41a48bdefafd94485006b0ddad292f,
         type: 3}
       propertyPath: m_AnchorMax.y

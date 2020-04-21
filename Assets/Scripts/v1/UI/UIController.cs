@@ -75,6 +75,12 @@ public class UIController : MonoBehaviour
                 GameOnPause(false);
                 ShowMenuPage(AllMenuPagesEN.GameUi);
                 break;
+            case BtnClickActions.Buy:
+                BuyForgeItemHandler(info);
+                break;
+            case BtnClickActions.Create:
+                CreateForgeItemHandler(info);
+                break;
         }
     }
 
@@ -114,4 +120,33 @@ public class UIController : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+
+    void CreateForgeItemHandler(string info)
+    {
+        var id = int.Parse(info);
+        if (Forge.CanCreateItem(id))
+        {
+            Debug.Log("Can buy");
+            Forge.Create(id);
+        }
+        else
+        {
+            Debug.Log("Can not buy");
+        }
+    }
+
+    void BuyForgeItemHandler(string info)
+    {
+        var id = int.Parse(info);
+        if (Forge.CanBuyItem(id))
+        {
+            Debug.Log("Can buy");
+            Forge.Buy(id);
+        }
+        else
+        {
+            Debug.Log("Can not buy");
+        }
+    }
+
 }
