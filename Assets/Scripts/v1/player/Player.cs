@@ -32,7 +32,14 @@ public class Player : MonoBehaviour
         DamageController.ActivateShield(15);
         DamageController.GetDamage(35);
 
+        //var ss = Forge.GetForgeItem(1);
+        //Debug.Log(ss.TotalPartsForOpen);
 
+        //Forge.FillForgeItemPrefab(0);
+        //Forge.FillForgeItemPrefab(1);
+        //Forge.FillForgeItemPrefab(1);
+        //Forge.FillForgeItemPrefab(1);
+        //Forge.FillForgeItemPrefab(1);
 
         //комментарий
 

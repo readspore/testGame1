@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class FixContentHeight : MonoBehaviour
 {
+    public Transform content;
     // Start is called before the first frame update
     void Start()
     {
-        var content = transform.Find("Content");
+        content = content ?? transform.Find("Content");
+        //var content = transform.Find("Content");
         var contentGridLay = content.GetComponent<GridLayoutGroup>();
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(
             RectTransform.Axis.Vertical,

@@ -8,6 +8,8 @@ public class UIController : MonoBehaviour
 {
     GameObject prevoiusMenu;
     GameObject activeMenu;
+    public GameObject forgItemPrefab;
+
     public enum AllMenuPagesEN
     {
         HomeMenu,
@@ -17,6 +19,18 @@ public class UIController : MonoBehaviour
         GameUi
     }
     public List<GameObject> AllMenuPages =  new List<GameObject>();
+
+    public GameObject ForgItemPrefab {
+        get {
+            //Debug.Log("tst");
+            //Debug.Log("forgItemPrefab.name " + forgItemPrefab.name);
+            //return activeMenu;
+            //return forgItemPrefab;
+            return Instantiate(forgItemPrefab, transform.position, transform.rotation);
+        } 
+        set => forgItemPrefab = value; 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +93,10 @@ public class UIController : MonoBehaviour
         activeMenu?.SetActive(false);
         activeMenu = AllMenuPages.Find(obj => obj.name.ToLower() == pageName.ToString().ToLower());
         activeMenu.SetActive(true);
+    }
+    public GameObject GetMenuPage(AllMenuPagesEN pageName)
+    {
+        return AllMenuPages.Find(obj => obj.name.ToLower() == pageName.ToString().ToLower());
     }
 
     void LoadLvl(int lvlIndex)
