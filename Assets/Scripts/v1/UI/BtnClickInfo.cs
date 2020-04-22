@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BtnClickActions {
+public enum BtnClickActions
+{
     HomeMenu,
     ShowAllLvl,
     ChooseLvl,
@@ -14,7 +15,9 @@ public enum BtnClickActions {
     Buy,
     Create,
     ContinueGame,
-    ForgeMain
+    GameUi,
+    ForgeMain,
+    Inventory
 };
 public class BtnClickInfo : MonoBehaviour
 {

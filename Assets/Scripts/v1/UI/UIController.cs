@@ -59,25 +59,28 @@ public class UIController : MonoBehaviour
         switch (action)
         {
             case BtnClickActions.HomeMenu:
-                ShowMenuPage(AllMenuPagesEN.HomeMenu);
+                ShowMenuPage(BtnClickActions.HomeMenu);
+                break;
+            case BtnClickActions.Inventory:
+                ShowMenuPage(BtnClickActions.Inventory);
                 break;
             case BtnClickActions.ChooseLvl:
                 LoadLvl(int.Parse(info));
                 break;
             case BtnClickActions.ShowAllLvl:
-                ShowMenuPage(AllMenuPagesEN.ChooseLvl);
+                ShowMenuPage(BtnClickActions.ChooseLvl);
                 break;
             case BtnClickActions.ForgeMain:
-                ShowMenuPage(AllMenuPagesEN.ForgeMain);
+                ShowMenuPage(BtnClickActions.ForgeMain);
                 break;
             case BtnClickActions.PauseMenu:
                 GameOnPause(true);
-                ShowMenuPage(AllMenuPagesEN.PauseMenu);
+                ShowMenuPage(BtnClickActions.PauseMenu);
                 break;
             case BtnClickActions.GameUI:
             case BtnClickActions.ContinueGame:
                 GameOnPause(false);
-                ShowMenuPage(AllMenuPagesEN.GameUi);
+                ShowMenuPage(BtnClickActions.GameUi);
                 break;
             case BtnClickActions.Buy:
                 BuyForgeItemHandler(info);
@@ -98,13 +101,13 @@ public class UIController : MonoBehaviour
         Debug.Log(" UIController UpdateDirectionHintHandler msg " + msg);
     }
 
-    public void ShowMenuPage(AllMenuPagesEN pageName)
+    public void ShowMenuPage(BtnClickActions pageName)
     {
         activeMenu?.SetActive(false);
         activeMenu = AllMenuPages.Find(obj => obj.name.ToLower() == pageName.ToString().ToLower());
         activeMenu.SetActive(true);
     }
-    public GameObject GetMenuPage(AllMenuPagesEN pageName)
+    public GameObject GetMenuPage(BtnClickActions pageName)
     {
         return AllMenuPages.Find(obj => obj.name.ToLower() == pageName.ToString().ToLower());
     }

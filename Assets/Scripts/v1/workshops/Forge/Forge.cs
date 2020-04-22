@@ -8,13 +8,15 @@ public static class Forge
     static List<IForgeItem> allItems;
     static GameObject uiControllerGO;
     static UIController uiController;
+    static int maxQueue = 3;
     public static List<IForgeItem> AllItems { get {
             if (allItems == null)
             {
                 allItems = new List<IForgeItem>
                 {
-                    new ForgeItem(0, "Test 1", 10, 200, 30, 3),
-                    new ForgeItem(1, "Test 2", 15, 300, 60, 3)
+                    new ForgeItem(0, "Test 1", 10, 200, 30, 3, false),
+                    new ForgeItem(1, "Test 2", 15, 300, 60, 3, false),
+                    new ForgeItem(1, "Skill 1", 15, 300, 60, 3, true),
                 };
             }   
             return allItems;
@@ -34,6 +36,8 @@ public static class Forge
         }
         set => uiController = value;
     }
+
+    public static int MaxQueue { get => maxQueue; private set => maxQueue = value; }
 
     public static IForgeItem GetForgeItem(int id)
     {
@@ -57,7 +61,7 @@ public static class Forge
             ? "opened"
             : item.HasPartsForOpen+"/"+item.TotalPartsForOpen;
         prefab.transform.SetParent(
-            uiController.GetMenuPage(UIController.AllMenuPagesEN.ForgeMain)
+            uiController.GetMenuPage(BtnClickActions.ForgeMain)
                 .gameObject.transform.Find("ItemsPanel").transform, 
             false
         );
@@ -65,13 +69,15 @@ public static class Forge
 
     public static bool CanCreateItem(int id, int createCount)
     {
+        if (createCount <= 0) 
+            return false;
         var forgeItem = GetForgeItem(id);
         if (!Bank.AccountContain(Currency.Silver, forgeItem.CostSilver * createCount))
             return false;
-        if (forgeItem.IsOnCreationg()) {
-            Debug.Log("IsOnCreationg");
-            return false;
-        }
+        //if (forgeItem.GetFreeQueueLength()) {
+        //    Debug.Log("IsOnCreationg");
+        //    return false;
+        //}
         return true;
     }
 
@@ -88,12 +94,16 @@ public static class Forge
 
     public static void Create(int id, int createCount)
     {
+        var forgeItem = GetForgeItem(id);
+        var freeQueueLength = forgeItem.GetFreeQueueLength();
+        createCount = freeQueueLength < createCount
+            ? createCount
+            : createCount;
         if (!CanCreateItem(id, createCount))
         {
             Debug.Log("Cant NOT create id " + id);
             return;
         }
-        var forgeItem = GetForgeItem(id);
         if (Bank.Pay(Currency.Silver, forgeItem.CostSilver * createCount))
         {
             forgeItem.StartCreation(createCount);

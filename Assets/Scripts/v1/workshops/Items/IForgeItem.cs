@@ -14,7 +14,8 @@ public interface IForgeItem
     int HasPartsForOpen { get; set; }
 
     int TotalInBag { get; set; }
-    bool IsOnCreationg();
+    int GetFreeQueueLength();
     void StartCreation(int count);
-    int TakeFromForge();
+    //int СreatePerTime();
+    bool IsSkill();
 }

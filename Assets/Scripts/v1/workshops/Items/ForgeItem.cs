@@ -11,11 +11,12 @@ public class ForgeItem : IForgeItem
     int timeCreation;
     string name;
     bool isOpened;
+    bool isSkill;
     int totalPartsForOpen;
     int hasPartsForOpen;
     int totalInBag;
     int createPerTime;
-    public ForgeItem(int id, string name, int costGold, int costSilver, int timeCreation, int createPerTime)
+    public ForgeItem(int id, string name, int costGold, int costSilver, int timeCreation, int createPerTime, bool isSkill)
     {
         this.id = id;
         this.costGold = costGold;
@@ -23,6 +24,7 @@ public class ForgeItem : IForgeItem
         this.timeCreation = timeCreation;
         this.name = name;
         this.createPerTime = createPerTime;
+        this.isSkill = isSkill;
 
         totalInBag = PlayerPrefs.GetInt("totalInBag" + id);
     }
@@ -67,28 +69,144 @@ public class ForgeItem : IForgeItem
         PlayerPrefs.SetInt("ForgeItemHasPartsForOpen" + id, PlayerPrefs.GetInt("ForgeItemHasPartsForOpen" + id + 1));
     }
 
-    public bool IsOnCreationg()
+    //public bool IsOnCreationg()
+    //{
+    //    return
+    //        new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()
+    //        <
+    //        Convert.ToInt64(
+    //            PlayerPrefs.GetString("endCreation" + id)
+    //        );
+    //}
+    
+
+    public bool IsSkill()
     {
-        return
-            new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()
-            <
-            Convert.ToInt64(
-                PlayerPrefs.GetString("endCreation" + id)
-            );
+        return isSkill;
     }
 
     public void StartCreation(int count)
     {
-        var TimestampStart= new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-        PlayerPrefs.SetString("startCreation" + id, TimestampStart.ToString());
-        var TimestampEnd = new DateTimeOffset(DateTime.UtcNow).AddSeconds(300).ToUnixTimeSeconds();
-        PlayerPrefs.SetString("endCreation" + id, TimestampEnd.ToString());
         Debug.Log("Start Cretaion " + id);
-        Debug.Log("TimestampStart " + TimestampStart.ToString() + " TimestampEnd " + TimestampEnd.ToString());
+        for (int i = 0; i < count; i++)
+        {
+            Debug.Log("for i " + i);
+            var timeNow = new DateTimeOffset(DateTime.UtcNow);
+            //var freePosition = GetFreeQueuePosition(timeNow);
+            AddToQueue(GetFreeQueuePosition(timeNow), timeNow.ToUnixTimeSeconds() + timeCreation);
+
+            //.ToUnixTimeSeconds();
+
+            //var lastEndTimeOfCreation = PlayerPrefs.GetString("lastEndTimeOfCreation" + id);
+            //if (lastEndTimeOfCreation != "")
+            //{
+            //    lastEndTimeOfCreation = Convert.ToInt64(lastEndTimeOfCreation) < timeNow.ToUnixTimeSeconds()
+            //        ? ""
+            //        : lastEndTimeOfCreation;
+            //}
+            //if (lastEndTimeOfCreation == "")
+            //{
+            //    Debug.Log("Need start");
+            //    lastEndTimeOfCreation = timeNow.AddSeconds(timeCreation).ToUnixTimeSeconds().ToString();
+            //} else
+            //{
+            //    lastEndTimeOfCreation = (Convert.ToInt64(lastEndTimeOfCreation) + timeCreation).ToString();
+            //    Debug.Log("Need add to end");
+            //}
+            //PlayerPrefs.SetString("lastEndTimeOfCreation" + id, lastEndTimeOfCreation);
+
+            //lastEndTimeOfCreation = lastEndTimeOfCreation 
+            //    ??  new DateTimeOffset(DateTime.UtcNow).AddSeconds(timeCreation).ToUnixTimeSeconds().ToString();
+            //PlayerPrefs.SetString("startCreation" + id, TimestampStart.ToString());
+            //var TimestampEnd = new DateTimeOffset(DateTime.UtcNow).AddSeconds(300).ToUnixTimeSeconds();
+            //PlayerPrefs.SetString("endCreation" + id, TimestampEnd.ToString());
+        }
+
+        //Debug.Log("TimestampStart " + TimestampStart.ToString() + " TimestampEnd " + TimestampEnd.ToString());
     }
 
-    public int TakeFromForge()
+    //public int СreatePerTime()
+    //{
+    //    return createPerTime;
+    //}
+
+    public int CountOfReadyItems()
     {
-        return createPerTime;
+        return 1;
+    }
+
+    public int CountOfQueueItems()
+    {
+        return 1;
+    }
+
+    void AddToQueue(int queuePosition, long timeCreationFinish)
+    {
+        AddToQueue(queuePosition, timeCreationFinish.ToString());
+    }
+    void AddToQueue(int queuePosition, string timeCreationFinish)
+    {
+        if (queuePosition == -1)
+        {
+            Debug.Log("queuePosition == -1 ");
+            return;
+        }
+        Debug.Log("AddToQueue " + queuePosition);
+        PlayerPrefs.SetString("creationTimeEnd" + id + "" + queuePosition, timeCreationFinish);
+        PlayerPrefs.SetInt("totalInQueue" + id, PlayerPrefs.GetInt("totalInQueue") + 1);
+    }
+
+    void RemoveFromQueue(int queuePosition)
+    {
+        //PlayerPrefs.SetString("creationTimeEnd" + id + "" + queuePosition, 0);
+        PlayerPrefs.SetInt("totalInQueue" + id, PlayerPrefs.GetInt("totalInQueue") - 1);
+    }
+
+    int GetFreeQueuePosition()
+    {
+        return GetFreeQueuePosition(new DateTimeOffset(DateTime.UtcNow));
+    }
+    int GetFreeQueuePosition(DateTimeOffset timeNow)
+    {
+        var i = 1;
+        var freePosition = -1;
+        while (i <= Forge.MaxQueue && freePosition == -1)
+        {
+            var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
+            creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
+            var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
+            Debug.Log("i == " + i + "creationTimeEnd " + creationTimeEnd + " timeNow " + timeNow.ToUnixTimeSeconds());
+            if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
+            {
+                Debug.Log("SET NEW freePosition " + i);
+                freePosition = i;
+            }
+            ++i;
+        }
+        Debug.Log("freePosition " + freePosition);
+        return freePosition;
+    }
+
+    public int GetFreeQueueLength()
+    {
+        return GetFreeQueueLength(new DateTimeOffset(DateTime.UtcNow));
+    }
+    public int GetFreeQueueLength(DateTimeOffset timeNow)
+    {
+        var i = 1;
+        var freePosition = 0;
+        while (i <= Forge.MaxQueue )
+        {
+            var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
+            creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
+            var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
+            if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
+            {
+                ++freePosition;
+            }
+            ++i;
+        }
+        Debug.Log("freePosition LEN " + freePosition);
+        return freePosition;
     }
 }
