@@ -8,7 +8,7 @@ public static class Forge
     static List<IForgeItem> allItems;
     static GameObject uiControllerGO;
     static UIController uiController;
-    static int maxQueue = 3;
+    //static int forgeLvl;
     public static List<IForgeItem> AllItems { get {
             if (allItems == null)
             {
@@ -37,7 +37,67 @@ public static class Forge
         set => uiController = value;
     }
 
-    public static int MaxQueue { get => maxQueue; private set => maxQueue = value; }
+    public static int MaxQueue
+    {
+        get
+        {
+            var queue = 1;
+            switch (ForgeLvl)
+            {
+                case 1:
+                    queue = 1;
+                    break;
+                case 2:
+                    queue = 2;
+                    break;
+                case 3:
+                    queue = 3;
+                    break;
+            }
+            return queue;
+        }
+    }
+
+    public static int CraftSpeedBonus
+    {
+        get
+        {
+            var bonus = 0;
+            switch (ForgeLvl)
+            {
+                case 1:
+                    bonus = 0;
+                    break;
+                case 2:
+                    bonus = 10;
+                    break;
+                case 3:
+                    bonus = 30;
+                    break;
+            }
+            return bonus;
+        }
+    }
+
+    public static bool BonusSecondItem
+    {
+        get
+        {
+            if (ForgeLvl == 3)
+            {
+                return new System.Random().Next(1, 5) == 2;
+            }
+            return false;
+        }
+    }
+
+    public static int ForgeLvl {
+        get {
+            var lvl = PlayerPrefs.GetInt("forgeLVL");
+            return lvl == 0 ? 1 : lvl;
+        } 
+        //private set => forgeLvl = value; 
+    }
 
     public static IForgeItem GetForgeItem(int id)
     {
@@ -109,5 +169,10 @@ public static class Forge
             forgeItem.StartCreation(createCount);
             Debug.Log("creating id " + id);
         }
+    }
+
+    public static void UpGradeForge()
+    {
+        PlayerPrefs.SetInt("forgeLVL", ForgeLvl + 1);
     }
 }
