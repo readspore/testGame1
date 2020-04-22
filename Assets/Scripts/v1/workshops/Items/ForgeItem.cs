@@ -69,17 +69,6 @@ public class ForgeItem : IForgeItem
         PlayerPrefs.SetInt("ForgeItemHasPartsForOpen" + id, PlayerPrefs.GetInt("ForgeItemHasPartsForOpen" + id + 1));
     }
 
-    //public bool IsOnCreationg()
-    //{
-    //    return
-    //        new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()
-    //        <
-    //        Convert.ToInt64(
-    //            PlayerPrefs.GetString("endCreation" + id)
-    //        );
-    //}
-    
-
     public bool IsSkill()
     {
         return isSkill;
@@ -87,42 +76,13 @@ public class ForgeItem : IForgeItem
 
     public void StartCreation(int count)
     {
-        Debug.Log("Start Cretaion " + id);
+        //Debug.Log("Start Cretaion " + id);
         for (int i = 0; i < count; i++)
         {
-            Debug.Log("for i " + i);
+            //Debug.Log("for i " + i);
             var timeNow = new DateTimeOffset(DateTime.UtcNow);
-            //var freePosition = GetFreeQueuePosition(timeNow);
             AddToQueue(GetFreeQueuePosition(timeNow), timeNow.ToUnixTimeSeconds() + timeCreation);
-
-            //.ToUnixTimeSeconds();
-
-            //var lastEndTimeOfCreation = PlayerPrefs.GetString("lastEndTimeOfCreation" + id);
-            //if (lastEndTimeOfCreation != "")
-            //{
-            //    lastEndTimeOfCreation = Convert.ToInt64(lastEndTimeOfCreation) < timeNow.ToUnixTimeSeconds()
-            //        ? ""
-            //        : lastEndTimeOfCreation;
-            //}
-            //if (lastEndTimeOfCreation == "")
-            //{
-            //    Debug.Log("Need start");
-            //    lastEndTimeOfCreation = timeNow.AddSeconds(timeCreation).ToUnixTimeSeconds().ToString();
-            //} else
-            //{
-            //    lastEndTimeOfCreation = (Convert.ToInt64(lastEndTimeOfCreation) + timeCreation).ToString();
-            //    Debug.Log("Need add to end");
-            //}
-            //PlayerPrefs.SetString("lastEndTimeOfCreation" + id, lastEndTimeOfCreation);
-
-            //lastEndTimeOfCreation = lastEndTimeOfCreation 
-            //    ??  new DateTimeOffset(DateTime.UtcNow).AddSeconds(timeCreation).ToUnixTimeSeconds().ToString();
-            //PlayerPrefs.SetString("startCreation" + id, TimestampStart.ToString());
-            //var TimestampEnd = new DateTimeOffset(DateTime.UtcNow).AddSeconds(300).ToUnixTimeSeconds();
-            //PlayerPrefs.SetString("endCreation" + id, TimestampEnd.ToString());
         }
-
-        //Debug.Log("TimestampStart " + TimestampStart.ToString() + " TimestampEnd " + TimestampEnd.ToString());
     }
 
     //public int СreatePerTime()
@@ -148,10 +108,10 @@ public class ForgeItem : IForgeItem
     {
         if (queuePosition == -1)
         {
-            Debug.Log("queuePosition == -1 ");
+            Debug.Log("queue is full");
             return;
         }
-        Debug.Log("AddToQueue " + queuePosition);
+        Debug.Log("AddToQueue on position " + queuePosition);
         PlayerPrefs.SetString("creationTimeEnd" + id + "" + queuePosition, timeCreationFinish);
         PlayerPrefs.SetInt("totalInQueue" + id, PlayerPrefs.GetInt("totalInQueue") + 1);
     }
@@ -175,15 +135,15 @@ public class ForgeItem : IForgeItem
             var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
             creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
             var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
-            Debug.Log("i == " + i + "creationTimeEnd " + creationTimeEnd + " timeNow " + timeNow.ToUnixTimeSeconds());
+            //Debug.Log("i == " + i + "creationTimeEnd " + creationTimeEnd + " timeNow " + timeNow.ToUnixTimeSeconds());
             if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
             {
-                Debug.Log("SET NEW freePosition " + i);
+                //Debug.Log("SET NEW freePosition " + i);
                 freePosition = i;
             }
             ++i;
         }
-        Debug.Log("freePosition " + freePosition);
+        //Debug.Log("freePosition " + freePosition);
         return freePosition;
     }
 
@@ -206,7 +166,7 @@ public class ForgeItem : IForgeItem
             }
             ++i;
         }
-        Debug.Log("freePosition LEN " + freePosition);
+        //Debug.Log("freePosition LEN " + freePosition);
         return freePosition;
     }
 }
