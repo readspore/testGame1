@@ -41,18 +41,20 @@ public static class DamageController
 
     public static void GetDamage(int damage)
     {
-        if (ActiveInvulnerability)
-            return;
+        damage = ApplayInvulnerability(damage);
         damage = ApplayReduceDamage(damage);
         damage = ShielfAbsorption(damage);
         if (damage != 0)
             PlayerComponent.Health += damage;
     }
 
+    static int ApplayInvulnerability(int damage)
+    {
+        return damage;
+    }
+
     static int ApplayReduceDamage(int damage)
     {
-        //if (!ActiveReduceDamage)
-        //    return damage;
         if (ReduceDamage.NeedReduceDamage())
             return 1;
         return damage;

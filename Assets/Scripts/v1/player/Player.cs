@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
         DamageController.GetDamage(35);
 
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
+        StartCoroutine("TDL");
 
         Bank.AddMoney(Currency.Silver, 1000);
 
@@ -56,6 +57,12 @@ public class Player : MonoBehaviour
         //var getAllRespawnIdsOnLvl = RespawHelpers.GetAllRespawnIdsOnLvl();
         //Respawn resp = new Respawn(11);
         //resp.MoveToRespawn();
+    }
+
+    IEnumerator TDL()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log("TDL");
     }
 
     void Update()
