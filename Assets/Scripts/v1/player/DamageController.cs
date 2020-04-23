@@ -51,8 +51,10 @@ public static class DamageController
 
     static int ApplayReduceDamage(int damage)
     {
-        if (!ActiveReduceDamage)
-            return damage;
+        //if (!ActiveReduceDamage)
+        //    return damage;
+        if (ReduceDamage.NeedReduceDamage())
+            return 1;
         return damage;
     }
 
