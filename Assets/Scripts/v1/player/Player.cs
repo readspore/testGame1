@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
         DamageController.ActivateShield(15);
         DamageController.GetDamage(35);
 
+        //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
+
         Bank.AddMoney(Currency.Silver, 1000);
 
         //var ss = Forge.GetForgeItem(1);

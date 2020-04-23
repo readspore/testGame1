@@ -7,6 +7,9 @@ public static class DamageController
     static GameObject playerObj;
     static bool isShieldActive;
     static int maxShieldResist;
+    public static bool ActiveInvulnerability { get ; set;}
+    public static bool ActiveDeceitOfDeath { get; set; }
+    public static bool ActiveReduceDamage { get; set; }
 
     public static GameObject PlayerObj
     {
@@ -38,9 +41,19 @@ public static class DamageController
 
     public static void GetDamage(int damage)
     {
+        if (ActiveInvulnerability)
+            return;
+        damage = ApplayReduceDamage(damage);
         damage = ShielfAbsorption(damage);
         if (damage != 0)
             PlayerComponent.Health += damage;
+    }
+
+    static int ApplayReduceDamage(int damage)
+    {
+        if (!ActiveReduceDamage)
+            return damage;
+        return damage;
     }
 
     static int ShielfAbsorption(int damage)
