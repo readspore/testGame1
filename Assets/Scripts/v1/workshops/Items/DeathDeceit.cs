@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Invulnerability
+public static class DeathDeceit
 {
     static bool isActive = false;
     static int maxLvl = 3;
@@ -19,11 +19,17 @@ public static class Invulnerability
     static int timeApplayedLvl2 = 6;
     static int timeApplayedLvl3 = 10;
 
+    static float HPOnDeathLvl1 = 0.10f;
+    static float HPOnDeathLvl2 = 0.15f;
+    static float HPOnDeathLvl3 = 0.30f;
+
+
+
     public static int CurrentLvl
     {
         get
         {
-            return PlayerPrefs.GetInt("Invulnerability");
+            return PlayerPrefs.GetInt("DeathDeceit");
         }
     }
 
@@ -45,6 +51,27 @@ public static class Invulnerability
                     break;
             }
             return time;
+        }
+    }
+
+    public static float HPOnDeathCurentLvl
+    {
+        get
+        {
+            var hp = 0f;
+            switch (CurrentLvl)
+            {
+                case 1:
+                    hp = HPOnDeathLvl1;
+                    break;
+                case 2:
+                    hp = HPOnDeathLvl2;
+                    break;
+                case 3:
+                    hp = HPOnDeathLvl3;
+                    break;
+            }
+            return hp;
         }
     }
 
@@ -95,24 +122,27 @@ public static class Invulnerability
     {
         if (isActive)
             return false;
-        DeActivate();
+        DeActivate(true);
         return true;
     }
 
-    public static IEnumerator DeActivate()
+    public static IEnumerator DeActivate(bool needWait)
     {
-        yield return new WaitForSeconds(CurrentLvlActiveTime);
+        if (needWait)
+            yield return new WaitForSeconds(CurrentLvlActiveTime);
         isActive = false;
+        yield return new WaitForSeconds(0);
     }
 
-    public static int TakeDamage(int damage)
+    public static float DeathBlow()
     {
-        if (isActive)
-            damage = 0;
-        return damage;
+        if (!isActive)
+            return 0;
+        DeActivate(false);
+        return HPOnDeathCurentLvl;
     }
 
-    public static bool TryUpgradeInvulnerability(Currency currency)
+    public static bool TryUpgradeDeathDeceit(Currency currency)
     {
         if (
             (
@@ -128,10 +158,10 @@ public static class Invulnerability
             )
         )
         {
-            var curLvl = PlayerPrefs.GetInt("Invulnerability");
+            var curLvl = PlayerPrefs.GetInt("DeathDeceit");
             if (curLvl == maxLvl)
                 return false;
-            PlayerPrefs.SetInt("Invulnerability", curLvl + 1);
+            PlayerPrefs.SetInt("DeathDeceit", curLvl + 1);
             return true;
         }
         else
@@ -140,6 +170,4 @@ public static class Invulnerability
             return false;
         }
     }
-
-
 }

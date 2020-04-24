@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     Rigidbody rb;
     public float distToGround = 0.51f;
+    private readonly int maxHealth = 100;
     private int health = 100;
     Camera mainCamera;
     GameObject curretnPlatform;
@@ -17,7 +18,18 @@ public class Player : MonoBehaviour
         set {
             health = value;
             if (health <= 0)
-                PlayerIsDead();
+            {
+                var addHP = DeathDeceit.DeathBlow();
+                if (addHP != 0)
+                {
+                    Health = (int)(maxHealth * addHP);
+                }
+                else
+                {
+                    PlayerIsDead();
+
+                }
+            }
         }
     }
 
@@ -35,7 +47,12 @@ public class Player : MonoBehaviour
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
         StartCoroutine("TDL");
 
-        Bank.AddMoney(Currency.Silver, 1000);
+        Bank.PickUpCoin(Currency.Silver, 1000);
+
+        //Debug.Log("ss "  + (100 * 0.1));
+        //Debug.Log("ss "  + (100 * 0.15));
+        //Debug.Log("ss "  + (100 * 0.30));
+
 
         //var ss = Forge.GetForgeItem(1);
         //Debug.Log(ss.TotalPartsForOpen);

@@ -11,7 +11,7 @@ public class MoneyObj : MonoBehaviour
     {
         if (other.gameObject.layer == Constants.PlayerLayer)
         {
-            Bank.AddMoney(currency, value);
+            Bank.PickUpCoin(currency, value);
             Destroy(transform.gameObject);
             //Debug.Log(currencyCount + value);
         }

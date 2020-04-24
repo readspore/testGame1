@@ -17,7 +17,8 @@ public enum BtnClickActions
     ContinueGame,
     GameUi,
     ForgeMain,
-    Inventory
+    Inventory,
+    TestPage
 };
 public class BtnClickInfo : MonoBehaviour
 {

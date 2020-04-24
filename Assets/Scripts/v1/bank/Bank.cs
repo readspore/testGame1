@@ -5,7 +5,13 @@ public enum Currency { Gold, Silver };
 
 public static class Bank
 {
-    public static void AddMoney(Currency currency, int value)
+    //public static void AddMoney(Currency currency, int value)
+    //{
+    //    int currencyCount = PlayerPrefs.GetInt(currency.ToString());
+    //    PlayerPrefs.SetInt(currency.ToString(), currencyCount + value);
+    //}
+
+    public static void PickUpCoin(Currency currency, int value)
     {
         int currencyCount = PlayerPrefs.GetInt(currency.ToString());
         PlayerPrefs.SetInt(currency.ToString(), currencyCount + value);

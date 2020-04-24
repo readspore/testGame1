@@ -19,7 +19,7 @@ public class LvlSettings : MonoBehaviour
         if (uiEmulateClick != null)
         {
             UIController.ClickedHendler(uiEmulateClick, "");
-            UIController.ClickedHendler(BtnClickActions.ForgeMain, "");
+            //UIController.ClickedHendler(BtnClickActions.ForgeMain, "");
         }
     }
 

@@ -61,6 +61,9 @@ public class UIController : MonoBehaviour
             case BtnClickActions.HomeMenu:
                 ShowMenuPage(BtnClickActions.HomeMenu);
                 break;
+            case BtnClickActions.TestPage:
+                ShowMenuPage(BtnClickActions.TestPage);
+                break;
             case BtnClickActions.Inventory:
                 ShowMenuPage(BtnClickActions.Inventory);
                 break;

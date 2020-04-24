@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Invulnerability
+public static class MoneyBonus
 {
-    static bool isActive = false;
     static int maxLvl = 3;
 
     static int SilverCostLvl1 = 100;
@@ -15,39 +14,40 @@ public static class Invulnerability
     static int GoldCostLvl2 = 20;
     static int GoldCostLvl3 = 30;
 
-    static int timeApplayedLvl1 = 3;
-    static int timeApplayedLvl2 = 6;
-    static int timeApplayedLvl3 = 10;
+    static float BonusLvl1 = 0.10f;
+    static float BonusLvl2 = 0.15f;
+    static float BonusLvl3 = 0.30f;
+
+
 
     public static int CurrentLvl
     {
         get
         {
-            return PlayerPrefs.GetInt("Invulnerability");
+            return PlayerPrefs.GetInt("MoneyBonus");
         }
     }
 
-    public static int CurrentLvlActiveTime
+    public static float CurrentLvlBonus
     {
         get
         {
-            var time = 0;
+            var bonus = 0f;
             switch (CurrentLvl)
             {
                 case 1:
-                    time = timeApplayedLvl1;
+                    bonus = BonusLvl1;
                     break;
                 case 2:
-                    time = timeApplayedLvl2;
+                    bonus = BonusLvl2;
                     break;
                 case 3:
-                    time = timeApplayedLvl3;
+                    bonus = BonusLvl3;
                     break;
             }
-            return time;
+            return bonus;
         }
     }
-
     public static int CurrentLvlSilverCost
     {
         get
@@ -91,28 +91,7 @@ public static class Invulnerability
         }
     }
 
-    public static bool Activate()
-    {
-        if (isActive)
-            return false;
-        DeActivate();
-        return true;
-    }
-
-    public static IEnumerator DeActivate()
-    {
-        yield return new WaitForSeconds(CurrentLvlActiveTime);
-        isActive = false;
-    }
-
-    public static int TakeDamage(int damage)
-    {
-        if (isActive)
-            damage = 0;
-        return damage;
-    }
-
-    public static bool TryUpgradeInvulnerability(Currency currency)
+    public static bool TryUpgradeMoneyBonus(Currency currency)
     {
         if (
             (
@@ -128,10 +107,10 @@ public static class Invulnerability
             )
         )
         {
-            var curLvl = PlayerPrefs.GetInt("Invulnerability");
+            var curLvl = PlayerPrefs.GetInt("MoneyBonus");
             if (curLvl == maxLvl)
                 return false;
-            PlayerPrefs.SetInt("Invulnerability", curLvl + 1);
+            PlayerPrefs.SetInt("MoneyBonus", curLvl + 1);
             return true;
         }
         else
@@ -140,6 +119,4 @@ public static class Invulnerability
             return false;
         }
     }
-
-
 }
