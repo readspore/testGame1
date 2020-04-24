@@ -45,7 +45,7 @@ public static class DamageController
         damage = ApplayReduceDamage(damage);
         damage = ShielfAbsorption(damage);
         if (damage != 0)
-            PlayerComponent.Health += damage;
+            PlayerComponent.Health -= damage;
     }
 
     static int ApplayInvulnerability(int damage)

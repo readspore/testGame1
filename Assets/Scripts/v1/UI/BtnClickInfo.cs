@@ -18,7 +18,8 @@ public enum BtnClickActions
     GameUi,
     ForgeMain,
     Inventory,
-    TestPage
+    TestPage,
+    DeathDeceitActivate,
 };
 public class BtnClickInfo : MonoBehaviour
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class DeathDeceit
@@ -15,9 +16,9 @@ public static class DeathDeceit
     static int GoldCostLvl2 = 20;
     static int GoldCostLvl3 = 30;
 
-    static int timeApplayedLvl1 = 3;
-    static int timeApplayedLvl2 = 6;
-    static int timeApplayedLvl3 = 10;
+    static int timeApplayedLvl1 = 3000;
+    static int timeApplayedLvl2 = 6000;
+    static int timeApplayedLvl3 = 10000;
 
     static float HPOnDeathLvl1 = 0.10f;
     static float HPOnDeathLvl2 = 0.15f;
@@ -122,23 +123,30 @@ public static class DeathDeceit
     {
         if (isActive)
             return false;
-        DeActivate(true);
+        isActive = true;
+        Task.Delay(CurrentLvlActiveTime).ContinueWith(t => DeActivate());
+
+        //DeActivate(true);
+        Debug.Log("Activate DeathDeceit CurrentLvlActiveTime " + CurrentLvlActiveTime);
         return true;
     }
 
-    public static IEnumerator DeActivate(bool needWait)
+    public static void DeActivate()
     {
-        if (needWait)
-            yield return new WaitForSeconds(CurrentLvlActiveTime);
+        Debug.Log(" 1 DeActivate DeathDeceit");
+        //if (needWait)
+            //yield return new WaitForSeconds(CurrentLvlActiveTime);
         isActive = false;
-        yield return new WaitForSeconds(0);
+        //yield return new WaitForSeconds(0);
+        Debug.Log("DeActivate DeathDeceit");
     }
 
     public static float DeathBlow()
     {
         if (!isActive)
             return 0;
-        DeActivate(false);
+        DeActivate();
+        Debug.Log("DeathBlow " + HPOnDeathCurentLvl);
         return HPOnDeathCurentLvl;
     }
 
@@ -162,11 +170,12 @@ public static class DeathDeceit
             if (curLvl == maxLvl)
                 return false;
             PlayerPrefs.SetInt("DeathDeceit", curLvl + 1);
+            Debug.Log("Death Deceit upgraded");
             return true;
         }
         else
         {
-
+            Debug.Log("Death Deceit NOT upgraded");
             return false;
         }
     }

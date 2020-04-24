@@ -91,6 +91,9 @@ public class UIController : MonoBehaviour
             case BtnClickActions.Create:
                 CreateForgeItemHandler(clickedInfoGO);
                 break;
+            case BtnClickActions.DeathDeceitActivate:
+                DeathDeceitActivate();
+                break;
         }
     }
 
@@ -163,4 +166,8 @@ public class UIController : MonoBehaviour
         }
     }
 
+    void DeathDeceitActivate()
+    {
+        DeathDeceit.Activate();
+    }
 }

@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     { 
         get => health; 
         set {
+            Debug.Log("Health set " + value);
             health = value;
             if (health <= 0)
             {
@@ -45,9 +46,12 @@ public class Player : MonoBehaviour
         DamageController.GetDamage(35);
 
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
-        StartCoroutine("TDL");
+        //StartCoroutine("TDL");
 
         Bank.PickUpCoin(Currency.Silver, 1000);
+        //DeathDeceit.TryUpgradeDeathDeceit(Currency.Silver);
+
+        InvokeRepeating("T_TakeDamage", 0 , 2);
 
         //Debug.Log("ss "  + (100 * 0.1));
         //Debug.Log("ss "  + (100 * 0.15));
@@ -76,10 +80,16 @@ public class Player : MonoBehaviour
         //resp.MoveToRespawn();
     }
 
-    IEnumerator TDL()
+    //IEnumerator TDL()
+    //{
+    //    yield return new WaitForSeconds(3);
+    //    Debug.Log("TDL");
+    //}
+
+    void T_TakeDamage()
     {
-        yield return new WaitForSeconds(3);
-        Debug.Log("TDL");
+        //Debug.Log("T_TakeDamage");
+        DamageController.GetDamage(35);
     }
 
     void Update()
