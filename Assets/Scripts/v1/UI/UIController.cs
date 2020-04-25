@@ -91,8 +91,13 @@ public class UIController : MonoBehaviour
             case BtnClickActions.Create:
                 CreateForgeItemHandler(clickedInfoGO);
                 break;
+
+            // skils
             case BtnClickActions.DeathDeceitActivate:
                 DeathDeceitActivate();
+                break;
+            case BtnClickActions.TimeScaleActivate:
+                TimeScaleActivate();
                 break;
         }
     }
@@ -169,5 +174,11 @@ public class UIController : MonoBehaviour
     void DeathDeceitActivate()
     {
         DeathDeceit.Activate();
+    }
+
+    void TimeScaleActivate()
+    {
+        Transform.FindObjectOfType<Player>().ActivateTimeScale();
+        //TimeScale.Activate();
     }
 }

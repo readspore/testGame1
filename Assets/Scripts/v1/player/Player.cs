@@ -50,13 +50,14 @@ public class Player : MonoBehaviour
 
         Bank.PickUpCoin(Currency.Silver, 1000);
         //DeathDeceit.TryUpgradeDeathDeceit(Currency.Silver);
-
-        InvokeRepeating("T_TakeDamage", 0 , 2);
+        //TimeScale.TryUpgradeTimeScale(Currency.Silver);
+        //InvokeRepeating("T_TakeDamage", 0 , 2);
 
         //Debug.Log("ss "  + (100 * 0.1));
         //Debug.Log("ss "  + (100 * 0.15));
         //Debug.Log("ss "  + (100 * 0.30));
 
+        //Radio.Radio.onTimeScaleEnd += DeActivateTimeScale;
 
         //var ss = Forge.GetForgeItem(1);
         //Debug.Log(ss.TotalPartsForOpen);
@@ -120,4 +121,27 @@ public class Player : MonoBehaviour
         curretnPlatform = platform;
         transform.parent = curretnPlatform.transform;
     }
+
+    public void ActivateTimeScale()
+    {
+        Debug.Log("ActivateTimeScale");
+        //if (TimeScale.isActive)
+        //    return ;
+        //TimeScale.isActive = true;
+        Time.timeScale = TimeScale.ScaleOnCurentLvl;
+        StartCoroutine(DeActivateTimeScale());
+    }
+
+    public IEnumerator DeActivateTimeScale()
+    {
+        Debug.Log("DeActivate 1 IEnumerator");
+        //Debug.Log(TimeScale.CurrentLvlActiveTime);
+        yield return new WaitForSeconds(TimeScale.CurrentLvlActiveTime);
+        //yield return new WaitForSeconds(1.5f);
+        Time.timeScale = 1;
+        //TimeScale.isActive = false;
+        Debug.Log("DeActivate 2");
+        //yield return new WaitForSeconds(1);
+    }
+
 }

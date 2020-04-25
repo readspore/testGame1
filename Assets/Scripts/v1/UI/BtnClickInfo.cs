@@ -20,6 +20,7 @@ public enum BtnClickActions
     Inventory,
     TestPage,
     DeathDeceitActivate,
+    TimeScaleActivate,
 };
 public class BtnClickInfo : MonoBehaviour
 {
