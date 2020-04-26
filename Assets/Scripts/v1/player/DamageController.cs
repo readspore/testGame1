@@ -5,8 +5,8 @@ using UnityEngine;
 public static class DamageController
 {
     static GameObject playerObj;
-    static bool isShieldActive;
-    static int maxShieldResist;
+    //static bool isShieldActive;
+    //static int maxShieldResist;
     public static bool ActiveInvulnerability { get ; set;}
     public static bool ActiveDeceitOfDeath { get; set; }
     public static bool ActiveReduceDamage { get; set; }
@@ -41,9 +41,11 @@ public static class DamageController
 
     public static void GetDamage(int damage)
     {
+        if (damage == 0) return;
+        damage = damage > 0 ? damage : damage * -1;
         damage = ApplayInvulnerability(damage);
+        damage = ApplyArm(damage);
         damage = ApplayReduceDamage(damage);
-        damage = ShielfAbsorption(damage);
         if (damage != 0)
             PlayerComponent.Health -= damage;
     }
@@ -60,26 +62,31 @@ public static class DamageController
         return damage;
     }
 
-    static int ShielfAbsorption(int damage)
-    {
-        if (!isShieldActive) return damage;
-        maxShieldResist -= damage;
-        damage = maxShieldResist;
-        if (maxShieldResist <= 0)
-            DeactivateShield();
-        return damage >= 0
-                ? 0
-                : damage;
-    }
 
-    static void DeactivateShield()
+    static int ApplyArm(int damage)
     {
-        isShieldActive = false;
+        return Arm.TakeDamage(damage);
     }
+    //static int ShielfAbsorption(int damage)
+    //{
+    //    if (!Arm.isShieldActive) return damage;
+    //    Arm.maxShieldResist -= damage;
+    //    damage = Arm.maxShieldResist;
+    //    if (Arm.maxShieldResist <= 0)
+    //        DeactivateShield();
+    //    return damage >= 0
+    //            ? 0
+    //            : damage;
+    //}
 
-    public static void ActivateShield(int newShieldResist)
-    {
-        isShieldActive = true;
-        maxShieldResist = newShieldResist;
-    }
+    //static void DeactivateShield()
+    //{
+    //    isShieldActive = false;
+    //}
+
+    //public static void ActivateShield(int newShieldResist)
+    //{
+    //    isShieldActive = true;
+    //    maxShieldResist = newShieldResist;
+    //}
 }

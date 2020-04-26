@@ -102,6 +102,9 @@ public class UIController : MonoBehaviour
             case BtnClickActions.InvulnerabilityActivate:
                 InvulnerabilityActivate();
                 break;
+            case BtnClickActions.ArmActivate:
+                ArmActivate();
+                break;
         }
     }
 
@@ -188,6 +191,11 @@ public class UIController : MonoBehaviour
     void InvulnerabilityActivate()
     {
         Invulnerability.Activate();
+    }
+
+    void ArmActivate()
+    {
+        Arm.Activate();
     }
 
 }

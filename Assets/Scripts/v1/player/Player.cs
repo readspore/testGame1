@@ -41,8 +41,9 @@ public class Player : MonoBehaviour
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
 
-        DamageController.ActivateShield(15);
+        //DamageController.ActivateShield(15);
         DamageController.GetDamage(35);
+
 
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
         //StartCoroutine("TDL");
@@ -50,10 +51,11 @@ public class Player : MonoBehaviour
         Bank.PickUpCoin(Currency.Silver, 1000);
 
         //Invulnerability.TryUpgradeInvulnerability(Currency.Silver);
-        Debug.Log("CurrentLvl " + Invulnerability.CurrentLvl);
+        //Arm.TryUpgradeArm(Currency.Silver);
+        //Debug.Log("CurrentLvlArmValue " + Arm.CurrentLvlArmValue);
         //DeathDeceit.TryUpgradeDeathDeceit(Currency.Silver);
         //TimeScale.TryUpgradeTimeScale(Currency.Silver);
-        //InvokeRepeating("T_TakeDamage", 0 , 2);
+        InvokeRepeating("T_TakeDamage", 0 , 2);
 
         //Debug.Log("ss "  + (100 * 0.1));
         //Debug.Log("ss "  + (100 * 0.15));

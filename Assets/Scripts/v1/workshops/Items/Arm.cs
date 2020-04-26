@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public static class Invulnerability
+public class Arm
 {
     static bool isActive = false;
     static int maxLvl = 3;
+    static int maxShieldResist;
 
     static int SilverCostLvl1 = 100;
     static int SilverCostLvl2 = 200;
@@ -16,36 +17,36 @@ public static class Invulnerability
     static int GoldCostLvl2 = 20;
     static int GoldCostLvl3 = 30;
 
-    static int timeApplayedLvl1 = 3000;
-    static int timeApplayedLvl2 = 6000;
-    static int timeApplayedLvl3 = 10000;
+    static int ArmValueLvl1 = 80;
+    static int ArmValueLvl2 = 50;
+    static int ArmValueLvl3 = 100;
 
     public static int CurrentLvl
     {
         get
         {
-            return PlayerPrefs.GetInt("Invulnerability");
+            return PlayerPrefs.GetInt("Arm");
         }
     }
 
-    public static int CurrentLvlActiveTime
+    public static int CurrentLvlArmValue
     {
         get
         {
-            var time = 0;
+            var arm = 0;
             switch (CurrentLvl)
             {
                 case 1:
-                    time = timeApplayedLvl1;
+                    arm = ArmValueLvl1;
                     break;
                 case 2:
-                    time = timeApplayedLvl2;
+                    arm = ArmValueLvl2;
                     break;
                 case 3:
-                    time = timeApplayedLvl3;
+                    arm = ArmValueLvl3;
                     break;
             }
-            return time;
+            return arm;
         }
     }
 
@@ -96,30 +97,39 @@ public static class Invulnerability
 
     public static bool Activate()
     {
-        if (IsActive)
-            return false;
-        Debug.Log("Activate");
-        IsActive = true;
-        Debug.Log("CurrentLvlActiveTime " + CurrentLvlActiveTime);
-        Task.Delay(CurrentLvlActiveTime).ContinueWith(t => Invulnerability.DeActivate());
+        //if (IsActive)
+        //    return false;
+        Debug.Log("Activate Arm");
+        //IsActive = true;
+        Debug.Log("CurrentLvlArmValue " + CurrentLvlArmValue);
+        maxShieldResist = CurrentLvlArmValue;
+        //Task.Delay(CurrentLvlArmValue).ContinueWith(t => Arm.DeActivate());
         return true;
     }
 
     public static void DeActivate()
     {
-        //yield return new WaitForSeconds(CurrentLvlActiveTime);
-        IsActive = false;
+        //yield return new WaitForSeconds(CurrentLvlArmValue);
+        //IsActive = false;
         Debug.Log("DeActivate");
     }
 
     public static int TakeDamage(int damage)
     {
-        if (IsActive)
-            damage = 0;
-        return damage;
+        if (maxShieldResist <= 0)
+            return damage;
+            Debug.Log("Take damage " + damage);
+        maxShieldResist -= damage;
+        if (maxShieldResist <= 0)
+            DeActivate();
+        damage = maxShieldResist;
+        Debug.Log("maxShieldResist " + maxShieldResist);
+        return damage >= 0
+                ? 0
+                : damage * -1;
     }
 
-    public static bool TryUpgradeInvulnerability(Currency currency)
+    public static bool TryUpgradeArm(Currency currency)
     {
         if (
             (
@@ -135,10 +145,10 @@ public static class Invulnerability
             )
         )
         {
-            var curLvl = PlayerPrefs.GetInt("Invulnerability");
+            var curLvl = PlayerPrefs.GetInt("Arm");
             if (curLvl == maxLvl)
                 return false;
-            PlayerPrefs.SetInt("Invulnerability", curLvl + 1);
+            PlayerPrefs.SetInt("Arm", curLvl + 1);
             return true;
         }
         else

@@ -21,7 +21,8 @@ public enum BtnClickActions
     TestPage,
     DeathDeceitActivate,
     TimeScaleActivate,
-    InvulnerabilityActivate
+    InvulnerabilityActivate,
+    ArmActivate
 };
 public class BtnClickInfo : MonoBehaviour
 {
