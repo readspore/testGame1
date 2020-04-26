@@ -30,7 +30,8 @@ namespace SpawnDeadObj
         {
             if (collision.gameObject.layer == Constants.PlayerLayer)
             {
-                collision.gameObject.GetComponent<Player>().PlayerIsDead();
+                DamageController.GetDamage(999);
+                //collision.gameObject.GetComponent<Player>().PlayerIsDead();
             }
             if (destroyOnCollision)
             {

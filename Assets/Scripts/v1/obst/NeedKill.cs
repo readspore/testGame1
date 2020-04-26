@@ -178,7 +178,8 @@ public class NeedKill : MonoBehaviour
     {
         if (playerInside && neddToKill)
         {
-            GameObject.Find("Player").gameObject.GetComponent<Player>().PlayerIsDead();
+            DamageController.GetDamage(999);
+           //   GameObject.Find("Player").gameObject.GetComponent<Player>().PlayerIsDead();
         }
     }
 }

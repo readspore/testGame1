@@ -50,7 +50,7 @@ public static class DamageController
 
     static int ApplayInvulnerability(int damage)
     {
-        return damage;
+        return Invulnerability.IsActive ? 0 : damage;
     }
 
     static int ApplayReduceDamage(int damage)

@@ -99,6 +99,9 @@ public class UIController : MonoBehaviour
             case BtnClickActions.TimeScaleActivate:
                 TimeScaleActivate();
                 break;
+            case BtnClickActions.InvulnerabilityActivate:
+                InvulnerabilityActivate();
+                break;
         }
     }
 
@@ -181,4 +184,10 @@ public class UIController : MonoBehaviour
         Transform.FindObjectOfType<Player>().ActivateTimeScale();
         //TimeScale.Activate();
     }
+
+    void InvulnerabilityActivate()
+    {
+        Invulnerability.Activate();
+    }
+
 }

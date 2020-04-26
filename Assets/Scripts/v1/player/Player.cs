@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
                 else
                 {
                     PlayerIsDead();
-
                 }
             }
         }
@@ -49,6 +48,9 @@ public class Player : MonoBehaviour
         //StartCoroutine("TDL");
 
         Bank.PickUpCoin(Currency.Silver, 1000);
+
+        //Invulnerability.TryUpgradeInvulnerability(Currency.Silver);
+        Debug.Log("CurrentLvl " + Invulnerability.CurrentLvl);
         //DeathDeceit.TryUpgradeDeathDeceit(Currency.Silver);
         //TimeScale.TryUpgradeTimeScale(Currency.Silver);
         //InvokeRepeating("T_TakeDamage", 0 , 2);
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour
         return Physics.Raycast(transform.position, -Vector3.up,  distToGround );
     }
 
-    public void PlayerIsDead()
+    void PlayerIsDead()
     {
         Radio.Radio.PlayerDeath();
         //Radio.Radio.UpdateDirectionHint("my MSG");
