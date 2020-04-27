@@ -7,6 +7,7 @@ public class MobileJoystick_UI : MonoBehaviour
     //Mobile controller graphics
     public Sprite navigationCircle;
     public Sprite navigationButton;
+    public Transform parentForJoyskick;
     //Use this in your movement script for the input control
     public Vector2 moveDirection;
     //Joystick components size
@@ -50,7 +51,8 @@ public class MobileJoystick_UI : MonoBehaviour
         instance = this;
 
         //This function will initialize canvas element along with the joystick button
-        GameObject tmpObj = new GameObject("Canvas");
+        GameObject tmpObj = new GameObject("Panel");
+        tmpObj.transform.SetParent(parentForJoyskick);
         tmpObj.transform.position = Vector3.zero;
         mainCanvas = tmpObj.AddComponent<Canvas>();
         mainCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
