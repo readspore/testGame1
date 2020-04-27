@@ -12,6 +12,12 @@ public class Player : MonoBehaviour
     Camera mainCamera;
     GameObject curretnPlatform;
 
+    public GameObject invalnerable;
+    public GameObject timeScale;
+    public GameObject deathDeceit;
+    public GameObject armGO;
+    
+
     public int Health 
     { 
         get => health; 
@@ -55,7 +61,8 @@ public class Player : MonoBehaviour
         //Debug.Log("CurrentLvlArmValue " + Arm.CurrentLvlArmValue);
         //DeathDeceit.TryUpgradeDeathDeceit(Currency.Silver);
         //TimeScale.TryUpgradeTimeScale(Currency.Silver);
-        InvokeRepeating("T_TakeDamage", 0 , 2);
+
+        //InvokeRepeating("T_TakeDamage", 0 , 2);
 
         //Debug.Log("ss "  + (100 * 0.1));
         //Debug.Log("ss "  + (100 * 0.15));
@@ -132,6 +139,7 @@ public class Player : MonoBehaviour
         //if (TimeScale.isActive)
         //    return ;
         //TimeScale.isActive = true;
+        timeScale.SetActive(true);
         Time.timeScale = TimeScale.ScaleOnCurentLvl;
         StartCoroutine(DeActivateTimeScale());
     }
@@ -143,6 +151,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(TimeScale.CurrentLvlActiveTime);
         //yield return new WaitForSeconds(1.5f);
         Time.timeScale = 1;
+        timeScale.SetActive(false);
         //TimeScale.isActive = false;
         Debug.Log("DeActivate 2");
         //yield return new WaitForSeconds(1);

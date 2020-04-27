@@ -16,9 +16,9 @@ public static class DeathDeceit
     static int GoldCostLvl2 = 20;
     static int GoldCostLvl3 = 30;
 
-    static int timeApplayedLvl1 = 3000;
-    static int timeApplayedLvl2 = 6000;
-    static int timeApplayedLvl3 = 10000;
+    static int timeApplayedLvl1 = 3;
+    static int timeApplayedLvl2 = 6;
+    static int timeApplayedLvl3 = 10;
 
     static float HPOnDeathLvl1 = 0.10f;
     static float HPOnDeathLvl2 = 0.15f;
@@ -124,21 +124,23 @@ public static class DeathDeceit
         if (isActive)
             return false;
         isActive = true;
-        Task.Delay(CurrentLvlActiveTime).ContinueWith(t => DeActivate());
+        Transform.FindObjectOfType<Player>().deathDeceit.SetActive(true);
+        //Task.Delay(CurrentLvlActiveTime).ContinueWith(t => DeActivate());
 
         //DeActivate(true);
-        Debug.Log("Activate DeathDeceit CurrentLvlActiveTime " + CurrentLvlActiveTime);
+        //Debug.Log("Activate DeathDeceit CurrentLvlActiveTime " + CurrentLvlActiveTime);
         return true;
     }
 
     public static void DeActivate()
     {
-        Debug.Log(" 1 DeActivate DeathDeceit");
+        //Debug.Log(" 1 DeActivate DeathDeceit");
         //if (needWait)
             //yield return new WaitForSeconds(CurrentLvlActiveTime);
         isActive = false;
+        Transform.FindObjectOfType<Player>().deathDeceit.SetActive(false);
         //yield return new WaitForSeconds(0);
-        Debug.Log("DeActivate DeathDeceit");
+        //Debug.Log("DeActivate DeathDeceit");
     }
 
     public static float DeathBlow()

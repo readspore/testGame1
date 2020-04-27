@@ -180,8 +180,15 @@ public class UIController : MonoBehaviour
     void DeathDeceitActivate()
     {
         DeathDeceit.Activate();
+        StartCoroutine(DeathDeDeceitActivate());
     }
 
+    IEnumerator DeathDeDeceitActivate()
+    {
+        yield return new WaitForSeconds(DeathDeceit.CurrentLvlActiveTime);
+        DeathDeceit.DeActivate();
+        yield return null;
+    }
     void TimeScaleActivate()
     {
         Transform.FindObjectOfType<Player>().ActivateTimeScale();
@@ -191,6 +198,14 @@ public class UIController : MonoBehaviour
     void InvulnerabilityActivate()
     {
         Invulnerability.Activate();
+        StartCoroutine(InvulnerabilityDeActivate());
+    }
+
+    IEnumerator InvulnerabilityDeActivate()
+    {
+        yield return new WaitForSeconds(Invulnerability.CurrentLvlActiveTime);
+        Invulnerability.DeActivate();
+        yield return null;
     }
 
     void ArmActivate()

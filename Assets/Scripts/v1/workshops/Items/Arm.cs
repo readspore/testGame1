@@ -103,6 +103,7 @@ public class Arm
         //IsActive = true;
         Debug.Log("CurrentLvlArmValue " + CurrentLvlArmValue);
         maxShieldResist = CurrentLvlArmValue;
+        Transform.FindObjectOfType<Player>().armGO.SetActive(true);
         //Task.Delay(CurrentLvlArmValue).ContinueWith(t => Arm.DeActivate());
         return true;
     }
@@ -111,6 +112,7 @@ public class Arm
     {
         //yield return new WaitForSeconds(CurrentLvlArmValue);
         //IsActive = false;
+        Transform.FindObjectOfType<Player>().armGO.SetActive(false);
         Debug.Log("DeActivate");
     }
 
