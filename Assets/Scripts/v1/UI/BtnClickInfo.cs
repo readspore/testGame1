@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public enum BtnClickActions
 {
+    // ДОБАВЛЯТЬ ТОЛЬКО В КОНЕЦ!!!!
     HomeMenu,
     ShowAllLvl,
     ChooseLvl,
     PrevoiusMenu,
-    ForgeUpgrade,
+    ForgeUpgradePage,
+    ForgeUpgradeAction,
     PauseMenu,
     GameUI,
     Buy,
@@ -22,7 +24,10 @@ public enum BtnClickActions
     DeathDeceitActivate,
     TimeScaleActivate,
     InvulnerabilityActivate,
-    ArmActivate
+    ArmActivate,
+    SkillsHome,
+    TheSkill
+    // ДОБАВЛЯТЬ ТОЛЬКО В КОНЕЦ!!!!
 };
 public class BtnClickInfo : MonoBehaviour
 {
