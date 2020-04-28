@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using v1.SO.ForgeSO;
@@ -181,6 +183,11 @@ public static class Forge
     {
         var fq = ScriptableObject.CreateInstance<ForgeQueue>();
         fq.id = id;
+        //var len = ScriptableObject.FindObjectsOfType<ForgeQueue>().Length;
+        DirectoryInfo dir = new DirectoryInfo(Constants.pathToQueueFolter);
+        var len = dir.GetFiles("*.asset").Length;
+        Debug.Log("len " + len);
+        AssetDatabase.CreateAsset(fq, Constants.pathToQueueFolter+"/queue" + (len) + ".asset");
         return fq;
     }
 
