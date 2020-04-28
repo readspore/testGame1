@@ -47,8 +47,13 @@ public class Player : MonoBehaviour
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
 
+        var fq = Forge.T_AddToQueue(99);
+        var fq2 = Forge.T_AddToQueue(100);
+        var fq3 = Forge.T_AddToQueue(101);
+
+
         //DamageController.ActivateShield(15);
-        DamageController.GetDamage(35);
+        //DamageController.GetDamage(35);
 
 
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));

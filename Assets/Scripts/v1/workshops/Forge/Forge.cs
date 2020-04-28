@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using v1.SO.ForgeSO;
 
 public static class Forge
 {
@@ -175,4 +176,12 @@ public static class Forge
     {
         PlayerPrefs.SetInt("forgeLVL", ForgeLvl + 1);
     }
+
+    public static ForgeQueue T_AddToQueue(int id)
+    {
+        var fq = ScriptableObject.CreateInstance<ForgeQueue>();
+        fq.id = id;
+        return fq;
+    }
+
 }
