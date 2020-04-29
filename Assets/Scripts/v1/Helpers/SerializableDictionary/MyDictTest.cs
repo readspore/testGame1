@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmLvlAttrsSO : ScriptableObject, IItemAttrsSO
+public class MyDictTest : MonoBehaviour
 {
 	[SerializeField]
 	StringStringDictionary m_stringStringDictionary = null;
@@ -12,9 +12,10 @@ public class ArmLvlAttrsSO : ScriptableObject, IItemAttrsSO
 		set { m_stringStringDictionary.CopyFrom(value); }
 	}
 
-	public string GetLvlAttr(string name)
-    {
-        throw new System.NotImplementedException();
-    }
 
+	//void Reset()
+	//{
+	//	// access by property
+	//	//StringStringDictionary = new Dictionary<string, string>() { { "first key", "value A" }, { "second key", "value B" }, { "third key", "value C" } };
+	//}
 }
