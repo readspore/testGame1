@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IItemAttrsSO
 {
-    string GetLvlAttr(string name);
+    string GetLvlAttr(ItemAttrType name);
 }
