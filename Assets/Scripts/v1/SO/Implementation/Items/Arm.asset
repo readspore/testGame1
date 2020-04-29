@@ -9,17 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 416cddee14f10c94a9566c260966a8e9, type: 3}
-  m_Name: ArmLvl2
-  m_EditorClassIdentifier: 
-  m_stringStringDictionary:
-    m_keys:
-    - Arm
+  m_Script: {fileID: 0}
+  m_Name: Arm
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  id: 1
+  name: The arm
+  maxLvl: 2
+  curLvl: 0
+  attrs:
+  - m_keys:
     - SilverCost
     - GoldCost
-    - Kd
+    - Arm
     m_values:
-    - 70
+    - 100
+    - 10
+    - 45
+  - m_keys:
+    - SilverCost
+    - GoldCost
+    - Arm
+    m_values:
     - 200
     - 20
-    - 9
+    - 90

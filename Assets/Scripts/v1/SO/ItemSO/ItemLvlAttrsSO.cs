@@ -6,7 +6,7 @@ using UnityEngine;
 public enum ItemAttrType
 {
 	Kd,
-	TimeApplayed,
+	TimeApplied,
 	SilverCost,
 	GoldCost,
 	Arm,
@@ -16,22 +16,27 @@ public enum ItemAttrType
 [CreateAssetMenu]
 public class ItemLvlAttrsSO : ScriptableObject, IItemAttrsSO
 {
-	[SerializeField]
-	[Header("Проверь правильность введеных тобою значений!")]
-	StringStringDictionary m_stringStringDictionary = null;
-	public IDictionary<string, string> StringStringDictionary
-	{
-		get { return m_stringStringDictionary; }
-		set { m_stringStringDictionary.CopyFrom(value); }
-	}
+
+
+
+
+
+
+	//[SerializeField]
+	//StringStringDictionary m_stringStringDictionary = null;
+	//public IDictionary<string, string> StringStringDictionary
+	//{
+	//	get { return m_stringStringDictionary; }
+	//	set { m_stringStringDictionary.CopyFrom(value); }
+	//}
 
 	public string GetLvlAttr(ItemAttrType attrnName)
     {
-		string result;
-		if (StringStringDictionary.TryGetValue(attrnName.ToString(), out result))
-		{
-			return result;
-		}
+		//string result;
+		//if (StringStringDictionary.TryGetValue(attrnName.ToString(), out result))
+		//{
+		//	return result;
+		//}
 		return "null";
 	}
 

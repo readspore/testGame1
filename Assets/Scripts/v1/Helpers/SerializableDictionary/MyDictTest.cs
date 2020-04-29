@@ -13,6 +13,16 @@ public class MyDictTest : MonoBehaviour
 	}
 
 
+	[SerializeField]
+	List<StringStringDictionary> ss = null;
+	//public ObjectColorDictionary m_objectColorDictionary;
+
+	//public StringStringArrayDictionary m_stringStringArrayDictionary;
+	//public StringColorArrayDictionary m_stringColorArrayDictionary;
+	//#if NET_4_6 || NET_STANDARD_2_0
+	//	public StringHashSet m_stringHashSet;
+	//#endif
+
 	//void Reset()
 	//{
 	//	// access by property

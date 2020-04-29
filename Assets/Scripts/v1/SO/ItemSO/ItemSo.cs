@@ -14,7 +14,6 @@ public class ItemSO : ScriptableObject
     [SerializeField]
     int curLvl;
     [SerializeField]
-    List<IItemAttrsSO> lvlAttrs;
-    //public void OnBeforeSerialize();
+    List<StringStringDictionary> attrs = null;
 
 }
