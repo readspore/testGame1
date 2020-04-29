@@ -14,5 +14,7 @@ public class ItemSO : ScriptableObject
     [SerializeField]
     int curLvl;
     [SerializeField]
-    List<LvlCharacteristicsSO> lvlCharacteristics;
+    List<IItemAttrsSO> lvlAttrs;
+    //public void OnBeforeSerialize();
+
 }
