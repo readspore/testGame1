@@ -12,8 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b2a84358ff66847b6a23a07b804496, type: 3}
   m_Name: ForgeCurrentData
   m_EditorClassIdentifier: 
-  lvl: 1
-  queu1: {fileID: 0}
-  queu2: {fileID: 0}
-  queu3: {fileID: 0}
-  queu4: {fileID: 0}
+  lvl: 2
+  lvl1:
+  - name: 10
+    value: 1
+  - name: 8
+    value: 2
+  lvl2:
+  - name: 10
+    value: 2
+  - name: 8
+    value: 3
+  lvl3: []
+  lvl4: []
+  lvl5: []
+  core1ItemId: 0
+  core1:
+  - timeStart: 0
+    timeEnd: 0
+    id: 0
+  - timeStart: 0
+    timeEnd: 0
+    id: 0
+  - timeStart: 0
+    timeEnd: 0
+    id: 0
+  core2ItemId: 0
+  core2: []
+  core3ItemId: 0
+  core3: []
+  core4ItemId: 0
+  core4: []
+  core5ItemId: 0
+  core5: []

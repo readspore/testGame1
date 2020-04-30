@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 0
   name: The Arm
   maxLvl: 3
-  curLvl: 0
+  curLvl: 2
   lvl1:
   - name: 2
     value: 100

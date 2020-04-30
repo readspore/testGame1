@@ -17,11 +17,19 @@ MonoBehaviour:
   maxLvl: 3
   curLvl: 0
   lvl1:
-  - id: 2
-    index: 100
-  - id: 2
-    index: 0
-  lvl2: []
-  lvl3: []
+  - name: 2
+    value: 100
+  - name: 6
+    value: 10
+  lvl2:
+  - name: 2
+    value: 222
+  - name: 6
+    value: 15
+  lvl3:
+  - name: 2
+    value: 300
+  - name: 6
+    value: 30
   lvl4: []
   lvl5: []

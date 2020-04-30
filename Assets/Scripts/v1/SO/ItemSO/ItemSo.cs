@@ -10,7 +10,11 @@ public enum ItemAttrType
     GoldCost,
     Arm,
     TimeScale,
-    DeathDeceitHP
+    DeathDeceitHP,
+    ForgeCraftSpeed,
+    ForgeMaxQueue,
+    ForgeChanceSecondItem,
+    ForgeFreeCors
 };
 
 [CreateAssetMenu]
@@ -60,9 +64,6 @@ public class ItemSO : ScriptableObject
                 listToSelect = lvl5;
                 break;
         }
-        var res = listToSelect.Find(obj => obj.name == attrnName)?.value ?? "null";
-        Debug.Log("res is " + res);
-        Debug.Log("res type " + res.GetType().ToString());
-        return res;
+        return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "null";
     }
 }
