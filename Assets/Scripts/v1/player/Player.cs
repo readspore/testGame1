@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -51,6 +52,17 @@ public class Player : MonoBehaviour
         //var fq2 = Forge.T_AddToQueue(100);
         //var fq3 = Forge.T_AddToQueue(101);
 
+        //var roomCache = Resources.Load<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
+
+        //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
+        var tres = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
+        Debug.Log("tres " + tres.GetAttrValue(ItemAttrType.DeathDeceitHP));
+
+        //foreach (string guid2 in guids2)
+        //{
+        //    Debug.Log(AssetDatabase.GUIDToAssetPath(guid2));
+        //}
+
 
         //DamageController.ActivateShield(15);
         //DamageController.GetDamage(35);
@@ -59,7 +71,7 @@ public class Player : MonoBehaviour
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
         //StartCoroutine("TDL");
 
-        Bank.PickUpCoin(Currency.Silver, 1000);
+        //Bank.PickUpCoin(Currency.Silver, 1000);
 
         //Invulnerability.TryUpgradeInvulnerability(Currency.Silver);
         //Arm.TryUpgradeArm(Currency.Silver);

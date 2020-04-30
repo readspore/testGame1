@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Arm
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  id: 1
-  name: The arm
-  maxLvl: 2
+  id: 0
+  name: The Arm
+  maxLvl: 3
   curLvl: 0
-  attrs:
-  - m_keys:
-    - SilverCost
-    - GoldCost
-    - Arm
-    m_values:
-    - 100
-    - 10
-    - 45
-  - m_keys:
-    - SilverCost
-    - GoldCost
-    - Arm
-    m_values:
-    - 200
-    - 20
-    - 90
+  lvl1:
+  - name: 2
+    value: 100
+  - name: 4
+    value: 45
+  lvl2:
+  - name: 2
+    value: 200
+  - name: 4
+    value: 90
+  lvl3:
+  - name: 2
+    value: 300
+  - name: 4
+    value: 150
+  lvl4: []
+  lvl5: []

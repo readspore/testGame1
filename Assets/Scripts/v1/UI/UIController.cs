@@ -156,34 +156,36 @@ public class UIController : MonoBehaviour
 
     void CreateForgeItemHandler(GameObject infoGO)
     {
+        Debug.Log("CreateForgeItemHandler");
         //Debug.Log(infoGO.name);
-        var id = infoGO.GetComponent<ItemGO>().id;
-        var howManyCreate = int.Parse(
-                infoGO.transform.Find("InputField/Text").GetComponent<Text>().text
-            );
-        if (Forge.CanCreateItem(id, howManyCreate))
-        {
-            Debug.Log("UI Can create");
-            Forge.Create( id, howManyCreate );
-        }
-        else
-        {
-            Debug.Log("Can not create");
-        }
+        //var id = infoGO.GetComponent<ItemGO>().id;
+        //var howManyCreate = int.Parse(
+        //        infoGO.transform.Find("InputField/Text").GetComponent<Text>().text
+        //    );
+        //if (Forge.CanCreateItem(id, howManyCreate))
+        //{
+        //    Debug.Log("UI Can create");
+        //    Forge.Create( id, howManyCreate );
+        //}
+        //else
+        //{
+        //    Debug.Log("Can not create");
+        //}
     }
 
     void BuyForgeItemHandler(string info)
     {
-        var id = int.Parse(info);
-        if (Forge.CanBuyItem(id))
-        {
-            Debug.Log("Can buy");
-            Forge.Buy(id);
-        }
-        else
-        {
-            Debug.Log("Can not buy");
-        }
+        Debug.Log("BuyForgeItemHandler");
+        //var id = int.Parse(info);
+        //if (Forge.CanBuyItem(id))
+        //{
+        //    Debug.Log("Can buy");
+        //    Forge.Buy(id);
+        //}
+        //else
+        //{
+        //    Debug.Log("Can not buy");
+        //}
     }
 
     void DeathDeceitActivate()

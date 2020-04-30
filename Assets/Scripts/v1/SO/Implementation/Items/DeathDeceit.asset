@@ -14,26 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   id: 1
   name: Death Deceit
-  maxLvl: 2
+  maxLvl: 3
   curLvl: 0
-  attrs:
-  - m_keys:
-    - SilverCost
-    - GoldCost
-    - Kd
-    - TimeApplied
-    m_values:
-    - 100
-    - 10
-    - 15
-    - 10
-  - m_keys:
-    - SilverCost
-    - GoldCost
-    - Kd
-    - TimeApplied
-    m_values:
-    - 200
-    - 20
-    - 14
-    - 11
+  lvl1:
+  - id: 2
+    index: 100
+  - id: 2
+    index: 0
+  lvl2: []
+  lvl3: []
+  lvl4: []
+  lvl5: []

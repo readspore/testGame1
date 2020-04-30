@@ -129,20 +129,21 @@ public class ForgeItem : IForgeItem
     int GetFreeQueuePosition(DateTimeOffset timeNow)
     {
         var i = 1;
+        Debug.Log("GetFreeQueuePosition" + i);
         var freePosition = -1;
-        while (i <= Forge.MaxQueue && freePosition == -1)
-        {
-            var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
-            creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
-            var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
-            //Debug.Log("i == " + i + "creationTimeEnd " + creationTimeEnd + " timeNow " + timeNow.ToUnixTimeSeconds());
-            if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
-            {
-                //Debug.Log("SET NEW freePosition " + i);
-                freePosition = i;
-            }
-            ++i;
-        }
+        //while (i <= Forge.MaxQueue && freePosition == -1)
+        //{
+        //    var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
+        //    creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
+        //    var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
+        //    //Debug.Log("i == " + i + "creationTimeEnd " + creationTimeEnd + " timeNow " + timeNow.ToUnixTimeSeconds());
+        //    if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
+        //    {
+        //        //Debug.Log("SET NEW freePosition " + i);
+        //        freePosition = i;
+        //    }
+        //    ++i;
+        //}
         //Debug.Log("freePosition " + freePosition);
         return freePosition;
     }
@@ -154,18 +155,19 @@ public class ForgeItem : IForgeItem
     public int GetFreeQueueLength(DateTimeOffset timeNow)
     {
         var i = 1;
+        Debug.Log("GetFreeQueueLength");
         var freePosition = 0;
-        while (i <= Forge.MaxQueue )
-        {
-            var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
-            creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
-            var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
-            if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
-            {
-                ++freePosition;
-            }
-            ++i;
-        }
+        //while (i <= Forge.MaxQueue )
+        //{
+        //    var creationTimeEndSTR = PlayerPrefs.GetString("creationTimeEnd" + id + "" + i);
+        //    creationTimeEndSTR  = creationTimeEndSTR  == "" ? "0" : creationTimeEndSTR;
+        //    var creationTimeEnd = Convert.ToInt64(creationTimeEndSTR);
+        //    if (creationTimeEnd < timeNow.ToUnixTimeSeconds())
+        //    {
+        //        ++freePosition;
+        //    }
+        //    ++i;
+        //}
         //Debug.Log("freePosition LEN " + freePosition);
         return freePosition;
     }
