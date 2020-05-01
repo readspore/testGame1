@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+using v1.SO.ForgeSO;
 
 public class Player : MonoBehaviour
 {
@@ -55,9 +55,13 @@ public class Player : MonoBehaviour
         //var roomCache = Resources.Load<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
 
         //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
-        var tres = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
-        Debug.Log("tres " + tres.GetAttrValue(ItemAttrType.DeathDeceitHP));
-
+        var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
+        var forgeAsset = AssetDatabase.LoadAssetAtPath<ForgeCurrent>(Constants.pathToSOImplementationForge + "/ForgeCurrentData.asset");
+        Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
+        Debug.Log("armAsset id " + armAsset.Id);
+        //forgeAsset.SetToQueue(armAsset.Id);
+        Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
+        Debug.Log("armAsset id " + armAsset.Id);
         //foreach (string guid2 in guids2)
         //{
         //    Debug.Log(AssetDatabase.GUIDToAssetPath(guid2));

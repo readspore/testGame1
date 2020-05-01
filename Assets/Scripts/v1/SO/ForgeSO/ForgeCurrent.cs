@@ -40,6 +40,8 @@ namespace v1.SO.ForgeSO
         [SerializeField]
         List<ForgeQueue> core5;
 
+        public int Lvl { get => lvl; set => lvl = value; }
+
         public string GetLvlAttrValue(ItemAttrType attrnName)
         {
             var listToSelect = lvl1;
@@ -61,34 +63,46 @@ namespace v1.SO.ForgeSO
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
         }
 
-        public bool SetToQueue(int itemId)
-        {
-            return true;
-        }
+        //public bool SetToQueue(int itemId)
+        //{
+        //    return true;
+        //}
 
-        public int GetCoreForeItem(int itemId)
+        public int SetToQueue(int itemId)
         {
+            Debug.Log("SetToQueue");
+            return 1;
             var currentCoreIndex = ItemCoreIndex(itemId);
             if (currentCoreIndex != -1)
             {
+                Debug.Log("SetToQueue IF 1");
                 TryAddItemToQueue(itemId, currentCoreIndex);
             } else
             {
-                GetFreeCoreForItem(itemId);
+                Debug.Log("SetToQueue IF 2");
+                var coreForeItem = GetFirstFreeCore(itemId);
+                Debug.Log("GetFirstFreeCore " + coreForeItem);
+                TryAddItemToQueue(itemId, coreForeItem);
             }
-            //var maxCorsVal = GetLvlAttrValue(ItemAttrType.ForgeFreeCors);
-            //var maxFreeQueue= GetLvlAttrValue(ItemAttrType.ForgeMaxQueue);
-            //var tc = 0;
-            //var freeCoreIndex = 0;
-            //while (tc < 10 || freeCoreIndex != 0)
-            //{
-            //    ++tc;
-            //    if (IdexCoreFree(tc))
-            //    {
-
-            //    }
-            //}
             return 0;
+        }
+
+        int GetFirstFreeCore(int itemId)
+        {
+            var res = -1;
+            var i = 0;
+            var freeCoreIndex = -1;
+            while (i < 10 && freeCoreIndex != -1)
+            {
+                ++i;
+                if (GetQueuOnCore(i).Count == 0)
+                    freeCoreIndex = i;
+            }
+            if (freeCoreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
+            {
+                return res;
+            }
+            return -1;
         }
 
         public int ItemCoreIndex(int itemId)
@@ -116,7 +130,7 @@ namespace v1.SO.ForgeSO
                 queue.Count < int.Parse(GetLvlAttrValue(ItemAttrType.ForgeMaxQueue))
             )
             {
-                Debug.Log("TryAddItemToQueue Add");
+                Debug.Log("TryAddItemToQueue itemId " + itemId + " coreIndex " + coreIndex);
                 //ForgeQueue queueObj = ScriptableObject.CreateInstance(Constants.pathToSO + "/ForgeSo/ForgeQueue.asset");
                 //AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pa + "/Arm.asset");
                 //var asset = ScriptableObject.CreateInstance<ForgeQueue>();
