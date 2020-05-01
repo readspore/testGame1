@@ -15,21 +15,13 @@ MonoBehaviour:
   id: 0
   name: The Arm
   maxLvl: 3
-  curLvl: 2
+  curLvl: 1
   lvl1:
-  - name: 2
-    value: 100
-  - name: 4
-    value: 45
-  lvl2:
-  - name: 2
-    value: 200
-  - name: 4
-    value: 90
-  lvl3:
-  - name: 2
-    value: 300
-  - name: 4
-    value: 150
+  - name: 0
+    value: 
+  - name: 0
+    value: 
+  lvl2: []
+  lvl3: []
   lvl4: []
   lvl5: []

@@ -23,11 +23,19 @@ MonoBehaviour:
     value: 2
   - name: 8
     value: 3
+  - name: 5
+    value: 3
   lvl3: []
   lvl4: []
   lvl5: []
-  core1ItemId: 0
+  core1ItemId: -1
   core1:
+  - timeStart: 0
+    timeEnd: 0
+    id: 0
+  - timeStart: 0
+    timeEnd: 0
+    id: 0
   - timeStart: 0
     timeEnd: 0
     id: 0
@@ -39,9 +47,9 @@ MonoBehaviour:
     id: 0
   core2ItemId: 0
   core2: []
-  core3ItemId: 0
+  core3ItemId: -1
   core3: []
-  core4ItemId: 0
+  core4ItemId: -1
   core4: []
-  core5ItemId: 0
+  core5ItemId: -1
   core5: []

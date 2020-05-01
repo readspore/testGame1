@@ -10,6 +10,8 @@ namespace v1.SO.ForgeSO
         [SerializeField]
         int lvl;
         [SerializeField]
+        int queuId;
+        [SerializeField]
         List<InputOutputData> lvl1;
         [SerializeField]
         List<InputOutputData> lvl2;
@@ -41,25 +43,56 @@ namespace v1.SO.ForgeSO
         List<ForgeQueue> core5;
 
         public int Lvl { get => lvl; set => lvl = value; }
+        public int QueuId {
+            get {
+                ++queuId;
+                return queuId;
+            }
+        }
 
         public string GetLvlAttrValue(ItemAttrType attrnName)
         {
-            var listToSelect = lvl1;
-            switch (lvl)
+            List<InputOutputData> listToSelect = null;
+            switch (Lvl)
             {
+                case 1:
+                    listToSelect = lvl1;
+                    //Debug.Log("list lvl1");
+                    break;
                 case 2:
                     listToSelect = lvl2;
+                    //Debug.Log("list lvl2");
                     break;
                 case 3:
                     listToSelect = lvl3;
+                    //Debug.Log("list lvl3");
                     break;
                 case 4:
                     listToSelect = lvl4;
+                    //Debug.Log("list lvl4");
                     break;
                 case 5:
                     listToSelect = lvl5;
+                    //Debug.Log("list lvl5");
                     break;
             }
+            //foreach (var item in listToSelect)
+            //{
+            //Debug.Log("attrnName " + attrnName.ToString());
+            //}
+            //Debug.Log("listToSelect " + listToSelect.Find(obj => obj.name == attrnName)?.value);
+            //var res = listToSelect.Find(obj => obj.name == attrnName);
+            //var res3 = listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
+            //var res2 = "";
+            //if (res != null) {
+            //    Debug.Log("list 1");
+            //    res2 = res.value;
+            //} else
+            //{
+            //    Debug.Log("list 2");
+            //    res2 = "";
+            //}
+            //return res2;
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
         }
 
@@ -70,9 +103,8 @@ namespace v1.SO.ForgeSO
 
         public int SetToQueue(int itemId)
         {
-            Debug.Log("SetToQueue");
-            return 1;
             var currentCoreIndex = ItemCoreIndex(itemId);
+            //Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
             {
                 Debug.Log("SetToQueue IF 1");
@@ -109,15 +141,15 @@ namespace v1.SO.ForgeSO
         {
             var res = -1;
             if (core1ItemId == itemId)
-                res = 1;
+                res = 0;
             if (core2ItemId == itemId)
-                res = 2;
+                res = 1;
             if (core3ItemId == itemId)
-                res = 3;
+                res = 2;
             if (core4ItemId == itemId)
-                res = 4;
+                res = 3;
             if (core5ItemId == itemId)
-                res = 5;
+                res = 4;
             return res;
         }
 
@@ -125,12 +157,29 @@ namespace v1.SO.ForgeSO
         {
             //var maxQueue= GetLvlAttrValue(ItemAttrType.ForgeMaxQueue);
             var queue = GetQueuOnCore(coreIndex);
+            //Debug.Log("coreIndex " + coreIndex);
+            //Debug.Log(" queue.Count " + queue.Count);
+            //Debug.Log(" GetLvlAttrValue(ItemAttrType.ForgeMaxQueue) " + GetLvlAttrValue(ItemAttrType.ForgeMaxQueue));
+
+            //Debug.Log("queue != null " + queue != null);
+            Debug.Log("queue.Count " + queue.Count);
+            Debug.Log("ForgeMaxQueue " + GetLvlAttrValue(ItemAttrType.ForgeMaxQueue));
+            Debug.Log("queue.Count " + (queue.Count < int.Parse(GetLvlAttrValue(ItemAttrType.ForgeMaxQueue))).ToString());
+            //Debug.Log("ForgeMaxQueue " + GetLvlAttrValue(ItemAttrType.ForgeMaxQueue));
+
             if (
-                queue != null && 
+                queue != null &&
                 queue.Count < int.Parse(GetLvlAttrValue(ItemAttrType.ForgeMaxQueue))
             )
             {
                 Debug.Log("TryAddItemToQueue itemId " + itemId + " coreIndex " + coreIndex);
+                ForgeQueue asset = ScriptableObject.CreateInstance<ForgeQueue>();
+                asset.Id = QueuId;
+                asset.TimeStart = 124;
+                asset.TimeEnd = 333334;
+                asset.name = "ForgeQueue" + asset.Id;
+                UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge);
+                //GetQueuOnCore(coreIndex)[1].TimeStart = 234;
                 //ForgeQueue queueObj = ScriptableObject.CreateInstance(Constants.pathToSO + "/ForgeSo/ForgeQueue.asset");
                 //AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pa + "/Arm.asset");
                 //var asset = ScriptableObject.CreateInstance<ForgeQueue>();
@@ -151,31 +200,36 @@ namespace v1.SO.ForgeSO
         {
             if (!CanUseCoreOnCurrentLvl(coreIndex))
                 return null;
-
+            List<ForgeQueue> res = null;
             switch (coreIndex)
             {
                 case 1:
-                        return core1;
+                    res = core1;
+                    //Debug.Log("core1");
                     break;
                 case 2:
-                    return core2;
+                    res = core2;
+                    //Debug.Log("core2");
                     break;
                 case 3:
-                    return core3;
+                    res = core3;
+                    //Debug.Log("core3");
                     break;
                 case 4:
-                    return core4;
+                    res = core4;
+                    //Debug.Log("core4");
                     break;
                 case 5:
-                    return core5;
+                    res = core5;
+                    //Debug.Log("core5");
                     break;
             }
-            return null;
+            return res;
         }
 
         bool CanUseCoreOnCurrentLvl(int coreIndex)
         {
-            return coreIndex >= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors));
+            return coreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors));
         }
 
         int GetFreeCoreForItem(int itemId)

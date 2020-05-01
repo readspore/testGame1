@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class ForgeQueue
+public class ForgeQueue : ScriptableObject
 {
     [SerializeField]
     long timeStart;
@@ -12,5 +12,9 @@ public class ForgeQueue
     long timeEnd;
     [SerializeField]
     int id;
+
+    public long TimeStart { get => timeStart; set => timeStart = value; }
+    public long TimeEnd { get => timeEnd; set => timeEnd = value; }
+    public int Id { get => id; set => id = value; }
 }
 
