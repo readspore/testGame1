@@ -185,6 +185,11 @@ namespace v1.SO.ForgeSO
                 //AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pa + "/Arm.asset");
                 //var asset = ScriptableObject.CreateInstance<ForgeQueue>();
 
+                //DirectoryInfo dir = new DirectoryInfo(Constants.pathToQueueFolter);
+                //var len = dir.GetFiles("*.asset").Length;
+                //Debug.Log("len " + len);
+                //AssetDatabase.CreateAsset(fq, Constants.pathToQueueFolter + "/queue" + (len) + ".asset");
+
                 //queue.Add(
 
                 //);
