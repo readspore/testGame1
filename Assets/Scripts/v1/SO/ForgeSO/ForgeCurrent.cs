@@ -97,30 +97,22 @@ namespace v1.SO.ForgeSO
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
         }
 
-        //public bool SetToQueue(int itemId)
-        //{
-        //    return true;
-        //}
-
         public int SetToQueue(int itemId)
         {
             var currentCoreIndex = ItemCoreIndex(itemId);
             //Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
             {
-                Debug.Log("SetToQueue IF 1");
                 TryAddItemToQueue(itemId, currentCoreIndex);
             } else
             {
-                Debug.Log("SetToQueue IF 2");
-                var coreForeItem = GetFirstFreeCore(itemId);
-                Debug.Log("GetFirstFreeCore " + coreForeItem);
+                var coreForeItem = FirstFreeCore(itemId);
                 TryAddItemToQueue(itemId, coreForeItem);
             }
             return 0;
         }
 
-        int GetFirstFreeCore(int itemId)
+        int FirstFreeCore(int itemId)
         {
             var res = -1;
             var i = 0;
@@ -154,19 +146,11 @@ namespace v1.SO.ForgeSO
             return res;
         }
 
-        public bool TryAddItemToQueue(int itemId, int coreIndex)
+        bool TryAddItemToQueue(int itemId, int coreIndex)
         {
-            //var maxQueue= GetLvlAttrValue(ItemAttrType.ForgeMaxQueue);
             var queue = GetQueuOnCore(coreIndex);
-            //Debug.Log("coreIndex " + coreIndex);
-            //Debug.Log(" queue.Count " + queue.Count);
-            //Debug.Log(" GetLvlAttrValue(ItemAttrType.ForgeMaxQueue) " + GetLvlAttrValue(ItemAttrType.ForgeMaxQueue));
-
-            //Debug.Log("queue != null " + queue != null);
-            Debug.Log("queue.Count " + queue.Count);
-            Debug.Log("ForgeMaxQueue " + GetLvlAttrValue(ItemAttrType.ForgeMaxQueue));
-            Debug.Log("queue.Count " + (queue.Count < int.Parse(GetLvlAttrValue(ItemAttrType.ForgeMaxQueue))).ToString());
-            //Debug.Log("ForgeMaxQueue " + GetLvlAttrValue(ItemAttrType.ForgeMaxQueue));
+            // queue can be null
+            //Debug.Log("queue.Count " + queue.Count);
 
             if (
                 queue != null &&
@@ -221,13 +205,6 @@ namespace v1.SO.ForgeSO
         bool CanUseCoreOnCurrentLvl(int coreIndex)
         {
             return coreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors));
-        }
-
-        int GetFreeCoreForItem(int itemId)
-        {
-
-            return 0;
-
         }
 
         ForgeQueue CreateNewQueue(int someId)
