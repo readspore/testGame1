@@ -174,21 +174,8 @@ namespace v1.SO.ForgeSO
             )
             {
                 Debug.Log("TryAddItemToQueue itemId " + itemId + " coreIndex " + coreIndex);
-                ForgeQueue asset = ScriptableObject.CreateInstance<ForgeQueue>();
-                asset.Id = QueuId;
-                asset.TimeStart = 124;
-                asset.TimeEnd = 333334;
-                asset.name = "ForgeQueue" + asset.Id;
-                UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge);
-                //GetQueuOnCore(coreIndex)[1].TimeStart = 234;
-                //ForgeQueue queueObj = ScriptableObject.CreateInstance(Constants.pathToSO + "/ForgeSo/ForgeQueue.asset");
-                //AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pa + "/Arm.asset");
-                //var asset = ScriptableObject.CreateInstance<ForgeQueue>();
-
-                //DirectoryInfo dir = new DirectoryInfo(Constants.pathToQueueFolter);
-                //var len = dir.GetFiles("*.asset").Length;
-                //Debug.Log("len " + len);
-                //AssetDatabase.CreateAsset(fq, Constants.pathToQueueFolter + "/queue" + (len) + ".asset");
+                var asset = CreateNewQueue(99);
+         
 
                 //queue.Add(
 
@@ -242,6 +229,29 @@ namespace v1.SO.ForgeSO
         {
 
             return 0;
+
+        }
+
+        ForgeQueue CreateNewQueue(int someId)
+        {
+            ForgeQueue asset = ScriptableObject.CreateInstance<ForgeQueue>();
+            asset.Id = QueuId;
+            asset.TimeStart = 124;
+            asset.TimeEnd = 333334;
+            asset.name = "ForgeQueue" + asset.Id;
+            UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/queue");
+
+            return asset;
+            //GetQueuOnCore(coreIndex)[1].TimeStart = 234;
+            //ForgeQueue queueObj = ScriptableObject.CreateInstance(Constants.pathToSO + "/ForgeSo/ForgeQueue.asset");
+            //AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pa + "/Arm.asset");
+            //var asset = ScriptableObject.CreateInstance<ForgeQueue>();
+
+            //DirectoryInfo dir = new DirectoryInfo(Constants.pathToQueueFolter);
+            //var len = dir.GetFiles("*.asset").Length;
+            //Debug.Log("len " + len);
+            //AssetDatabase.CreateAsset(fq, Constants.pathToQueueFolter + "/queue" + (len) + ".asset");
+
 
         }
     }

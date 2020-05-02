@@ -11,16 +11,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
   m_Name: Arm
-  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  m_EditorClassIdentifier: Assembly-CSharp:v1.SO.ItemSO:ItemSO
   id: 0
-  name: The Arm
-  maxLvl: 3
-  curLvl: 1
-  lvl1:
-  - name: 0
-    value: 
-  - name: 0
-    value: 
+  name: 
+  maxLvl: 0
+  curLvl: 0
+  lvl1: []
   lvl2: []
   lvl3: []
   lvl4: []
