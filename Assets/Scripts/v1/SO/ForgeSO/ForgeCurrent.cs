@@ -175,11 +175,9 @@ namespace v1.SO.ForgeSO
             {
                 Debug.Log("TryAddItemToQueue itemId " + itemId + " coreIndex " + coreIndex);
                 var asset = CreateNewQueue(99);
-         
-
-                //queue.Add(
-
-                //);
+                queue.Add(
+                    asset  
+                );
                 return true;
             }
             else
