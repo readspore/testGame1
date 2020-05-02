@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using v1.SO.ItemSO;
 
 namespace v1.SO.ForgeSO
 {

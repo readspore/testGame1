@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-
-public class ForgeQueue : ScriptableObject
+namespace v1.SO.ForgeSO
 {
-    [SerializeField]
-    long timeStart;
-    [SerializeField]
-    long timeEnd;
-    [SerializeField]
-    int id;
+    [System.Serializable]
+    public class ForgeQueue : ScriptableObject
+    {
+        [SerializeField]
+        long timeStart;
+        [SerializeField]
+        long timeEnd;
+        [SerializeField]
+        int id;
 
-    public long TimeStart { get => timeStart; set => timeStart = value; }
-    public long TimeEnd { get => timeEnd; set => timeEnd = value; }
-    public int Id { get => id; set => id = value; }
+        public long TimeStart { get => timeStart; set => timeStart = value; }
+        public long TimeEnd { get => timeEnd; set => timeEnd = value; }
+        public int Id { get => id; set => id = value; }
+    }
+
 }
-

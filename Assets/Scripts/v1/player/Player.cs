@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using v1.SO.ForgeSO;
+using v1.SO.ItemSO;
 
 public class Player : MonoBehaviour
 {
