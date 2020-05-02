@@ -240,7 +240,7 @@ namespace v1.SO.ForgeSO
             asset.TimeEnd = 333334;
             asset.name = "ForgeQueue" + asset.Id;
             //UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/queue");
-            UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/Queue");
+            UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/Queue/"+ asset.name + ".asset");
 
             return asset;
             //GetQueuOnCore(coreIndex)[1].TimeStart = 234;
