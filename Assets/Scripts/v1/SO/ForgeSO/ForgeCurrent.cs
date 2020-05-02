@@ -22,26 +22,28 @@ namespace v1.SO.ForgeSO
         List<InputOutputData> lvl4;
         [SerializeField]
         List<InputOutputData> lvl5;
+
         [SerializeField]
-        int core1ItemId;
+        int core0ItemId = -1;
+        [SerializeField]
+        List<ForgeQueue> core0;
+        [SerializeField]
+        int core1ItemId = -1;
         [SerializeField]
         List<ForgeQueue> core1;
         [SerializeField]
-        int core2ItemId;
+        int core2ItemId = -1;
         [SerializeField]
         List<ForgeQueue> core2;
         [SerializeField]
-        int core3ItemId;
+        int core3ItemId = -1;
         [SerializeField]
         List<ForgeQueue> core3;
         [SerializeField]
-        int core4ItemId;
+        int core4ItemId = -1;
         [SerializeField]
         List<ForgeQueue> core4;
-        [SerializeField]
-        int core5ItemId;
-        [SerializeField]
-        List<ForgeQueue> core5;
+
 
         public int Lvl { get => lvl; set => lvl = value; }
         public int QueuId {
@@ -100,12 +102,15 @@ namespace v1.SO.ForgeSO
         public int SetToQueue(int itemId)
         {
             var currentCoreIndex = ItemCoreIndex(itemId);
-            //Debug.Log("currentCoreIndex " + currentCoreIndex);
+            Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
             {
+                Debug.Log("IF 1");
+
                 TryAddItemToQueue(itemId, currentCoreIndex);
             } else
             {
+                Debug.Log("IF 2");
                 var coreForeItem = FirstFreeCore(itemId);
                 TryAddItemToQueue(itemId, coreForeItem);
             }
@@ -114,18 +119,18 @@ namespace v1.SO.ForgeSO
 
         int FirstFreeCore(int itemId)
         {
-            var res = -1;
             var i = 0;
             var freeCoreIndex = -1;
-            while (i < 10 && freeCoreIndex != -1)
+            while (i < 10 && freeCoreIndex == -1)
             {
                 ++i;
+                Debug.Log("GetQueuOnCore(i).Count " + GetQueuOnCore(i).Count + " i " + i);
                 if (GetQueuOnCore(i).Count == 0)
                     freeCoreIndex = i;
             }
             if (freeCoreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
             {
-                return res;
+                return freeCoreIndex;
             }
             return -1;
         }
@@ -133,24 +138,28 @@ namespace v1.SO.ForgeSO
         public int ItemCoreIndex(int itemId)
         {
             var res = -1;
-            if (core1ItemId == itemId)
+            if (core0ItemId == itemId)
                 res = 0;
-            if (core2ItemId == itemId)
+            if (core1ItemId == itemId)
                 res = 1;
-            if (core3ItemId == itemId)
+            if (core2ItemId == itemId)
                 res = 2;
-            if (core4ItemId == itemId)
+            if (core3ItemId == itemId)
                 res = 3;
-            if (core5ItemId == itemId)
+            if (core4ItemId == itemId)
                 res = 4;
+
             return res;
         }
 
         bool TryAddItemToQueue(int itemId, int coreIndex)
         {
+                Debug.Log("CanUseCore " + CanUseCore(coreIndex, itemId).ToString());
+            if (!CanUseCore(coreIndex, itemId))
+                return false;
             var queue = GetQueuOnCore(coreIndex);
             // queue can be null
-            //Debug.Log("queue.Count " + queue.Count);
+            Debug.Log("queue.Count " + queue.Count);
 
             if (
                 queue != null &&
@@ -162,6 +171,7 @@ namespace v1.SO.ForgeSO
                 queue.Add(
                     asset  
                 );
+                SetItemIdOnCore(coreIndex, itemId);
                 return true;
             }
             else
@@ -173,11 +183,13 @@ namespace v1.SO.ForgeSO
 
         List<ForgeQueue> GetQueuOnCore(int coreIndex)
         {
-            if (!CanUseCoreOnCurrentLvl(coreIndex))
-                return null;
             List<ForgeQueue> res = null;
             switch (coreIndex)
             {
+                case 0:
+                    res = core0;
+                //Debug.Log("core0");
+                    break;
                 case 1:
                     res = core1;
                     //Debug.Log("core1");
@@ -194,17 +206,56 @@ namespace v1.SO.ForgeSO
                     res = core4;
                     //Debug.Log("core4");
                     break;
-                case 5:
-                    res = core5;
-                    //Debug.Log("core5");
-                    break;
             }
             return res;
         }
 
-        bool CanUseCoreOnCurrentLvl(int coreIndex)
+        bool CanUseCore(int coreIndex, int itemId)
         {
-            return coreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors));
+            int itemIdOnCore = GetItemIdOnCore(coreIndex);
+            Debug.Log("CanUseCore  coreIndex " + coreIndex);
+            Debug.Log("CanUseCore  itemId " + itemId);
+            Debug.Log("CanUseCore  C1 " + (coreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors))).ToString());
+            Debug.Log("CanUseCore  C2 " + (itemIdOnCore == -1).ToString());
+            Debug.Log("CanUseCore  C3 " + (itemIdOnCore == itemId).ToString());
+
+            if (
+                (coreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
+                &&
+                (itemIdOnCore == -1) || (itemIdOnCore == itemId)
+            )
+                return true;
+            return false;
+        }
+
+        int GetItemIdOnCore(int coreIndex)
+        {
+            if (coreIndex == 0)
+                return core0ItemId;
+            if (coreIndex == 1)
+                return core1ItemId;
+            if (coreIndex == 2)
+                return core2ItemId;
+            if (coreIndex == 3)
+                return core3ItemId;
+            if (coreIndex == 4)
+                return core4ItemId;
+
+            return -2;
+        }
+
+        void SetItemIdOnCore(int coreIndex, int itemId)
+        {
+            if (coreIndex == 0)
+                core1ItemId = itemId;
+            if (coreIndex == 1)
+                core2ItemId = itemId;
+            if (coreIndex == 2)
+                core3ItemId = itemId;
+            if (coreIndex == 3)
+                core4ItemId = itemId;
+            if (coreIndex == 4)
+                core4ItemId = itemId;
         }
 
         ForgeQueue CreateNewQueue(int someId)

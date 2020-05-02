@@ -60,7 +60,12 @@ public class Player : MonoBehaviour
         var forgeAsset = AssetDatabase.LoadAssetAtPath<ForgeCurrent>(Constants.pathToSOImplementationForge + "/ForgeCurrentData.asset");
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
-        forgeAsset.SetToQueue(armAsset.Id);
+        //forgeAsset.SetToQueue(armAsset.Id);
+        forgeAsset.SetToQueue(33);
+        forgeAsset.SetToQueue(33);
+        forgeAsset.SetToQueue(33);
+        forgeAsset.SetToQueue(33);
+        forgeAsset.SetToQueue(33);
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //foreach (string guid2 in guids2)

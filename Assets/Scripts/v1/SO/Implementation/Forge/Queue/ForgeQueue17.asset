@@ -9,17 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Arm
-  m_EditorClassIdentifier: Assembly-CSharp:v1.SO.ItemSO:ItemSO
-  id: 0
-  name: the arm
-  maxLvl: 2
-  curLvl: 1
-  lvl1: []
-  lvl2:
-  - name: 4
-    value: 90
-  lvl3: []
-  lvl4: []
-  lvl5: []
+  m_Script: {fileID: 11500000, guid: ffc7ab30691627d4bbbb958e72d788fd, type: 3}
+  m_Name: ForgeQueue17
+  m_EditorClassIdentifier: 
+  timeStart: 124
+  timeEnd: 333334
+  id: 17
