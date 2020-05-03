@@ -61,11 +61,20 @@ public class Player : MonoBehaviour
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //forgeAsset.SetToQueue(armAsset.Id);
-        forgeAsset.SetToQueue(33);
-        forgeAsset.SetToQueue(33);
-        forgeAsset.SetToQueue(33);
-        forgeAsset.SetToQueue(33);
-        forgeAsset.SetToQueue(33);
+        forgeAsset.T_ClearCores();
+
+        //forgeAsset.SetToQueue(33);
+        //forgeAsset.SetToQueue(66);
+        //forgeAsset.SetToQueue(66);
+        //forgeAsset.SetToQueue(33);
+        //forgeAsset.SetToQueue(33);
+        //forgeAsset.SetToQueue(99);
+        //forgeAsset.SetToQueue(99);
+        //forgeAsset.SetToQueue(99);
+        //forgeAsset.SetToQueue(99);
+        //forgeAsset.SetToQueue(99);
+
+
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //foreach (string guid2 in guids2)
