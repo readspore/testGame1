@@ -102,15 +102,15 @@ namespace v1.SO.ForgeSO
         public int SetToQueue(int itemId)
         {
             var currentCoreIndex = ItemCoreIndex(itemId);
-            Debug.Log("currentCoreIndex " + currentCoreIndex);
+            //Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
             {
-                Debug.Log("IF 1");
-
+                Debug.Log("queue exist coreindex = " + currentCoreIndex);
                 TryAddItemToQueue(itemId, currentCoreIndex);
             } else
             {
-                Debug.Log("IF 2");
+                Debug.Log("create new queue");
+                //Debug.Log("IF 2");
                 var coreForeItem = FirstFreeCore(itemId);
                 TryAddItemToQueue(itemId, coreForeItem);
             }
@@ -154,7 +154,7 @@ namespace v1.SO.ForgeSO
 
         bool TryAddItemToQueue(int itemId, int coreIndex)
         {
-                Debug.Log("CanUseCore " + CanUseCore(coreIndex, itemId).ToString());
+            Debug.Log("CanUseCore " + CanUseCore(coreIndex, itemId).ToString());
             if (!CanUseCore(coreIndex, itemId))
                 return false;
             var queue = GetQueuOnCore(coreIndex);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ForgeCurrentData
   m_EditorClassIdentifier: 
   lvl: 2
-  queuId: 7
+  queuId: 17
   lvl1:
   - name: 10
     value: 1
@@ -33,10 +33,14 @@ MonoBehaviour:
   core0: []
   core1ItemId: -1
   core1:
-  - {fileID: 11400000, guid: e03deb0ab878de44ca266bbd39f5a64d, type: 2}
-  core2ItemId: -1
-  core2: []
-  core3ItemId: -1
-  core3: []
-  core4ItemId: -1
-  core4: []
+  - {fileID: 11400000, guid: 31f87ec9135b06c44bf79d259226093e, type: 2}
+  core2ItemId: 33
+  core2:
+  - {fileID: 11400000, guid: 87781a3910a4b9142b18b274db252ca8, type: 2}
+  core3ItemId: 33
+  core3:
+  - {fileID: 11400000, guid: efe6b37dbe6b9d84da6133115e842301, type: 2}
+  core4ItemId: 33
+  core4:
+  - {fileID: 11400000, guid: 3fc3e90c9809b9f4093fd87af5bd1e3c, type: 2}
+  - {fileID: 11400000, guid: e67cffd25b854364ea5fc5694b62917d, type: 2}
