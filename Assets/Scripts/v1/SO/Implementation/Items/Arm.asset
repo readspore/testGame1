@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: Arm
   m_EditorClassIdentifier: Assembly-CSharp:v1.SO.ItemSO:ItemSO
   id: 0
-  name: the arm
+  theName: 
   maxLvl: 2
   curLvl: 1
-  lvl1: []
+  lvl1:
+  - name: 11
+    value: 100
+  - name: 2
+    value: 100
+  - name: 0
+    value: 
   lvl2:
   - name: 4
     value: 90

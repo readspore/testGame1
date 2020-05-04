@@ -112,8 +112,16 @@ namespace v1.SO.ForgeSO
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
         }
 
-        public int SetToQueue(int itemId)
+        public int SetToQueue(int itemId, Currency currency)
         {
+            var item = AssetDatabase.LoadAssetAtPath<ItemSO.ItemSO>(
+                Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            );
+            if (!BankAllow(item, currency))
+            {
+                Debug.Log("BankAllow not allow");
+                return 0;
+            }
             var currentCoreIndex = ItemCoreIndex(itemId);
             //Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
@@ -127,7 +135,7 @@ namespace v1.SO.ForgeSO
                 AddToFreeCore(itemId);
 
             }
-            return 0;
+            return 1;
         }
 
         int FirstFreeCore(int itemId)
@@ -327,6 +335,7 @@ namespace v1.SO.ForgeSO
             ResetCore(2);
             ResetCore(3);
             ResetCore(4);
+            Debug.Log("T_ClearCores");
         }
 
         void ResetCore(int coreIndex)
@@ -341,6 +350,18 @@ namespace v1.SO.ForgeSO
                 }
             }
             SetQueueOnCore(coreIndex);
+        }
+
+        bool BankAllow(ItemSO.ItemSO item, Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.Gold:
+                    return Bank.AccountContain(Currency.Silver, int.Parse( item.GetAttrValue(ItemAttrType.GoldCost) ));
+                case Currency.Silver:
+                    return Bank.AccountContain(Currency.Silver, int.Parse( item.GetAttrValue(ItemAttrType.SilverCost) ));
+            }
+            return false;
         }
     }
 }
