@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace v1.SO.ItemSO
 {
-    [System.Serializable]
+    //[System.Serializable]
+    [Serializable]
+
     public enum ItemAttrType
     {
         Kd,
@@ -21,7 +24,7 @@ namespace v1.SO.ItemSO
         TimeCraftInForge
     };
 
-    [System.Serializable]
+    [Serializable]
     public enum SOItemObjId
     {
         Arm = 0,
