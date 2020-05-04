@@ -199,14 +199,13 @@ namespace v1.SO.ForgeSO
                 return false;
             }
 
-            Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex);
             var asset = CreateNewQueue(itemId);
             queue.Add(
                 asset
             );
             SetItemIdOnCoreLable(coreIndex, itemId);
+            Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex + " queueId " + asset.Id);
             return true;
-
         }
 
         List<ForgeQueue> GetQueuOnCore(int coreIndex)
@@ -359,7 +358,7 @@ namespace v1.SO.ForgeSO
                 case Currency.Gold:
                     return Bank.AccountContain(Currency.Silver, int.Parse( item.GetAttrValue(ItemAttrType.GoldCost) ));
                 case Currency.Silver:
-                    return Bank.AccountContain(Currency.Silver, int.Parse( item.GetAttrValue(ItemAttrType.SilverCost) ));
+                    return Bank.AccountContain(Currency.Silver, int.Parse(item.GetAttrValue(ItemAttrType.SilverCost)));
             }
             return false;
         }

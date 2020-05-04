@@ -65,6 +65,11 @@ public class Player : MonoBehaviour
         forgeAsset.T_ClearCores();
 
         //forgeAsset.SetToQueue(0, Currency.Silver);
+        //forgeAsset.SetToQueue(0, Currency.Silver);
+        //forgeAsset.SetToQueue(0, Currency.Silver);
+        //forgeAsset.SetToQueue(0, Currency.Silver);
+        //forgeAsset.SetToQueue(0, Currency.Silver);
+        //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(66);
         //forgeAsset.SetToQueue(66);
         //forgeAsset.SetToQueue(33);
