@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using v1.SO.ItemSO;
 
@@ -142,7 +143,7 @@ namespace v1.SO.ForgeSO
             }
             //if (freeCoreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
             //{
-                return freeCoreIndex;
+            return freeCoreIndex;
             //}
             //return -1;
         }
@@ -196,7 +197,7 @@ namespace v1.SO.ForgeSO
             }
 
             Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex);
-            var asset = CreateNewQueue(99);
+            var asset = CreateNewQueue();
             queue.Add(
                 asset
             );
@@ -229,6 +230,34 @@ namespace v1.SO.ForgeSO
             return res;
         }
 
+        void SetQueueOnCore(int coreIndex)
+        {
+            SetQueueOnCore(coreIndex, new List<ForgeQueue>());
+        }
+
+        void SetQueueOnCore(int coreIndex, List<ForgeQueue> queue)
+        {
+            //names = names.Where(x => x != "Dima").ToList()
+            switch (coreIndex)
+            {
+                case 0:
+                    core0 = queue;
+                    break;
+                case 1:
+                    core1 = queue;
+                    break;
+                case 2:
+                    core2 = queue;
+                    break;
+                case 3:
+                    core3 = queue;
+                    break;
+                case 4:
+                    core4 = queue;
+                    break;
+            }
+        }
+
         bool CanUseCore(int coreIndex, int itemId)
         {
             int itemIdOnCore = GetItemIdOnCore(coreIndex);
@@ -239,7 +268,7 @@ namespace v1.SO.ForgeSO
             }
             if (itemIdOnCore != itemId && itemIdOnCore != -1)
             {
-                Debug.Log("CanUseCore FALSE using by other item " + itemIdOnCore + " || "  + itemId);
+                Debug.Log("CanUseCore FALSE using by other item " + itemIdOnCore + " || " + itemId);
                 return false;
             }
             return true;
@@ -275,48 +304,40 @@ namespace v1.SO.ForgeSO
                 core4ItemId = itemId;
         }
 
-        ForgeQueue CreateNewQueue(int someId)
+        ForgeQueue CreateNewQueue()
         {
             ForgeQueue asset = ScriptableObject.CreateInstance<ForgeQueue>();
             asset.Id = QueuId;
             asset.TimeStart = 124;
             asset.TimeEnd = 333334;
-            asset.name = "ForgeQueue" + asset.Id;
+            asset.name = Constants.forgeQueueAssetPrefix + asset.Id;
             UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/Queue/" + asset.name + ".asset");
-
+            Debug.Log("NEW queue " + asset.name);
             return asset;
-            //GetQueuOnCore(coreIndex)[1].TimeStart = 234;
-            //ForgeQueue queueObj = ScriptableObject.CreateInstance(Constants.pathToSO + "/ForgeSo/ForgeQueue.asset");
-            //AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pa + "/Arm.asset");
-            //var asset = ScriptableObject.CreateInstance<ForgeQueue>();
-
-            //DirectoryInfo dir = new DirectoryInfo(Constants.pathToQueueFolter);
-            //var len = dir.GetFiles("*.asset").Length;
-            //Debug.Log("len " + len);
-            //AssetDatabase.CreateAsset(fq, Constants.pathToQueueFolter + "/queue" + (len) + ".asset");
-
-
         }
 
         public void T_ClearCores()
         {
-            core0ItemId = -1;
-            core1ItemId = -1;
-            core2ItemId = -1;
-            core3ItemId = -1;
-            core4ItemId = -1;
+            ResetCore(0);
+            ResetCore(1);
+            ResetCore(2);
+            ResetCore(3);
+            ResetCore(4);
+            return;
+        }
 
-            core0 = new List<ForgeQueue>();
-            core1 = new List<ForgeQueue>();
-            core2 = new List<ForgeQueue>();
-            core3 = new List<ForgeQueue>();
-            core4 = new List<ForgeQueue>();
-
-            string[] fileEntries = Directory.GetFiles(Constants.pathToSOImplementationForge + "/Queue/");
-            foreach (string fileName in fileEntries)
-                UnityEditor.AssetDatabase.DeleteAsset(fileName);
-
-            Debug.Log("cores are empty");
+        void ResetCore(int coreIndex)
+        {
+            SetItemIdOnCoreLable(coreIndex, -1);
+            var queue = GetQueuOnCore(coreIndex);
+            foreach (var item in queue)
+            {
+                if (item != null)
+                {
+                    UnityEditor.AssetDatabase.DeleteAsset(Constants.pathToSOImplementationForge + "/Queue/" + Constants.forgeQueueAssetPrefix + item.Id + ".asset");
+                }
+            }
+            SetQueueOnCore(coreIndex);
         }
     }
 }

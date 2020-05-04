@@ -8,5 +8,6 @@
     public const string pathToSOImplementation = "Assets/Scripts/v1/SO/Implementation";
     public const string pathToSOImplementationItems = "Assets/Scripts/v1/SO/Implementation/Items";
     public const string pathToSOImplementationForge = "Assets/Scripts/v1/SO/Implementation/Forge";
+    public const string forgeQueueAssetPrefix = "ForgeQueue";
 
 }
