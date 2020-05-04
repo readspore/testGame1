@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Arm
   m_EditorClassIdentifier: Assembly-CSharp:v1.SO.ItemSO:ItemSO
   id: 0
-  theName: 
+  theName: The arm
   maxLvl: 2
   curLvl: 1
   lvl1:
