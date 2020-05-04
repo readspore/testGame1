@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -56,14 +57,14 @@ public class Player : MonoBehaviour
         //var roomCache = Resources.Load<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
 
         //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
-        var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
+        var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), 0) + ".asset");
         var forgeAsset = AssetDatabase.LoadAssetAtPath<ForgeCurrent>(Constants.pathToSOImplementationForge + "/ForgeCurrentData.asset");
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //forgeAsset.SetToQueue(armAsset.Id);
         forgeAsset.T_ClearCores();
 
-        //forgeAsset.SetToQueue(33);
+        //forgeAsset.SetToQueue(0);
         //forgeAsset.SetToQueue(66);
         //forgeAsset.SetToQueue(66);
         //forgeAsset.SetToQueue(33);

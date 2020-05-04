@@ -14,9 +14,16 @@ public enum ItemAttrType
     ForgeCraftSpeed,
     ForgeMaxQueue,
     ForgeChanceSecondItem,
-    ForgeFreeCors
+    ForgeFreeCors,
+    TimeCraftInForge
 };
 
+public enum SOItemObjId
+{
+    Arm = 0,
+    Invulnerability = 1,
+    test = 4,
+}
 
 namespace v1.SO.ItemSO
 {
@@ -26,7 +33,7 @@ namespace v1.SO.ItemSO
         [SerializeField]
         int id;
         [SerializeField]
-        string name;
+        string theName;
         [SerializeField]
         int maxLvl;
         [SerializeField]

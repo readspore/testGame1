@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using v1.SO.ItemSO;
 
@@ -113,15 +115,15 @@ namespace v1.SO.ForgeSO
         public int SetToQueue(int itemId)
         {
             var currentCoreIndex = ItemCoreIndex(itemId);
-            Debug.Log("currentCoreIndex " + currentCoreIndex);
+            //Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
             {
-                Debug.Log("queue exist coreindex = " + currentCoreIndex);
+                //Debug.Log("queue exist coreindex = " + currentCoreIndex);
                 AddToExistingQueue(itemId, currentCoreIndex);
             }
             else
             {
-                Debug.Log("create new queue");
+                //Debug.Log("create new queue");
                 AddToFreeCore(itemId);
 
             }
@@ -136,16 +138,12 @@ namespace v1.SO.ForgeSO
             //Debug.Log("maxCoreIndex " + maxCoreIndex);
             while (i < maxCoreIndex && freeCoreIndex == -1)
             {
-                Debug.Log("GetQueuOnCore(i).Count " + GetQueuOnCore(i).Count + " i " + i);
+                //Debug.Log("GetQueuOnCore(i).Count " + GetQueuOnCore(i).Count + " i " + i);
                 if (GetQueuOnCore(i).Count == 0)
                     freeCoreIndex = i;
                 ++i;
             }
-            //if (freeCoreIndex <= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
-            //{
             return freeCoreIndex;
-            //}
-            //return -1;
         }
 
         public int ItemCoreIndex(int itemId)
@@ -178,12 +176,9 @@ namespace v1.SO.ForgeSO
 
         bool TryAddItemToQueue(int itemId, int coreIndex)
         {
-            //Debug.Log("CanUseCore " + CanUseCore(coreIndex, itemId).ToString());
             if (!CanUseCore(coreIndex, itemId))
                 return false;
             var queue = GetQueuOnCore(coreIndex);
-            // queue can be null
-            //Debug.Log("queue.Count " + queue.Count);
 
             if (queue == null)
             {
@@ -197,7 +192,7 @@ namespace v1.SO.ForgeSO
             }
 
             Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex);
-            var asset = CreateNewQueue();
+            var asset = CreateNewQueue(itemId);
             queue.Add(
                 asset
             );
@@ -304,16 +299,25 @@ namespace v1.SO.ForgeSO
                 core4ItemId = itemId;
         }
 
-        ForgeQueue CreateNewQueue()
+        ForgeQueue CreateNewQueue(int itemId)
         {
-            ForgeQueue asset = ScriptableObject.CreateInstance<ForgeQueue>();
-            asset.Id = QueuId;
-            asset.TimeStart = 124;
-            asset.TimeEnd = 333334;
-            asset.name = Constants.forgeQueueAssetPrefix + asset.Id;
-            UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/Queue/" + asset.name + ".asset");
-            Debug.Log("NEW queue " + asset.name);
-            return asset;
+            var item = AssetDatabase.LoadAssetAtPath<ItemSO.ItemSO>(
+                    Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+                );
+
+            ForgeQueue queue = ScriptableObject.CreateInstance<ForgeQueue>();
+            var timeNow = new DateTimeOffset(DateTime.UtcNow);
+
+            queue.Id = QueuId;
+            queue.TimeStart = timeNow.ToUnixTimeSeconds();
+            queue.TimeEnd = 
+                timeNow.ToUnixTimeSeconds() 
+                + Convert.ToInt64(
+                    item.GetAttrValue(ItemAttrType.TimeCraftInForge)
+                  );
+            queue.name = Constants.forgeQueueAssetPrefix + queue.Id;
+            UnityEditor.AssetDatabase.CreateAsset(queue, Constants.pathToSOImplementationForge + "/Queue/" + queue.name + ".asset");
+            return queue;
         }
 
         public void T_ClearCores()
@@ -323,7 +327,6 @@ namespace v1.SO.ForgeSO
             ResetCore(2);
             ResetCore(3);
             ResetCore(4);
-            return;
         }
 
         void ResetCore(int coreIndex)
