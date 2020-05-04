@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using v1.SO.ItemSO;
 
@@ -211,23 +212,18 @@ namespace v1.SO.ForgeSO
             {
                 case 0:
                     res = core0;
-                    //Debug.Log("core0");
                     break;
                 case 1:
                     res = core1;
-                    //Debug.Log("core1");
                     break;
                 case 2:
                     res = core2;
-                    //Debug.Log("core2");
                     break;
                 case 3:
                     res = core3;
-                    //Debug.Log("core3");
                     break;
                 case 4:
                     res = core4;
-                    //Debug.Log("core4");
                     break;
             }
             return res;
@@ -286,7 +282,6 @@ namespace v1.SO.ForgeSO
             asset.TimeStart = 124;
             asset.TimeEnd = 333334;
             asset.name = "ForgeQueue" + asset.Id;
-            //UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/queue");
             UnityEditor.AssetDatabase.CreateAsset(asset, Constants.pathToSOImplementationForge + "/Queue/" + asset.name + ".asset");
 
             return asset;
@@ -316,6 +311,10 @@ namespace v1.SO.ForgeSO
             core2 = new List<ForgeQueue>();
             core3 = new List<ForgeQueue>();
             core4 = new List<ForgeQueue>();
+
+            string[] fileEntries = Directory.GetFiles(Constants.pathToSOImplementationForge + "/Queue/");
+            foreach (string fileName in fileEntries)
+                UnityEditor.AssetDatabase.DeleteAsset(fileName);
 
             Debug.Log("cores are empty");
         }
