@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 32
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ForgeCurrentData
   m_EditorClassIdentifier: 
   lvl: 2
-  queuId: 17
+  queuId: 34
   lvl1:
   - name: 10
     value: 1
@@ -29,8 +29,11 @@ MonoBehaviour:
   lvl3: []
   lvl4: []
   lvl5: []
-  core0ItemId: -1
-  core0: []
+  core0ItemId: 0
+  core0:
+  - {fileID: 11400000, guid: ceee17fcb94ceb64289e3e00297c36a2, type: 2}
+  - {fileID: 11400000, guid: 831eb92937aa25d4a858d86b9c705474, type: 2}
+  - {fileID: 11400000, guid: 12c5fe756c7e60544889389bc7d39fcd, type: 2}
   core1ItemId: -1
   core1: []
   core2ItemId: -1

@@ -16,6 +16,8 @@ public class LvlSettings : MonoBehaviour
 
     void Start()
     {
+        UnityEditor.AssetDatabase.Refresh();
+
         if (uiEmulateClick != null)
         {
             UIController.ClickedHendler(uiEmulateClick, "");

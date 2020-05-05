@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using v1.SO.ForgeSO;
 using v1.SO.ItemSO;
 
@@ -44,7 +45,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        AssetDatabase.Refresh();
+        UnityEditor.AssetDatabase.Refresh();
+
+
         rb = transform.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
         mainCamera.gameObject.AddComponent<CameraControll>().TheStart(this.gameObject);
@@ -58,16 +61,21 @@ public class Player : MonoBehaviour
         //var roomCache = Resources.Load<ItemSO>(Constants.pathToSOImplementationItems + "/Arm.asset");
 
         //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
-        var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), 0) + ".asset");
-        var forgeAsset = AssetDatabase.LoadAssetAtPath<ForgeCurrent>(Constants.pathToSOImplementationForge + "/ForgeCurrentData.asset");
+        //var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), 0) + ".asset");
+        //var forgeAsset = AssetDatabase.LoadAssetAtPath<ForgeCurrent>(Constants.pathToSOImplementationForge + "/ForgeCurrentData.asset");
+
+        //GameObject.Find("TEST_SO ").GetComponent<Text>().text = "Forge id: " + forgeAsset.QueuId;
+        //GameObject.Find("TEST_btn_so ").GetComponent<Button>().onClick.AddListener(CreateQueue);
+
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //forgeAsset.SetToQueue(armAsset.Id);
-        forgeAsset.T_ClearCores();
+        //forgeAsset.T_ClearCores();
 
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
+
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);

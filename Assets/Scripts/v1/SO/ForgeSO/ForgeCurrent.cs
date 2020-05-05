@@ -62,6 +62,7 @@ namespace v1.SO.ForgeSO
             get
             {
                 ++queuId;
+                ForceSerialization();
                 return queuId;
             }
         }
@@ -110,6 +111,13 @@ namespace v1.SO.ForgeSO
             //}
             //return res2;
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
+        }
+
+        void ForceSerialization()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
         }
 
         public int SetToQueue(int itemId, Currency currency)
@@ -204,6 +212,8 @@ namespace v1.SO.ForgeSO
                 asset
             );
             SetItemIdOnCoreLable(coreIndex, itemId);
+            ForceSerialization();
+
             Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex + " queueId " + asset.Id);
             return true;
         }
@@ -317,8 +327,8 @@ namespace v1.SO.ForgeSO
 
             queue.Id = QueuId;
             queue.TimeStart = timeNow.ToUnixTimeSeconds();
-            queue.TimeEnd = 
-                timeNow.ToUnixTimeSeconds() 
+            queue.TimeEnd =
+                timeNow.ToUnixTimeSeconds()
                 + Convert.ToInt64(
                     item.GetAttrValue(ItemAttrType.TimeCraftInForge)
                   );
@@ -335,6 +345,7 @@ namespace v1.SO.ForgeSO
             ResetCore(3);
             ResetCore(4);
             Debug.Log("T_ClearCores");
+            ForceSerialization();
         }
 
         void ResetCore(int coreIndex)
@@ -345,7 +356,7 @@ namespace v1.SO.ForgeSO
             {
                 if (item != null)
                 {
-                    UnityEditor.AssetDatabase.DeleteAsset(Constants.pathToSOImplementationForge + "/Queue/" + Constants.forgeQueueAssetPrefix + item.Id + ".asset");
+                    AssetDatabase.DeleteAsset(Constants.pathToSOImplementationForge + "/Queue/" + item.name + ".asset");
                 }
             }
             SetQueueOnCore(coreIndex);
@@ -356,7 +367,7 @@ namespace v1.SO.ForgeSO
             switch (currency)
             {
                 case Currency.Gold:
-                    return Bank.AccountContain(Currency.Silver, int.Parse( item.GetAttrValue(ItemAttrType.GoldCost) ));
+                    return Bank.AccountContain(Currency.Silver, int.Parse(item.GetAttrValue(ItemAttrType.GoldCost)));
                 case Currency.Silver:
                     return Bank.AccountContain(Currency.Silver, int.Parse(item.GetAttrValue(ItemAttrType.SilverCost)));
             }
