@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500f579d0cbc7854db241e625064a51a, type: 3}
+  m_Name: Arm
+  m_EditorClassIdentifier: 
+  id: 0
+  theName: the arm
+  maxLvl: 3
+  curLvl: 1
+  lvl1:
+  - name: 4
+    value: 45
+  - name: 2
+    value: 100
+  - name: 3
+    value: 10
+  lvl2:
+  - name: 4
+    value: 90
+  - name: 2
+    value: 200
+  - name: 0
+    value: 
+  lvl3: []
+  lvl4: []
+  lvl5: []

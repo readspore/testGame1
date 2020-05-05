@@ -7,13 +7,6 @@ using UnityEditor;
 using UnityEngine;
 using v1.SO.SOItem;
 
-public enum ForgeErrors
-{
-    NoFreeCore,
-    QueueFull,
-
-};
-
 namespace v1.SO.SOForge
 {
     [CreateAssetMenu]

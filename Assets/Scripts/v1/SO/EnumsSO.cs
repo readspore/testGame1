@@ -30,4 +30,12 @@ namespace v1.SO
         Arm = 0,
         Invulnerability = 1,
     }
+
+    [Serializable]
+    public enum ForgeErrors
+    {
+        NoFreeCore,
+        QueueFull,
+
+    };
 }
