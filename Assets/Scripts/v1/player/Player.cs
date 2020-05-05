@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using v1.SO.ForgeSO;
-using v1.SO.ItemSO;
+using v1.SO.SOForge;
+using v1.SO.SOItem;
 
 public class Player : MonoBehaviour
 {

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using v1.SO.ItemSO;
+using v1.SO.SOItem;
 
 public enum ForgeErrors
 {
@@ -14,10 +14,10 @@ public enum ForgeErrors
 
 };
 
-namespace v1.SO.ForgeSO
+namespace v1.SO.SOForge
 {
     [CreateAssetMenu]
-    public class ForgeCurrent : ScriptableObject
+    public class SOForge : ScriptableObject
     {
         [SerializeField]
         int lvl;
@@ -122,7 +122,7 @@ namespace v1.SO.ForgeSO
 
         public int SetToQueue(int itemId, Currency currency)
         {
-            var item = AssetDatabase.LoadAssetAtPath<ItemSO.ItemSO>(
+            var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
                 Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
             );
             if (!BankAllow(item, currency))
@@ -318,7 +318,7 @@ namespace v1.SO.ForgeSO
 
         ForgeQueue CreateNewQueue(int itemId)
         {
-            var item = AssetDatabase.LoadAssetAtPath<ItemSO.ItemSO>(
+            var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
                     Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
                 );
 
@@ -362,7 +362,7 @@ namespace v1.SO.ForgeSO
             SetQueueOnCore(coreIndex);
         }
 
-        bool BankAllow(ItemSO.ItemSO item, Currency currency)
+        bool BankAllow(SOItem.SOItem item, Currency currency)
         {
             switch (currency)
             {

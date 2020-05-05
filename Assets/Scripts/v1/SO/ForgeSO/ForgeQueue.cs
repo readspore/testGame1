@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace v1.SO.ForgeSO
+namespace v1.SO.SOForge
 {
     [System.Serializable]
     public class ForgeQueue : ScriptableObject
