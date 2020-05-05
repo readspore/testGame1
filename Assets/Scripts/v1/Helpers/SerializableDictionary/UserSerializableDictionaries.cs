@@ -16,14 +16,14 @@ public class ColorArrayStorage : SerializableDictionary.Storage<Color[]> {}
 public class StringColorArrayDictionary : SerializableDictionary<string, Color[], ColorArrayStorage> { }
 
 [Serializable]
-public class MyClass
+public class MyClassSD
 {
     public int i;
     public string str;
 }
 
 [Serializable]
-public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, MyClass> {}
+public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, MyClassSD> {}
 
 #if NET_4_6 || NET_STANDARD_2_0
 [Serializable]
