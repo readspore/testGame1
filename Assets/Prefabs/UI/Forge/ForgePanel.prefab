@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5196476189628021522}
   - component: {fileID: 7747005363554450649}
   - component: {fileID: 842233943036942336}
+  - component: {fileID: 3061522646091109274}
   m_Layer: 5
   m_Name: Button_QueueQuantity
   m_TagString: Untagged
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.13725491, g: 0.2901961, b: 0.42352945, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -120,6 +121,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3061522646091109274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469336195614024597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8824085d089cb0443bcf79b90857e321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IncreaseButton: {fileID: 8123668794229689220}
+  DecreaseButton: {fileID: 6081113240816003987}
+  Counter: {fileID: 5378732607935567131}
 --- !u!1 &2218847549234210553
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +212,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 1
 --- !u!1 &2416443412984361838
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +770,7 @@ GameObject:
   - component: {fileID: 1246868154709929376}
   - component: {fileID: 7668907911872090797}
   m_Layer: 5
-  m_Name: Button_MinusQuantity
+  m_Name: Button_PlusQuantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -858,7 +874,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1246868154709929376}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3061522646091109274}
+        m_MethodName: Increase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8123668794229689220
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +899,7 @@ GameObject:
   - component: {fileID: 6282467416986145156}
   - component: {fileID: 607837142408858417}
   m_Layer: 5
-  m_Name: Button_PlusQuantity
+  m_Name: Button_MinusQuantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,7 +1003,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6282467416986145156}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3061522646091109274}
+        m_MethodName: Decrease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8719878670904325688
 GameObject:
   m_ObjectHideFlags: 0
