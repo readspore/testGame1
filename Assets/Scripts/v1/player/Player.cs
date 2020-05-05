@@ -63,9 +63,9 @@ public class Player : MonoBehaviour
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //forgeAsset.SetToQueue(armAsset.Id);
-        //forgeAsset.T_ClearCores();
+        forgeAsset.T_ClearCores();
 
-        forgeAsset.SetToQueue(0, Currency.Silver);
+        //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
