@@ -7,9 +7,13 @@ namespace v1.SO.SOForge
     [System.Serializable]
     public class ForgeQueueItem
     {
-        public int id;
-        public long timeStart;
-        public long timeEnd;
+         int id;
+         long timeStart;
+         long timeEnd;
+
+        public int Id { get => id; set => id = value; }
+        public long TimeStart { get => timeStart; set => timeStart = value; }
+        public long TimeEnd { get => timeEnd; set => timeEnd = value; }
 
         public ForgeQueueItem()
         {
@@ -18,9 +22,9 @@ namespace v1.SO.SOForge
 
         public ForgeQueueItem(int id, long timeStart, long timeEnd)
         {
-            this.id = id;
-            this.timeStart = timeStart;
-            this.timeEnd = timeEnd;
+            this.Id = id;
+            this.TimeStart = timeStart;
+            this.TimeEnd = timeEnd;
         }
     }
 }
