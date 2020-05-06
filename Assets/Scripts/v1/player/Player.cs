@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SaveSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -141,8 +143,53 @@ public class Player : MonoBehaviour
         //var getAllRespawnIdsOnLvl = RespawHelpers.GetAllRespawnIdsOnLvl();
         //Respawn resp = new Respawn(11);
         //resp.MoveToRespawn();
+
+        GetCore(0);
     }
 
+    void SetNewQueue(int coreIndex, List<ForgeQueueItem> queue)
+    {
+        Core core = new Core();
+        core.queue = queue;
+        SetNewQueue(coreIndex, core);
+    }
+
+    void SetNewQueue(int coreIndex, Core core)
+    {
+        FileSave fileSave = new FileSave(FileFormat.Xml);
+        fileSave.WriteToFile(
+            Application.persistentDataPath + "/Core-" + coreIndex + ".xml",
+            core
+        );
+    }
+
+    Core GetCore(int coreIndex)
+    {
+        var corePath = Application.persistentDataPath + "/Core"+ coreIndex + ".xml";
+        if (!File.Exists(corePath))
+        {
+            CreateCore(coreIndex);
+        }
+
+        FileSave fileSave = new FileSave(FileFormat.Xml);
+        return fileSave.ReadFromFile<Core>(corePath);
+    }
+
+    void CreateCore(int coreIndex)
+    {
+        FileSave fileSave = new FileSave(FileFormat.Xml);
+        var qw = new Core();
+        qw.queue = new List<ForgeQueueItem>() {
+            new ForgeQueueItem(0, 100, 100),
+            new ForgeQueueItem(1, 100, 100),
+            new ForgeQueueItem(2, 100, 100),
+            new ForgeQueueItem(99, 100, 100)
+        };
+        fileSave.WriteToFile(
+            Application.persistentDataPath + "/Core-"+ coreIndex + ".xml",
+            qw
+        );
+    }
     //IEnumerator TDL()
     //{
     //    yield return new WaitForSeconds(3);

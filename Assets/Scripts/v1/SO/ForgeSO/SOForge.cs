@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using v1.SO.SOItem;
+using SaveSystem;
 
 namespace v1.SO.SOForge
 {
@@ -55,10 +56,23 @@ namespace v1.SO.SOForge
             get
             {
                 ++queuId;
-                ForceSerialization();
                 return queuId;
             }
         }
+
+        public int Core0ItemId { get => PlayerPrefs.GetInt("Core0ItemId"); }
+        public int Core1ItemId { get => PlayerPrefs.GetInt("Core1ItemId"); }
+        public int Core2ItemId { get => PlayerPrefs.GetInt("Core2ItemId"); }
+        public int Core3ItemId { get => PlayerPrefs.GetInt("Core3ItemId"); }
+        public int Core4ItemId { get => PlayerPrefs.GetInt("Core4ItemId"); }
+        //public List<ForgeQueue> Core4
+        //{
+        //    get(){
+        //        FileSave fileSave = new FileSave(FileFormat.Xml);
+        //        return ForgeQueue queue = fileSave.ReadFromFile<ForgeQueue>(Application.persistentDataPath + "/ForgeQueue/Core4.xml");
+        //    }
+        //    set => core4 = value; 
+        //}
 
         public string GetLvlAttrValue(ItemAttrType attrnName)
         {
@@ -106,13 +120,6 @@ namespace v1.SO.SOForge
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
         }
 
-        void ForceSerialization()
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
-#endif
-        }
-
         public int SetToQueue(int itemId, Currency currency)
         {
             var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
@@ -158,15 +165,15 @@ namespace v1.SO.SOForge
         public int ItemCoreIndex(int itemId)
         {
             var res = -1;
-            if (core0ItemId == itemId)
+            if (Core0ItemId == itemId)
                 res = 0;
-            if (core1ItemId == itemId)
+            if (Core1ItemId == itemId)
                 res = 1;
-            if (core2ItemId == itemId)
+            if (Core2ItemId == itemId)
                 res = 2;
-            if (core3ItemId == itemId)
+            if (Core3ItemId == itemId)
                 res = 3;
-            if (core4ItemId == itemId)
+            if (Core4ItemId == itemId)
                 res = 4;
 
             return res;
@@ -205,34 +212,33 @@ namespace v1.SO.SOForge
                 asset
             );
             SetItemIdOnCoreLable(coreIndex, itemId);
-            ForceSerialization();
-
             Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex + " queueId " + asset.Id);
             return true;
         }
 
         List<ForgeQueue> GetQueuOnCore(int coreIndex)
         {
-            List<ForgeQueue> res = null;
-            switch (coreIndex)
-            {
-                case 0:
-                    res = core0;
-                    break;
-                case 1:
-                    res = core1;
-                    break;
-                case 2:
-                    res = core2;
-                    break;
-                case 3:
-                    res = core3;
-                    break;
-                case 4:
-                    res = core4;
-                    break;
-            }
-            return res;
+            return GetCore(coreIndex).queue;
+            //List<ForgeQueue> res = null;
+            //switch (coreIndex)
+            //{
+            //    case 0:
+            //        res = core0;
+            //        break;
+            //    case 1:
+            //        res = core1;
+            //        break;
+            //    case 2:
+            //        res = core2;
+            //        break;
+            //    case 3:
+            //        res = core3;
+            //        break;
+            //    case 4:
+            //        res = core4;
+            //        break;
+            //}
+            //return res;
         }
 
         void SetQueueOnCore(int coreIndex)
@@ -282,31 +288,32 @@ namespace v1.SO.SOForge
         int GetItemIdOnCore(int coreIndex)
         {
             if (coreIndex == 0)
-                return core0ItemId;
+                return Core0ItemId;
             if (coreIndex == 1)
-                return core1ItemId;
+                return Core1ItemId;
             if (coreIndex == 2)
-                return core2ItemId;
+                return Core2ItemId;
             if (coreIndex == 3)
-                return core3ItemId;
+                return Core3ItemId;
             if (coreIndex == 4)
-                return core4ItemId;
+                return Core4ItemId;
 
             return -1;
         }
 
         void SetItemIdOnCoreLable(int coreIndex, int itemId)
         {
-            if (coreIndex == 0)
-                core0ItemId = itemId;
-            if (coreIndex == 1)
-                core1ItemId = itemId;
-            if (coreIndex == 2)
-                core2ItemId = itemId;
-            if (coreIndex == 3)
-                core3ItemId = itemId;
-            if (coreIndex == 4)
-                core4ItemId = itemId;
+            PlayerPrefs.SetInt("Core" + coreIndex + "ItemId", itemId);
+            //if (coreIndex == 0)
+            //    Core0ItemId = itemId;
+            //if (coreIndex == 1)
+            //    Core1ItemId = itemId;  
+            //if (coreIndex == 2)
+            //    Core2ItemId = itemId;
+            //if (coreIndex == 3)
+            //    Core3ItemId = itemId;
+            //if (coreIndex == 4)
+            //    Core4ItemId = itemId;
         }
 
         ForgeQueue CreateNewQueue(int itemId)
@@ -338,7 +345,6 @@ namespace v1.SO.SOForge
             ResetCore(3);
             ResetCore(4);
             Debug.Log("T_ClearCores");
-            ForceSerialization();
         }
 
         void ResetCore(int coreIndex)
@@ -365,6 +371,34 @@ namespace v1.SO.SOForge
                     return Bank.AccountContain(Currency.Silver, int.Parse(item.GetAttrValue(ItemAttrType.SilverCost)));
             }
             return false;
+        }
+
+        Core GetCore(int coreIndex)
+        {
+            var corePath = Application.persistentDataPath + "/Core" + coreIndex + ".xml";
+            if (!File.Exists(corePath))
+            {
+                CreateCore(coreIndex);
+            }
+
+            FileSave fileSave = new FileSave(FileFormat.Xml);
+            return fileSave.ReadFromFile<Core>(corePath);
+        }
+
+        void CreateCore(int coreIndex)
+        {
+            FileSave fileSave = new FileSave(FileFormat.Xml);
+            var qw = new Core();
+            qw.queue = new List<ForgeQueueItem>() {
+            new ForgeQueueItem(0, 100, 100),
+            new ForgeQueueItem(1, 100, 100),
+            new ForgeQueueItem(2, 100, 100),
+            new ForgeQueueItem(99, 100, 100)
+        };
+            fileSave.WriteToFile(
+                Application.persistentDataPath + "/Core-" + coreIndex + ".xml",
+                qw
+            );
         }
     }
 }
