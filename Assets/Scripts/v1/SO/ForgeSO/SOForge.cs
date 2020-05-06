@@ -16,8 +16,6 @@ namespace v1.SO.SOForge
         [SerializeField]
         int lvl;
         [SerializeField]
-        int queuId;
-        [SerializeField]
         List<InputOutputData> lvl1;
         [SerializeField]
         List<InputOutputData> lvl2;
@@ -29,14 +27,6 @@ namespace v1.SO.SOForge
         List<InputOutputData> lvl5;
 
         public int Lvl { get => lvl; set => lvl = value; }
-        public int QueuId
-        {
-            get
-            {
-                ++queuId;
-                return queuId;
-            }
-        }
 
         public int GetCoreItemId(int coreIndex)
         {
@@ -50,23 +40,18 @@ namespace v1.SO.SOForge
             {
                 case 1:
                     listToSelect = lvl1;
-                    //Debug.Log("list lvl1");
                     break;
                 case 2:
                     listToSelect = lvl2;
-                    //Debug.Log("list lvl2");
                     break;
                 case 3:
                     listToSelect = lvl3;
-                    //Debug.Log("list lvl3");
                     break;
                 case 4:
                     listToSelect = lvl4;
-                    //Debug.Log("list lvl4");
                     break;
                 case 5:
                     listToSelect = lvl5;
-                    //Debug.Log("list lvl5");
                     break;
             }
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
@@ -103,10 +88,8 @@ namespace v1.SO.SOForge
             var i = 0;
             var freeCoreIndex = -1;
             var maxCoreIndex = int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors));
-            //Debug.Log("maxCoreIndex " + maxCoreIndex);
             while (i < maxCoreIndex && freeCoreIndex == -1)
             {
-                //Debug.Log("GetQueuOnCore(i).Count " + GetQueuOnCore(i).Count + " i " + i);
                 if (GetQueuOnCore(i).Count == 0)
                     freeCoreIndex = i;
                 ++i;
@@ -165,7 +148,7 @@ namespace v1.SO.SOForge
             );
             SetNewQueue(coreIndex, queue);
             SetItemIdOnCoreLable(coreIndex, itemId);
-            Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex );
+            Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex);
             return true;
         }
 
