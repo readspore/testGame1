@@ -28,7 +28,7 @@ namespace v1.SO.SOItem
         List<InputOutputData> lvl5;
 
         public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
+        public string Name { get => theName; set => theName = value; }
         public int MaxLvl { get => maxLvl; set => maxLvl = value; }
         public int CurLvl { get => curLvl; set => curLvl = value; }
 

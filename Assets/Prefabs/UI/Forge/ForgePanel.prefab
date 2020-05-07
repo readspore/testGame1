@@ -1731,11 +1731,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e32b5735d2c1e9478edda57017d1756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soForge: {fileID: 11400000, guid: 6175de705656fe540a0b33995032bf33, type: 2}
   itemType: 0
   btnBuy: {fileID: 8719878670930601043}
   btnCreate: {fileID: 8719878671118438017}
-  amountText: {fileID: 6122012954835514335}
-  numberInput: {fileID: 6383309275405002297}
 --- !u!1 &8719878671432766216
 GameObject:
   m_ObjectHideFlags: 0

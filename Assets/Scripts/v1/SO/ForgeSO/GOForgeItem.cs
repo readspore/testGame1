@@ -6,9 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using v1.SO;
 using v1.SO.SOItem;
+using v1.SO.SOForge;
 
 public class GOForgeItem : MonoBehaviour
 {
+    public SOForge soForge;
     public SOItemObjId itemType;
     public Button btnBuy;
     public Button btnCreate;
@@ -31,12 +33,14 @@ public class GOForgeItem : MonoBehaviour
 
     public void TryCreate()
     {
-        Debug.Log("TryCreate " + itemType.ToString());
+        var status = soForge.BuyAndSetToQueue((int) itemType, Currency.Silver);
+        Debug.Log("TryCreate " + status.ToString());
     }
 
     public void TryBuy()
     {
-        Debug.Log("TryBuy " + itemType.ToString());
+        var status = soForge.BuyAndSetToQueue((int)itemType, Currency.Gold);
+        Debug.Log("TryBuy " + status.ToString());
     }
 
 }
