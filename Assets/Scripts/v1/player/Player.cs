@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
         //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
         //var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), 0) + ".asset");
         var forgeAsset = AssetDatabase.LoadAssetAtPath<SOForge>(Constants.pathToSOImplementationForge + "/ForgeData.asset");
+        forgeAsset.T_ClearCores();
 
         //GameObject.Find("TEST_SO ").GetComponent<Text>().text = "Forge id: " + forgeAsset.QueuId;
         //GameObject.Find("TEST_btn_so ").GetComponent<Button>().onClick.AddListener(CreateQueue);
@@ -74,7 +75,6 @@ public class Player : MonoBehaviour
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
         //forgeAsset.SetToQueue(armAsset.Id);
-        forgeAsset.T_ClearCores();
         //Debug.Log("count " + forgeAsset.GetCore(0).queue.Count);
         //forgeAsset.SetToQueue(0, Currency.Silver);
         //forgeAsset.SetToQueue(0, Currency.Silver);
@@ -149,55 +149,6 @@ public class Player : MonoBehaviour
 
         //GetCore(0);
     }
-
-    //void SetNewQueue(int coreIndex, List<ForgeQueueItem> queue)
-    //{
-    //    Core core = new Core();
-    //    core.queue = queue;
-    //    SetNewQueue(coreIndex, core);
-    //}
-
-    //void SetNewQueue(int coreIndex, Core core)
-    //{
-    //    FileSave fileSave = new FileSave(FileFormat.Xml);
-    //    fileSave.WriteToFile(
-    //        Application.persistentDataPath + "/Core-" + coreIndex + ".xml",
-    //        core
-    //    );
-    //}
-
-    //Core GetCore(int coreIndex)
-    //{
-    //    var corePath = Application.persistentDataPath + "/Core"+ coreIndex + ".xml";
-    //    if (!File.Exists(corePath))
-    //    {
-    //        CreateCore(coreIndex);
-    //    }
-
-    //    FileSave fileSave = new FileSave(FileFormat.Xml);
-    //    return fileSave.ReadFromFile<Core>(corePath);
-    //}
-
-    //void CreateCore(int coreIndex)
-    //{
-    //    FileSave fileSave = new FileSave(FileFormat.Xml);
-    //    var qw = new Core();
-    //    qw.queue = new List<ForgeQueueItem>() {
-    //        new ForgeQueueItem(0, 100, 100),
-    //        new ForgeQueueItem(1, 100, 100),
-    //        new ForgeQueueItem(2, 100, 100),
-    //        new ForgeQueueItem(99, 100, 100)
-    //    };
-    //    fileSave.WriteToFile(
-    //        Application.persistentDataPath + "/Core-"+ coreIndex + ".xml",
-    //        qw
-    //    );
-    //}
-    //IEnumerator TDL()
-    //{
-    //    yield return new WaitForSeconds(3);
-    //    Debug.Log("TDL");
-    //}
 
     void T_TakeDamage()
     {

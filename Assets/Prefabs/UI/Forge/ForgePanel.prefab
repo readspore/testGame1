@@ -493,7 +493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2635131264640811453
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.011764706, g: 0.7411765, b: 0.36078432, a: 1}
+  m_Color: {r: 0.7411765, g: 0.011764705, b: 0.011764705, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -962,7 +962,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 0
 --- !u!1 &8123668794229689220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1735,10 @@ MonoBehaviour:
   itemType: 0
   btnBuy: {fileID: 8719878670930601043}
   btnCreate: {fileID: 8719878671118438017}
+  takeReadyItems: {fileID: 0}
+  amountToCreate: {fileID: 6122012954835514335}
+  progressBar: {fileID: 4335311272707369274}
+  countDown: {fileID: 766376111342600389}
 --- !u!1 &8719878671432766216
 GameObject:
   m_ObjectHideFlags: 0

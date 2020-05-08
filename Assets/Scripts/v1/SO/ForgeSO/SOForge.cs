@@ -103,19 +103,19 @@ namespace v1.SO.SOForge
 
         public int ItemCoreIndex(int itemId)
         {
-            var res = -1;
+            var coreIndex = -1;
             if (GetCoreItemId(0) == itemId)
-                res = 0;
+                coreIndex = 0;
             if (GetCoreItemId(1) == itemId)
-                res = 1;
+                coreIndex = 1;
             if (GetCoreItemId(2) == itemId)
-                res = 2;
+                coreIndex = 2;
             if (GetCoreItemId(3) == itemId)
-                res = 3;
+                coreIndex = 3;
             if (GetCoreItemId(4) == itemId)
-                res = 4;
+                coreIndex = 4;
 
-            return res;
+            return coreIndex;
         }
 
         ForgeStatuses AddToExistingQueue(int itemId, int coreIndex)
@@ -165,6 +165,17 @@ namespace v1.SO.SOForge
             List<ForgeQueueItem> res = GetCore(coreIndex).queue ?? new List<ForgeQueueItem>();
             return res;
         }
+
+        //ForgeStatuses CanUseCore(int coreIndex)
+        //{
+        //    if (coreIndex > int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
+        //    {
+        //        if (isDebug)
+        //            Debug.Log("CanUseCore FALSE core index out of range " + coreIndex);
+        //        return ForgeStatuses.NoFreeCore;
+        //    }
+        //    return ForgeStatuses.Ok;
+        //}
 
         ForgeStatuses CanUseCore(int coreIndex, int itemId)
         {
@@ -270,11 +281,23 @@ namespace v1.SO.SOForge
         void SetNewQueue(int coreIndex, Core core)
         {
             FileSave fileSave = new FileSave(FileFormat.Xml);
+            //Debug.Log("Data Path " + Application.persistentDataPath);
             fileSave.WriteToFile(
                 Application.persistentDataPath + "/Core" + coreIndex + ".xml",
                 core
             );
         }
 
+        public Core GetCoreForItem(int itemId)
+        {
+            var coreIndex = ItemCoreIndex(itemId);
+            if (CanUseCore(coreIndex, itemId) == ForgeStatuses.Ok)
+            {
+                //Debug.Log("GetCoreForItem CanUseCore");
+                return GetCore(coreIndex);
+            }
+            Debug.Log("GetCoreForItem NOT CanUseCore");
+            return null;
+        }
     }
 }

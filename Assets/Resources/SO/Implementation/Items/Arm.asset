@@ -24,7 +24,7 @@ MonoBehaviour:
   - name: 3
     value: 10
   - name: 11
-    value: 100
+    value: 30
   lvl2:
   - name: 4
     value: 90
