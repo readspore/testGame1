@@ -72,7 +72,12 @@ public class GOForgeItem : MonoBehaviour
     public void TakeReadyItems()
     {
         //TryShowProgress();
-        soForge.T_ClearCores();
+        //soForge.T_ClearCores();
+        var core = soForge.GetCoreForItem((int)itemType);
+        core.queue = core.queue.Where(i => i.IsReady == false).ToList();
+        var coreIndex = soForge.ItemCoreIndex((int)itemType);
+        soForge.SetNewQueue(coreIndex, core);
+        UpdateAmountCreationReady();
         Debug.Log("TakeReadyItems clicked");
         //UpdateAmountCreationReady();
     }
@@ -159,12 +164,12 @@ public class GOForgeItem : MonoBehaviour
         var readyWidth = ProgressMaxWidth - ((ProgressMaxWidth / 100f) * readyTimePersents);
         //var readyWidth = progressMaxWidth - ((progressMaxWidth / 100) * readyTimePersents);
         readyWidth = Math.Abs(readyWidth);
-        Debug.Log("readyWidth " + readyWidth);
-        Debug.Log(
-            " progressMaxWidth " + ProgressMaxWidth +
-            " readyTimePersents " + readyTimePersents +
-            ""
-            );
+        //Debug.Log("readyWidth " + readyWidth);
+        //Debug.Log(
+        //    " progressMaxWidth " + ProgressMaxWidth +
+        //    " readyTimePersents " + readyTimePersents +
+        //    ""
+        //    );
         rt.offsetMax = new Vector2(-readyWidth, rt.offsetMax.y);
         //}
         //Debug.Log("progress for " + nearestReady.Id);
@@ -183,58 +188,21 @@ public class GOForgeItem : MonoBehaviour
         //CancelInvoke();
         nearestReady = null;
         var core = soForge.GetCoreForItem((int)itemType);
-        //if (core == null)
-        //{
-        ////    Debug.Log("core is null");
-        //    UpdateAmountCreationReady();
-        //    return;
-        //}
-        //if (
-        //    core.queue == null
-        //    ||
-        //    core.queue.Count == 0
-        //)
-        //{
-        ////    Debug.Log("queue is empty");
-        //    UpdateAmountCreationReady();
-        //    return;
-        //}
         var timeNow = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-        //var createdItems = core.queue.Select(i => i.IsReady).ToList();
-        //core.queue.ToList().ForEach(
-        //    ( item ) => 
-        //    {
-        ////        Debug.Log(" ToList().ForEach( " + (item.TimeEnd <= timeNow ? true : false) + "  " + item.TimeEnd + "  " +   timeNow);
-        //        item.IsReady = item.TimeEnd <= timeNow ? true : false;
-        //    }
-        // );
-        //var r = core.queue.Select(item => item.IsReady = item.TimeEnd <= timeNow ? true : false);
         List<ForgeQueueItem> readyItems = new List<ForgeQueueItem>();
         for (int i = 0; i < core.queue.Count; i++)
         {
             if (core.queue[i].TimeEnd <= timeNow)
-            {
                 core.queue[i].IsReady = true;
-            }
         }
-        //foreach (var item in core.queue)
-        //{
-        //    item.IsReady = item.TimeEnd <= timeNow ? true : false;
-        //}
-        foreach (var item in core.queue)
-        {
-            if (item.IsReady)
-            {
-                //Debug.Log("ItemIsReady " + item.Id + " " + (item.IsReady ? " ready " : " process "));
-            }
-        }
-        FileSave fileSave = new FileSave(FileFormat.Xml);
         var coreIndex = soForge.ItemCoreIndex((int)itemType);
+        soForge.SetNewQueue(coreIndex, core);
         //Debug.Log("Data Path " + Application.persistentDataPath);
-        fileSave.WriteToFile(
-            Application.persistentDataPath + "/Core" + coreIndex + ".xml",
-            core
-        );
+        //FileSave fileSave = new FileSave(FileFormat.Xml);
+        //fileSave.WriteToFile(
+        //    Application.persistentDataPath + "/Core" + coreIndex + ".xml",
+        //    core
+        //);
     }
 
     void UpdateAmountCreationReady()

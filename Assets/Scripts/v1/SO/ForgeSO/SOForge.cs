@@ -283,14 +283,14 @@ namespace v1.SO.SOForge
                 Debug.Log("created new file => " + corePath);
         }
 
-        void SetNewQueue(int coreIndex, List<ForgeQueueItem> queue)
+        public void SetNewQueue(int coreIndex, List<ForgeQueueItem> queue)
         {
             Core core = new Core();
             core.queue = queue;
             SetNewQueue(coreIndex, core);
         }
 
-        void SetNewQueue(int coreIndex, Core core)
+        public void SetNewQueue(int coreIndex, Core core)
         {
             FileSave fileSave = new FileSave(FileFormat.Xml);
             //Debug.Log("Data Path " + Application.persistentDataPath);
