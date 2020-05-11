@@ -24,7 +24,20 @@ public class GOForgeItem : MonoBehaviour
     public Text amountReady;
 
     ForgeQueueItem nearestReady = null;
-    float progressMaxWidth;
+    private float progressMaxWidth;
+
+    public float ProgressMaxWidth { get => progressMaxWidth; 
+        set
+        {
+            if (progressMaxWidth != 0)
+            {
+                return;
+            }
+            Debug.Log("SET ProgressMaxWidth = " + value);
+            progressMaxWidth = value;
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -52,7 +65,7 @@ public class GOForgeItem : MonoBehaviour
         for (int i = 0; i < createAmount; i++)
         {
             var status = soForge.BuyAndSetToQueue((int)itemType, Currency.Silver);
-            Debug.Log("TryCreate " + status.ToString());
+            //Debug.Log("TryCreate " + status.ToString());
         }
         TryShowProgress();
     }
@@ -61,7 +74,7 @@ public class GOForgeItem : MonoBehaviour
     {
         //TryShowProgress();
         soForge.T_ClearCores();
-        Debug.Log("TakeReadyItems clicked");
+        //Debug.Log("TakeReadyItems clicked");
         //UpdateAmountCreationReady();
     }
 
@@ -71,17 +84,18 @@ public class GOForgeItem : MonoBehaviour
         for (int i = 0; i < createAmount; i++)
         {
             var status = soForge.BuyAndSetToQueue((int)itemType, Currency.Gold);
-            Debug.Log("TryBuy " + status.ToString());
+            //Debug.Log("TryBuy " + status.ToString());
         }
     }
 
     public void TryShowProgress()
     {
+        ResetProgressBar();
         ShowTakeReady(false);
         var core = soForge.GetCoreForItem((int)itemType);
         if (core == null)
         {
-            Debug.Log("core is null");
+            //Debug.Log("core is null");
             return;
         }
         if (
@@ -90,7 +104,7 @@ public class GOForgeItem : MonoBehaviour
             core.queue.Count == 0
         )
         {
-            Debug.Log("queue is empty");
+            //Debug.Log("queue is empty");
             return;
         }
 
@@ -103,15 +117,14 @@ public class GOForgeItem : MonoBehaviour
         }
         catch (InvalidOperationException e)
         {
-            ResetProgressBar();
-            Debug.Log("TryShowProgress InvalidOperationException");
+            //Debug.Log("TryShowProgress InvalidOperationException");
             return;
         }
-        //RectTransform rt = (RectTransform)progressBar.transform;
-        //progressMaxWidth = rt.rect.width;
+        RectTransform rt = (RectTransform)progressBar.transform;
+        ProgressMaxWidth = rt.rect.width;
         if (nearestReady != null)
         {
-            Debug.Log("START InvokeRepeating");
+            //Debug.Log("START InvokeRepeating");
             InvokeRepeating("RenderProgress", 1, 3);
         }
     }
@@ -142,18 +155,18 @@ public class GOForgeItem : MonoBehaviour
         //    );
 
         RectTransform rt = (RectTransform)progressBar.transform;
-        var readyWidth = progressMaxWidth - ((progressMaxWidth / 100f) * readyTimePersents);
+        var readyWidth = ProgressMaxWidth - ((ProgressMaxWidth / 100f) * readyTimePersents);
         //var readyWidth = progressMaxWidth - ((progressMaxWidth / 100) * readyTimePersents);
         readyWidth = Math.Abs(readyWidth);
-        //Debug.Log("readyWidth " + readyWidth);
-        //Debug.Log(
-        //    " progressMaxWidth " + progressMaxWidth +
-        //    " readyTimePersents " + readyTimePersents +
-        //    ""
-        //    );
+        Debug.Log("readyWidth " + readyWidth);
+        Debug.Log(
+            " progressMaxWidth " + ProgressMaxWidth +
+            " readyTimePersents " + readyTimePersents +
+            ""
+            );
         rt.offsetMax = new Vector2(-readyWidth, rt.offsetMax.y);
         //}
-        Debug.Log("progress for " + nearestReady.Id);
+        //Debug.Log("progress for " + nearestReady.Id);
         //Debug.Log("% " + readyTimePersents + " readyWidth " + readyWidth + " progressMaxWidth " + progressMaxWidth);
     }
 
@@ -165,13 +178,13 @@ public class GOForgeItem : MonoBehaviour
 
     void ItemIsReady()
     {
-        Debug.Log("Item is ready " + nearestReady.Id);
+        //Debug.Log("Item is ready " + nearestReady.Id);
         //CancelInvoke();
         nearestReady = null;
         var core = soForge.GetCoreForItem((int)itemType);
         //if (core == null)
         //{
-        //    Debug.Log("core is null");
+        ////    Debug.Log("core is null");
         //    UpdateAmountCreationReady();
         //    return;
         //}
@@ -181,7 +194,7 @@ public class GOForgeItem : MonoBehaviour
         //    core.queue.Count == 0
         //)
         //{
-        //    Debug.Log("queue is empty");
+        ////    Debug.Log("queue is empty");
         //    UpdateAmountCreationReady();
         //    return;
         //}
@@ -190,7 +203,7 @@ public class GOForgeItem : MonoBehaviour
         //core.queue.ToList().ForEach(
         //    ( item ) => 
         //    {
-        //        Debug.Log(" ToList().ForEach( " + (item.TimeEnd <= timeNow ? true : false) + "  " + item.TimeEnd + "  " +   timeNow);
+        ////        Debug.Log(" ToList().ForEach( " + (item.TimeEnd <= timeNow ? true : false) + "  " + item.TimeEnd + "  " +   timeNow);
         //        item.IsReady = item.TimeEnd <= timeNow ? true : false;
         //    }
         // );
@@ -211,7 +224,7 @@ public class GOForgeItem : MonoBehaviour
         {
             if (item.IsReady)
             {
-                Debug.Log("ItemIsReady " + item.Id + " " + (item.IsReady ? " ready " : " process "));
+                //Debug.Log("ItemIsReady " + item.Id + " " + (item.IsReady ? " ready " : " process "));
             }
         }
         FileSave fileSave = new FileSave(FileFormat.Xml);
@@ -232,7 +245,7 @@ public class GOForgeItem : MonoBehaviour
 
         if (core == null)
         {
-            Debug.Log("core is null");
+            //Debug.Log("core is null");
             queueReady = 0;
             createdItems = 0;
             //return;
@@ -243,7 +256,7 @@ public class GOForgeItem : MonoBehaviour
             core.queue.Count == 0
         )
         {
-            Debug.Log("queue is empty");
+            //Debug.Log("queue is empty");
             queueReady = 0;
             createdItems = 0;
         }
@@ -276,8 +289,7 @@ public class GOForgeItem : MonoBehaviour
 
     void ResetProgressBar() {
         RectTransform rt = (RectTransform)progressBar.transform;
-        //var readyWidth = progressMaxWidth;
-        rt.offsetMax = new Vector2(-progressMaxWidth, rt.offsetMax.y);
-        Debug.Log("ResetProgressBar " + (-progressMaxWidth));
+        rt.offsetMax = new Vector2(-ProgressMaxWidth, rt.offsetMax.y);
+        //Debug.Log("ResetProgressBar " + (-progressMaxWidth));
     }
 }
