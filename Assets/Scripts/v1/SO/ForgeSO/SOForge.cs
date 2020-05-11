@@ -35,6 +35,14 @@ namespace v1.SO.SOForge
             return PlayerPrefs.GetInt("Core" + coreIndex + "ItemId");
         }
 
+        public int GetUniqId()
+        {
+            var id = PlayerPrefs.GetInt("GetUniqId");
+            id = id == null ? 0 : id;
+            PlayerPrefs.SetInt("GetUniqId", id + 1);
+            return id + 1;
+        }
+
         public string GetLvlAttrValue(ItemAttrType attrnName)
         {
             List<InputOutputData> listToSelect = null;
@@ -149,7 +157,7 @@ namespace v1.SO.SOForge
                 return ForgeStatuses.QueueFull;
             }
 
-            var asset = CreateQueueItem(itemId);
+            var asset = CreateQueueItem(itemId, coreIndex);
             queue.Add(
                 asset
             );
@@ -165,17 +173,6 @@ namespace v1.SO.SOForge
             List<ForgeQueueItem> res = GetCore(coreIndex).queue ?? new List<ForgeQueueItem>();
             return res;
         }
-
-        //ForgeStatuses CanUseCore(int coreIndex)
-        //{
-        //    if (coreIndex > int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
-        //    {
-        //        if (isDebug)
-        //            Debug.Log("CanUseCore FALSE core index out of range " + coreIndex);
-        //        return ForgeStatuses.NoFreeCore;
-        //    }
-        //    return ForgeStatuses.Ok;
-        //}
 
         ForgeStatuses CanUseCore(int coreIndex, int itemId)
         {
@@ -200,7 +197,7 @@ namespace v1.SO.SOForge
             PlayerPrefs.SetInt("Core" + coreIndex + "ItemId", itemId);
         }
 
-        ForgeQueueItem CreateQueueItem(int itemId)
+        ForgeQueueItem CreateQueueItem(int itemId, int coreIndex)
         {
             var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
                     Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
@@ -208,14 +205,29 @@ namespace v1.SO.SOForge
 
             ForgeQueueItem queue = new ForgeQueueItem();
             var timeNow = new DateTimeOffset(DateTime.UtcNow);
-
-            queue.TimeStart = timeNow.ToUnixTimeSeconds();
+            queue.Id = GetUniqId();
+            queue.TimeStart = GetLastTimeInQueue(coreIndex);
             queue.TimeEnd =
-                timeNow.ToUnixTimeSeconds()
+                GetLastTimeInQueue(coreIndex)
                 + Convert.ToInt64(
                     item.GetAttrValue(ItemAttrType.TimeCraftInForge)
                   );
             return queue;
+        }
+
+        public long GetLastTimeInQueue(int coreIndex)
+        {
+            var queue = GetQueuOnCore(coreIndex);
+            if (
+                queue != null
+                &&
+                queue.Count != 0
+                )
+            {
+                var biggest = queue.Aggregate((i1, i2) => i1.TimeEnd < i2.TimeEnd ? i1 : i2);
+                return biggest.TimeEnd;
+            }
+            return new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
         }
 
         public void T_ClearCores()
