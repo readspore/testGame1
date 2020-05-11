@@ -26,14 +26,13 @@ public class GOForgeItem : MonoBehaviour
     ForgeQueueItem nearestReady = null;
     private float progressMaxWidth;
 
-    public float ProgressMaxWidth { get => progressMaxWidth; 
+    public float ProgressMaxWidth
+    {
+        get => progressMaxWidth;
         set
         {
             if (progressMaxWidth != 0)
-            {
                 return;
-            }
-            Debug.Log("SET ProgressMaxWidth = " + value);
             progressMaxWidth = value;
         }
     }
@@ -74,7 +73,7 @@ public class GOForgeItem : MonoBehaviour
     {
         //TryShowProgress();
         soForge.T_ClearCores();
-        //Debug.Log("TakeReadyItems clicked");
+        Debug.Log("TakeReadyItems clicked");
         //UpdateAmountCreationReady();
     }
 
@@ -90,8 +89,9 @@ public class GOForgeItem : MonoBehaviour
 
     public void TryShowProgress()
     {
+        UpdateAmountCreationReady();
         ResetProgressBar();
-        ShowTakeReady(false);
+        //ShowTakeReady(false);
         var core = soForge.GetCoreForItem((int)itemType);
         if (core == null)
         {
@@ -111,9 +111,9 @@ public class GOForgeItem : MonoBehaviour
         //var timeNow = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
         try
         {
-        nearestReady = core.queue
-            .FindAll(i => !i.IsReady)
-            .Aggregate((i1, i2) => i1.TimeEnd < i2.TimeEnd ? i1 : i2);
+            nearestReady = core.queue
+                .FindAll(i => !i.IsReady)
+                .Aggregate((i1, i2) => i1.TimeEnd < i2.TimeEnd ? i1 : i2);
         }
         catch (InvalidOperationException e)
         {
@@ -140,6 +140,7 @@ public class GOForgeItem : MonoBehaviour
             CancelInvoke();
             ResetProgressBar();
             TryShowProgress();
+            countDown.text = "00:00";
             return;
         }
         countDown.text = GetTimeSpanFromSeconds(timeToEnd);
@@ -207,7 +208,7 @@ public class GOForgeItem : MonoBehaviour
         //        item.IsReady = item.TimeEnd <= timeNow ? true : false;
         //    }
         // );
-        var r = core.queue.Select(item => item.IsReady = item.TimeEnd <= timeNow ? true : false);
+        //var r = core.queue.Select(item => item.IsReady = item.TimeEnd <= timeNow ? true : false);
         List<ForgeQueueItem> readyItems = new List<ForgeQueueItem>();
         for (int i = 0; i < core.queue.Count; i++)
         {
@@ -234,45 +235,47 @@ public class GOForgeItem : MonoBehaviour
             Application.persistentDataPath + "/Core" + coreIndex + ".xml",
             core
         );
-        UpdateAmountCreationReady();
     }
 
     void UpdateAmountCreationReady()
     {
         var core = soForge.GetCoreForItem((int)itemType);
         int createdItems = -1;
-        int queueReady = -1;
+        int inCreation = -1;
 
         if (core == null)
         {
             //Debug.Log("core is null");
-            queueReady = 0;
+            inCreation = 0;
             createdItems = 0;
             //return;
         }
-        if (
+        else if
+        (
             core.queue == null
             ||
             core.queue.Count == 0
         )
         {
             //Debug.Log("queue is empty");
-            queueReady = 0;
+            inCreation = 0;
             createdItems = 0;
         }
-        createdItems = createdItems == -1 
-            ? core.queue.Select(i => i.IsReady).ToList().Count
-            : createdItems;
-        queueReady = queueReady == -1
-            ? core.queue.Count - createdItems
-            : queueReady;
 
-        amountInCreation.text = createdItems.ToString();
-        amountReady.text = queueReady.ToString();
-        if (queueReady != 0)
+        createdItems = createdItems == -1
+            ? core.queue.Where(i => i.IsReady == true).ToList().Count
+            : 0;
+        inCreation = inCreation == -1
+            ? core.queue.Count - createdItems
+            : 0;
+
+        amountInCreation.text = inCreation.ToString();
+        amountReady.text = createdItems.ToString();
+        if (createdItems != 0)
         {
             ShowTakeReady(true);
-        } else
+        }
+        else
         {
             ShowTakeReady(false);
         }
@@ -287,7 +290,8 @@ public class GOForgeItem : MonoBehaviour
         //}
     }
 
-    void ResetProgressBar() {
+    void ResetProgressBar()
+    {
         RectTransform rt = (RectTransform)progressBar.transform;
         rt.offsetMax = new Vector2(-ProgressMaxWidth, rt.offsetMax.y);
         //Debug.Log("ResetProgressBar " + (-progressMaxWidth));
