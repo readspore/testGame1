@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     GameObject prevoiusMenu;
     GameObject activeMenu;
     public GameObject forgItemPrefab;
+    public GameObject gameUIAvailableAction;
 
     public enum AllMenuPagesEN
     {
@@ -32,9 +33,14 @@ public class UIController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         SetRadioListeners();
+    }
+
+    void OnDisable()
+    {
+        RemoveRadioListeners();
     }
 
     // Update is called once per frame
@@ -45,8 +51,18 @@ public class UIController : MonoBehaviour
 
     void SetRadioListeners()
     {
+        //Debug.Log("SetRadioListeners");
         Radio.Radio.onPlayerDeath += PlayerDeadHandler;
         Radio.Radio.OnUpdateDirectionHint += UpdateDirectionHintHandler;
+        Radio.Radio.OnToggleAvailableAction += ToggleAvailableActionHandler;
+    }
+
+    void RemoveRadioListeners()
+    {
+        Debug.Log("Remove");
+        Radio.Radio.onPlayerDeath -= PlayerDeadHandler;
+        Radio.Radio.OnUpdateDirectionHint -= UpdateDirectionHintHandler;
+        Radio.Radio.OnToggleAvailableAction -= ToggleAvailableActionHandler;
     }
 
     public void ClickedHendler(BtnClickActions action, string info)
@@ -125,6 +141,14 @@ public class UIController : MonoBehaviour
     public void UpdateDirectionHintHandler( string msg)
     {
         Debug.Log(" UIController UpdateDirectionHintHandler msg " + msg);
+    }
+
+    public void ToggleAvailableActionHandler(BtnAvailableAction action)
+    {
+        //gameUIAvailableAction
+  
+
+        Debug.Log("ToggleAvailableAction " + action.ToString());
     }
 
     public void ShowMenuPage(BtnClickActions pageName)
