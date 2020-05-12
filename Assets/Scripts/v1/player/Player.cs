@@ -22,12 +22,13 @@ public class Player : MonoBehaviour
     public GameObject timeScale;
     public GameObject deathDeceit;
     public GameObject armGO;
-    
 
-    public int Health 
-    { 
-        get => health; 
-        set {
+    int deadBoxCounter = 0;
+    public int Health
+    {
+        get => health;
+        set
+        {
             Debug.Log("Health set " + value);
             health = value;
             if (health <= 0)
@@ -41,6 +42,18 @@ public class Player : MonoBehaviour
                 {
                     PlayerIsDead();
                 }
+            }
+        }
+    }
+
+    public int DeadBoxCounter
+    {
+        get => deadBoxCounter;
+        set {
+            deadBoxCounter = value;
+            if (deadBoxCounter <= 0)
+            {
+                PlayerIsDead();
             }
         }
     }
@@ -164,7 +177,7 @@ public class Player : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up,  distToGround );
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround);
     }
 
     void PlayerIsDead()
@@ -209,4 +222,19 @@ public class Player : MonoBehaviour
         //yield return new WaitForSeconds(1);
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == Constants.DeadBox)
+        {
+            DeadBoxCounter -= 1;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == Constants.DeadBox)
+        {
+            DeadBoxCounter += 1;
+        }
+    }
 }
