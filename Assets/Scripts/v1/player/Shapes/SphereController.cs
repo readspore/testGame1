@@ -8,7 +8,7 @@ public class SphereController : MonoBehaviour, IShapeController
     private GameObject player;
     public float applayedForce = 10;
     public float speed = 10;
-    public float upMoveKoef = 3f;
+    public float upMoveKoef = 11f;
     private void Start()
     {
         //UpdateOnSwitch();

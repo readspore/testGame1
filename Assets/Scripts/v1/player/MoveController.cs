@@ -11,7 +11,9 @@ public class MoveController : MonoBehaviour
     public float minForceDownDir = -0.5f;
     public float minForceLeftDir = -0.5f;
     public float minForceRightDir = 0.5f;
-
+    public float kdApplayForce = 0.02f;
+    MoveDirection lastMoveDirection;
+    float lastTimeAplayedForce = 0;
     // Update is called once per frame
     void Update()
     {
@@ -68,6 +70,8 @@ public class MoveController : MonoBehaviour
             case MoveDirection.None:
                 break;
         }
+        lastMoveDirection = moveDirection;
+        lastTimeAplayedForce = Time.time;
     }
 
     MoveDirection GetMoveForceDirection()
@@ -87,6 +91,13 @@ public class MoveController : MonoBehaviour
     {
         if (moveDirection == MoveDirection.None)
             return false;
+        if ((lastTimeAplayedForce + kdApplayForce) > Time.time)
+            return false;
+        if (moveDirection == MoveDirection.Up)
+        {
+            if (!transform.GetComponent<Player>().IsGrounded())
+                return false;
+        }
         return true;
     }
 }
