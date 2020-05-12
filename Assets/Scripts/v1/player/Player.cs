@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
             PlatformHelpers.IgnorePlayerPlatform(false, "rb.velocity.y < 0");
     }
 
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up,  distToGround );
     }
