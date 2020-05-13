@@ -75,32 +75,32 @@ public class UIController : MonoBehaviour
         //Debug.Log(action.ToString());
         switch (action)
         {
-            case BtnClickActions.HomeMenu:
-                ShowMenuPage(BtnClickActions.HomeMenu);
-                break;
-            case BtnClickActions.SkillsHome:
-                ShowMenuPage(BtnClickActions.SkillsHome);
-                break;
-            case BtnClickActions.ForgeMain:
-                ShowMenuPage(BtnClickActions.ForgeMain);
-                break;
-            case BtnClickActions.ForgeUpgradePage:
-                ShowMenuPage(BtnClickActions.ForgeUpgradePage);
-                break;
+            //case BtnClickActions.HomeMenu:
+            //    ShowMenuPage(BtnClickActions.HomeMenu);
+            //    break;
+            //case BtnClickActions.SkillsHome:
+            //    ShowMenuPage(BtnClickActions.SkillsHome);
+            //    break;
+            //case BtnClickActions.ForgeMain:
+            //    ShowMenuPage(BtnClickActions.ForgeMain);
+            //    break;
+            //case BtnClickActions.ForgeUpgradePage:
+            //    ShowMenuPage(BtnClickActions.ForgeUpgradePage);
+            //    break;
+            //case BtnClickActions.TestPage:
+            //    ShowMenuPage(BtnClickActions.TestPage);
+            //    break;
+            //case BtnClickActions.Inventory:
+            //    ShowMenuPage(BtnClickActions.Inventory);
+            //    break;
+            //case BtnClickActions.ShowAllLvl:
+            //    ShowMenuPage(BtnClickActions.ChooseLvl);
+            //    break;
             case BtnClickActions.ForgeUpgradeAction:
                 ForgeUpgradeAction();
                 break;
-            case BtnClickActions.TestPage:
-                ShowMenuPage(BtnClickActions.TestPage);
-                break;
-            case BtnClickActions.Inventory:
-                ShowMenuPage(BtnClickActions.Inventory);
-                break;
             case BtnClickActions.ChooseLvl:
                 LoadLvl(int.Parse(info));
-                break;
-            case BtnClickActions.ShowAllLvl:
-                ShowMenuPage(BtnClickActions.ChooseLvl);
                 break;
             case BtnClickActions.PauseMenu:
                 GameOnPause(true);
@@ -117,8 +117,6 @@ public class UIController : MonoBehaviour
             case BtnClickActions.Create:
                 CreateForgeItemHandler(clickedInfoGO);
                 break;
-
-            // skils
             case BtnClickActions.DeathDeceitActivate:
                 DeathDeceitActivate();
                 break;
@@ -130,6 +128,9 @@ public class UIController : MonoBehaviour
                 break;
             case BtnClickActions.ArmActivate:
                 ArmActivate();
+                break;
+            default:
+                ShowMenuPage(action);
                 break;
         }
     }
