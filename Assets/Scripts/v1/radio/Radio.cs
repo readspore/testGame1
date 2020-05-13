@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Radio
 {
     public delegate void DirectionHintHandler(string message);
+    public delegate void ToggleAvailableAction(BtnAvailableAction action);
     public static class Radio
     {
         public static event Action onPlayerDeath;
@@ -30,6 +31,27 @@ namespace Radio
             if (OnUpdateDirectionHint != null)
                 OnUpdateDirectionHint(str);
         }
-    }
 
+        public static event ToggleAvailableAction OnToggleAvailableAction;
+        public static void ToggleAvailableAction(BtnAvailableAction action)
+        {
+            //Debug.Log("ToggleAvailableAction");
+            if (OnToggleAvailableAction != null)
+                OnToggleAvailableAction(action);
+        }
+
+        public static event Action onSwipeDown;
+        public static void SwipeDown()
+        {
+            if (onSwipeDown != null)
+                onSwipeDown();
+        }
+
+        public static event Action onToggleBtnCameraView;
+        public static void ToggleBtnCameraView()
+        {
+            if (onToggleBtnCameraView != null)
+                onToggleBtnCameraView();
+        }
+    }
 }
