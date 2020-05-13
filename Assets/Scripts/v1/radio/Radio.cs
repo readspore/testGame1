@@ -46,5 +46,12 @@ namespace Radio
             if (onSwipeDown != null)
                 onSwipeDown();
         }
+
+        public static event Action onToggleBtnCameraView;
+        public static void ToggleBtnCameraView()
+        {
+            if (onToggleBtnCameraView != null)
+                onToggleBtnCameraView();
+        }
     }
 }

@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     GameObject activeMenu;
     public GameObject forgItemPrefab;
     public GameObject gameUIAvailableAction;
+    public GameObject availableActionButtonPrefab;
 
     public enum AllMenuPagesEN
     {
@@ -145,10 +146,29 @@ public class UIController : MonoBehaviour
 
     public void ToggleAvailableActionHandler(BtnAvailableAction action)
     {
-        //gameUIAvailableAction
-  
+        bool existBtn = gameUIAvailableAction.transform.Find(action.ToString()) == null
+            ? false
+            : true;
+        if (!existBtn)
+        {
+            CreateAvailableActionBtn(action);
+        }
+        else
+        {
+            Destroy(
+                gameUIAvailableAction.transform.Find(action.ToString()).gameObject
+            );
+        }
+    }
 
-        Debug.Log("ToggleAvailableAction " + action.ToString());
+    void CreateAvailableActionBtn(BtnAvailableAction action)
+    {
+        GameObject button = (GameObject)Instantiate(availableActionButtonPrefab);
+        button.name = action.ToString();
+        button.GetComponentInChildren<Text>().text = action.ToString();
+        button.transform.position = gameUIAvailableAction.transform.position;
+        button.GetComponent<RectTransform>().SetParent(gameUIAvailableAction.transform);
+        button.GetComponent<Button>().onClick.AddListener(Radio.Radio.ToggleBtnCameraView);
     }
 
     public void ShowMenuPage(BtnClickActions pageName)

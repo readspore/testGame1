@@ -13,12 +13,14 @@ public class BtnMaster : MonoBehaviour
     public GameObject btnSlave;
     //public GameObject btnSlave2;
     //public GameObject btnSlave3;
+    Camera m_MainCamera;
     public Camera _camera;
+    bool _cameraActive;
     bool playerInside = false;
     // Start is called before the first frame update
     void Start()
     {
-
+        m_MainCamera = Camera.main;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,6 +31,7 @@ public class BtnMaster : MonoBehaviour
         //playerInside = true;
         Radio.Radio.ToggleAvailableAction(BtnAvailableAction.ShowCamera);
         Radio.Radio.onSwipeDown += OnSwipeDown;
+        Radio.Radio.onToggleBtnCameraView += ToggleBtnCameraViewHandler;
         //OnCollisionExit
     }
 
@@ -36,8 +39,10 @@ public class BtnMaster : MonoBehaviour
     {
         if (collision.gameObject.layer != Constants.PlayerLayer)
             return;
-        //Radio.Radio.ToggleAvailableAction(BtnAvailableAction.ShowCamera);
-        //playerInside = false;
+        Radio.Radio.ToggleAvailableAction(BtnAvailableAction.ShowCamera);
+        ShowMainCamera();
+        Radio.Radio.onSwipeDown -= OnSwipeDown;
+        Radio.Radio.onToggleBtnCameraView -= ToggleBtnCameraViewHandler;
     }
 
     void OnSwipeDown()
@@ -45,16 +50,27 @@ public class BtnMaster : MonoBehaviour
         btnSlave.GetComponent<IBTNSlave>().ExecAction();
     }
 
-    void btnSlave1Action()
+    void ToggleBtnCameraViewHandler()
     {
-        Debug.Log("btnSlave1Action");
+        if (m_MainCamera.enabled)
+        {
+            ShowBtnCamera();
+        }
+        else
+        {
+            ShowMainCamera();
+        }
     }
-    void btnSlave2Action()
+
+    void ShowBtnCamera()
     {
-        Debug.Log("btnSlave2Action");
+        _camera.enabled = true;
+        m_MainCamera.enabled = false;
     }
-    void btnSlave3Action()
+
+    void ShowMainCamera()
     {
-        Debug.Log("btnSlave3Action");
+        _camera.enabled = false;
+        m_MainCamera.enabled = true;
     }
 }
