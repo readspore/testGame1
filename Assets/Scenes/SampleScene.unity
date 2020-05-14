@@ -15075,6 +15075,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlatformMove Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1890964274301326404, guid: 78b7a82c0e431494a8134fa47f14b5aa,
+        type: 3}
+      propertyPath: maxX
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3176032704533208816, guid: 78b7a82c0e431494a8134fa47f14b5aa,
         type: 3}
       propertyPath: m_Mesh
