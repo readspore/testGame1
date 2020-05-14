@@ -52,7 +52,6 @@ public class UIController : MonoBehaviour
 
     void SetRadioListeners()
     {
-        //Debug.Log("SetRadioListeners");
         Radio.Radio.onPlayerDeath += PlayerDeadHandler;
         Radio.Radio.OnUpdateDirectionHint += UpdateDirectionHintHandler;
         Radio.Radio.OnToggleAvailableAction += ToggleAvailableActionHandler;
@@ -60,7 +59,6 @@ public class UIController : MonoBehaviour
 
     void RemoveRadioListeners()
     {
-        Debug.Log("Remove");
         Radio.Radio.onPlayerDeath -= PlayerDeadHandler;
         Radio.Radio.OnUpdateDirectionHint -= UpdateDirectionHintHandler;
         Radio.Radio.OnToggleAvailableAction -= ToggleAvailableActionHandler;

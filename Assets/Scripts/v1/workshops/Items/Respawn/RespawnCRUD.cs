@@ -42,6 +42,7 @@ public class RespawnCRUD
         respawnItem.Id = RespawnTable.UniqId;
         respawnItem.Name = name;
         respawnItem.Position = position;
+        respawnItem.RenderOnLvl();
         RespawnTable.Respawns.Add(respawnItem);
         SaveChanges();
     }
@@ -56,6 +57,16 @@ public class RespawnCRUD
     public List<RespawnItem> GetAllSpawns()
     {
         return RespawnTable.Respawns;
+    }
+
+    public List<RespawnItem> GetAllSpawnsOnSceve()
+    {
+        return GetAllSpawnsOnSceve(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public List<RespawnItem> GetAllSpawnsOnSceve(int sceneId)
+    {
+        return RespawnTable.Respawns.FindAll(r => r.SceneId == sceneId);
     }
 
     void SaveChanges()

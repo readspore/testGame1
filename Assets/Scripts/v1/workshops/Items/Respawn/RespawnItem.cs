@@ -33,4 +33,10 @@ public class RespawnItem
         GameObject.Find("Player").transform.position = Position;
     }
 
+    public void RenderOnLvl()
+    {
+        var variableForPrefab = (GameObject)Resources.Load("Respawn/RespawnGameItem", typeof(GameObject));
+        GameObject.Instantiate(variableForPrefab, Position, Quaternion.identity);
+    }
+
 }

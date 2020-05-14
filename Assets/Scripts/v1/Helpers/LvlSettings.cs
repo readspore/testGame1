@@ -23,6 +23,17 @@ public class LvlSettings : MonoBehaviour
             UIController.ClickedHendler(uiEmulateClick, "");
             //UIController.ClickedHendler(BtnClickActions.ForgeMain, "");
         }
+
+        RenderAllRespawns();
+    }
+
+    void RenderAllRespawns()
+    {
+        var respCrud = new RespawnCRUD();
+        foreach (var item in respCrud.GetAllSpawnsOnSceve())
+        {
+            item.RenderOnLvl();
+        }
     }
 
 }
