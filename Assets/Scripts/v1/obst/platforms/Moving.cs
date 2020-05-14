@@ -24,7 +24,6 @@ public class Moving : MonoBehaviour
     public float incrementationPlayer = 0;
 
     public bool playerOnPlatform = false;
-    private Collision playerCollision;
     private void Start()
     {
         initialX = transform.position.x;
@@ -47,7 +46,6 @@ public class Moving : MonoBehaviour
         }
         playerOnPlatform = true;
         incrementationPlayer = 0;
-        playerCollision = collision;
     }
 
     private void OnCollisionExit(Collision collision)
@@ -59,7 +57,6 @@ public class Moving : MonoBehaviour
             needMove = false;
         }
         playerOnPlatform = false;
-        playerCollision = null;
     }
 
     void Update()

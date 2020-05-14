@@ -7,7 +7,7 @@ public class BrakeOnTouch : MonoBehaviour
     public bool needToBreak = false;
     public bool isBreakingProcess = false;
     public float timeBeforeBreak = 2;
-    public float createAfter = 5;
+    public float createAfter = 3;
     
     private void OnCollisionEnter(Collision collision)
     {
