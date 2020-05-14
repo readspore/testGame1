@@ -9,6 +9,7 @@
     public const string pathToSOImplementation = "Assets/Resources/SO/Implementation";
     public const string pathToSOImplementationItems = "Assets/Resources/SO/Implementation/Items";
     public const string pathToSOImplementationForge = "Assets/Resources/SO/Implementation/Forge";
+    public const string pathToRespawnTable = "Assets/Resources/Respawn/RespawnTable.xml";
+    public const string pathToRespawnGameItem = "Assets/Resources/Respawn/RespawnGameItem";
     public const string forgeQueueAssetPrefix = "ForgeQueue";
-
 }

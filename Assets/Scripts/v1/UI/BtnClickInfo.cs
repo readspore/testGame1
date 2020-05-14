@@ -26,7 +26,11 @@ public enum BtnClickActions
     InvulnerabilityActivate,
     ArmActivate,
     SkillsHome,
-    TheSkill
+    TheSkill,
+    ShowRespawnPanel,
+    ShowRespawnCreate,
+    ShowRespawnViewAll,
+    RespawnCreate
     // ДОБАВЛЯТЬ ТОЛЬКО В КОНЕЦ!!!!
 };
 public class BtnClickInfo : MonoBehaviour

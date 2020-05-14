@@ -97,16 +97,6 @@ public class Player : MonoBehaviour
         //forgeAsset.SetToQueue(1, Currency.Silver);
         //forgeAsset.SetToQueue(1, Currency.Silver);
 
-        //forgeAsset.SetToQueue(66);
-        //forgeAsset.SetToQueue(66);
-        //forgeAsset.SetToQueue(33);
-        //forgeAsset.SetToQueue(33);
-        //forgeAsset.SetToQueue(99);
-        //forgeAsset.SetToQueue(99);
-        //forgeAsset.SetToQueue(99);
-        //forgeAsset.SetToQueue(99);
-        //forgeAsset.SetToQueue(99);
-
 
         //Debug.Log("forgeAsset lvl " + forgeAsset.Lvl);
         //Debug.Log("armAsset id " + armAsset.Id);
