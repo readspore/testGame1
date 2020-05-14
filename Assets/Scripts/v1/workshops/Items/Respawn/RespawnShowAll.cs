@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RespawnShowAll : MonoBehaviour
 {
@@ -22,16 +23,35 @@ public class RespawnShowAll : MonoBehaviour
             foreach (var spawn in spawns)
             {
                 GameObject spawnWrap = (GameObject)Instantiate(spawnPrefab);
-                spawnPrefab.name = "spawn"+spawn.Id;
-                spawnPrefab.transform.position = allSpawns.transform.position;
-                spawnPrefab.GetComponent<RectTransform>().SetParent(allSpawns     .transform);
+                spawnWrap.name = "spawn"+spawn.Id;
+                spawnWrap.transform.position = allSpawns.transform.position;
+                spawnWrap.GetComponent<RectTransform>().SetParent(allSpawns.transform);
 
-                //button.GetComponentInChildren<Text>().text = action.ToString();
-                //button.transform.position = gameUIAvailableAction.transform.position;
-                //button.GetComponent<RectTransform>().SetParent(gameUIAvailableAction.transform);
-                //button.GetComponent<Button>().onClick.AddListener(Radio.Radio.ToggleBtnCameraView);
+                var btnChoose = spawnWrap.transform.Find("Choose");
+                var btnEdit = spawnWrap.transform.Find("Edit");
+                var btnRemove = spawnWrap.transform.Find("Remove");
+                var nameText = spawnWrap.transform.Find("nameText").GetComponent<Text>();
+                nameText.text = spawn.Name;
+                btnChoose.GetComponent<Button>().onClick.AddListener(() => BtnChooseHandler(spawn.Id));
+                btnEdit.GetComponent<Button>().onClick.AddListener(() => BtnEditHandler(spawn.Id));
+                btnRemove.GetComponent<Button>().onClick.AddListener(() => BtnRemoveHandler(spawn.Id));
             }
 
         }
+    }
+
+    void BtnChooseHandler(int spawnId)
+    {
+        Debug.Log("BtnChooseHandler");
+    }
+
+    void BtnEditHandler(int spawnId)
+    {
+        Debug.Log("BtnEditHandler");
+    }
+
+    void BtnRemoveHandler(int spawnId)
+    {
+        Debug.Log("BtnRemoveHandler");
     }
 }

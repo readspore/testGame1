@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 7536277360223293293}
   - component: {fileID: 593542954953163903}
   m_Layer: 5
-  m_Name: Text
+  m_Name: nameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 2156775144088318100}
   - component: {fileID: 7727859840088483635}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: SpawnUIChoose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 294.375, y: 135.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2156775144088318100
