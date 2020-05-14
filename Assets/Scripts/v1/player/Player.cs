@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        UnityEditor.AssetDatabase.Refresh();
+        //UnityEditor.AssetDatabase.Refresh();
 
 
         rb = transform.GetComponent<Rigidbody>();
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
 
         //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
         //var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), 0) + ".asset");
-        var forgeAsset = AssetDatabase.LoadAssetAtPath<SOForge>(Constants.pathToSOImplementationForge + "/ForgeData.asset");
+        var forgeAsset = Resources.Load<SOForge>(Constants.pathToSOImplementationForge + "/ForgeData.asset");
         forgeAsset.T_ClearCores();
 
         //GameObject.Find("TEST_SO ").GetComponent<Text>().text = "Forge id: " + forgeAsset.QueuId;

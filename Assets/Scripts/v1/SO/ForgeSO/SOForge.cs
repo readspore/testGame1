@@ -69,9 +69,12 @@ namespace v1.SO.SOForge
 
         public ForgeStatuses BuyAndSetToQueue(int itemId, Currency currency)
         {
-            var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
-                Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
-            );
+            //var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
+            //    Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            //);
+            var item = Resources.Load<SOItem.SOItem>(
+               Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+           );
             if (!BankAllow(item, currency))
             {
                 if (isDebug)
@@ -199,9 +202,13 @@ namespace v1.SO.SOForge
 
         ForgeQueueItem CreateQueueItem(int itemId, int coreIndex)
         {
-            var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
-                    Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
-                );
+            //var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
+            //        Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            //    );
+
+            var item = Resources.Load<SOItem.SOItem>(
+                Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            );
 
             ForgeQueueItem queue = new ForgeQueueItem();
             var timeNow = new DateTimeOffset(DateTime.UtcNow);

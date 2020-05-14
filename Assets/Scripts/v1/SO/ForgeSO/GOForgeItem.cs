@@ -48,7 +48,11 @@ public class GOForgeItem : MonoBehaviour
 
     public void SetItemInfo()
     {
-        var item = AssetDatabase.LoadAssetAtPath<SOItem>(
+        //var item = AssetDatabase.LoadAssetAtPath<SOItem>(
+        //    Constants.pathToSOImplementationItems + "/" + itemType.ToString() + ".asset"
+        //);
+
+        var item = Resources.Load<SOItem>(
             Constants.pathToSOImplementationItems + "/" + itemType.ToString() + ".asset"
         );
         //Debug.Log("item " + item.Name);
