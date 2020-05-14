@@ -181,11 +181,13 @@ public class Player : MonoBehaviour
     {
         transform.parent = null;
         curretnPlatform = null;
+        //transform.localScale = new Vector3(1, 1, 1);
     }
     public void SetParentPlatform(GameObject platform)
     {
         curretnPlatform = platform;
         transform.parent = curretnPlatform.transform;
+        transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void ActivateTimeScale()

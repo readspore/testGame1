@@ -24,7 +24,7 @@ public class SlaveTransform : MonoBehaviour, IBTNSlave
 
     public void ExecAction()
     {
-        Debug.Log("ExecAction 1");
+        //Debug.Log("ExecAction 1");
         if ((lastExecAction + execActionKD) > Time.time)
             return;
         Debug.Log("ExecAction 2");
