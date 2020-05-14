@@ -28,4 +28,9 @@ public class RespawnItem
         SceneId = sceneId;
     }
 
+    public void MoveToRespawn()
+    {
+        GameObject.Find("Player").transform.position = Position;
+    }
+
 }

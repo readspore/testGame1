@@ -32,11 +32,15 @@ public class RespawnShowAll : MonoBehaviour
                 var btnRemove = spawnWrap.transform.Find("Remove");
                 var nameText = spawnWrap.transform.Find("nameText").GetComponent<Text>();
                 nameText.text = spawn.Name;
-                btnChoose.GetComponent<Button>().onClick.AddListener(() => BtnChooseHandler(spawn.Id));
+                btnChoose.GetComponent<Button>().onClick.AddListener(
+                    () => {
+                        spawn.MoveToRespawn();
+                        GameObject.FindObjectOfType<UIController>().ClickedHendler(BtnClickActions.GameUI, "");
+                    }
+                );
                 btnEdit.GetComponent<Button>().onClick.AddListener(() => BtnEditHandler(spawn.Id));
-                btnRemove.GetComponent<Button>().onClick.AddListener(() => BtnRemoveHandler(spawn.Id));
+                btnRemove.GetComponent<Button>().onClick.AddListener(() => BtnRemoveHandler(spawn.Id, spawnWrap));
             }
-
         }
     }
 
@@ -50,8 +54,11 @@ public class RespawnShowAll : MonoBehaviour
         Debug.Log("BtnEditHandler");
     }
 
-    void BtnRemoveHandler(int spawnId)
+    void BtnRemoveHandler(int spawnId, GameObject spawnWrap)
     {
+        var respCrud = new RespawnCRUD();
+        respCrud.RemoveRespawn(spawnId);
+        spawnWrap.SetActive(false);
         Debug.Log("BtnRemoveHandler");
     }
 }

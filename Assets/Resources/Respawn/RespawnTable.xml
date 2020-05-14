@@ -1,26 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RespawnTable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <UniqId>5</UniqId>
-  <Respawns>
-    <RespawnItem>
-      <Id>2</Id>
-      <Name>asd</Name>
-      <Position>
-        <x>1</x>
-        <y>0.49999994</y>
-        <z>-0.5</z>
-      </Position>
-      <SceneId>0</SceneId>
-    </RespawnItem>
-    <RespawnItem>
-      <Id>4</Id>
-      <Name> svs df ser 3</Name>
-      <Position>
-        <x>1</x>
-        <y>0.49999994</y>
-        <z>-0.5</z>
-      </Position>
-      <SceneId>0</SceneId>
-    </RespawnItem>
-  </Respawns>
+  <UniqId>7</UniqId>
+  <Respawns />
 </RespawnTable>

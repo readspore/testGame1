@@ -1,6 +1,7 @@
 ﻿using SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RespawnCRUD
@@ -42,7 +43,14 @@ public class RespawnCRUD
         respawnItem.Name = name;
         respawnItem.Position = position;
         RespawnTable.Respawns.Add(respawnItem);
-        UpdateRespawnTable();
+        SaveChanges();
+    }
+
+    public void RemoveRespawn(int spawnId)
+    {
+        var itemToRemove = RespawnTable.Respawns.Single(r => r.Id == spawnId);
+        RespawnTable.Respawns.Remove(itemToRemove);
+        SaveChanges();
     }
 
     public List<RespawnItem> GetAllSpawns()
@@ -50,7 +58,7 @@ public class RespawnCRUD
         return RespawnTable.Respawns;
     }
 
-    void UpdateRespawnTable()
+    void SaveChanges()
     {
         FileSave.WriteToFile(Constants.pathToRespawnTable, RespawnTable);
     }
