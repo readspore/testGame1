@@ -16,12 +16,24 @@ public class LvlSettings : MonoBehaviour
 
     void Start()
     {
-        UnityEditor.AssetDatabase.Refresh();
+        
+        //UnityEditor.AssetDatabase.Refresh();
 
         if (uiEmulateClick != null)
         {
             UIController.ClickedHendler(uiEmulateClick, "");
             //UIController.ClickedHendler(BtnClickActions.ForgeMain, "");
+        }
+
+        RenderAllRespawns();
+    }
+
+    void RenderAllRespawns()
+    {
+        var respCrud = new RespawnCRUD();
+        foreach (var item in respCrud.GetAllSpawnsOnSceve())
+        {
+            item.RenderOnLvl();
         }
     }
 

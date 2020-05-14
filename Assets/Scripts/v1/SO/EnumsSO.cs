@@ -32,10 +32,12 @@ namespace v1.SO
     }
 
     [Serializable]
-    public enum ForgeErrors
+    public enum ForgeStatuses
     {
+        Ok,
         NoFreeCore,
         QueueFull,
-
+        BankNotAllow,
+        QueueIsNull,
     };
 }

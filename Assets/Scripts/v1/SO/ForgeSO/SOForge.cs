@@ -13,6 +13,8 @@ namespace v1.SO.SOForge
     [CreateAssetMenu]
     public class SOForge : ScriptableObject
     {
+        bool isDebug = false;
+
         [SerializeField]
         int lvl;
         [SerializeField]
@@ -31,6 +33,14 @@ namespace v1.SO.SOForge
         public int GetCoreItemId(int coreIndex)
         {
             return PlayerPrefs.GetInt("Core" + coreIndex + "ItemId");
+        }
+
+        public int GetUniqId()
+        {
+            var id = PlayerPrefs.GetInt("GetUniqId");
+            id = id == null ? 0 : id;
+            PlayerPrefs.SetInt("GetUniqId", id + 1);
+            return id + 1;
         }
 
         public string GetLvlAttrValue(ItemAttrType attrnName)
@@ -57,30 +67,35 @@ namespace v1.SO.SOForge
             return listToSelect.Find(obj => obj.name == attrnName)?.value ?? "";
         }
 
-        public int SetToQueue(int itemId, Currency currency)
+        public ForgeStatuses BuyAndSetToQueue(int itemId, Currency currency)
         {
-            var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
-                Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
-            );
+            //var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
+            //    Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            //);
+            var item = Resources.Load<SOItem.SOItem>(
+               Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+           );
             if (!BankAllow(item, currency))
             {
-                Debug.Log("BankAllow not allow");
-                return 0;
+                if (isDebug)
+                    Debug.Log("BankAllow not allow");
+                return ForgeStatuses.BankNotAllow;
             }
             var currentCoreIndex = ItemCoreIndex(itemId);
-            Debug.Log("currentCoreIndex " + currentCoreIndex);
+            if (isDebug)
+                Debug.Log("currentCoreIndex " + currentCoreIndex);
             if (currentCoreIndex != -1)
             {
-                Debug.Log("queue exist coreindex = " + currentCoreIndex);
-                AddToExistingQueue(itemId, currentCoreIndex);
+                if (isDebug)
+                    Debug.Log("queue exist coreindex = " + currentCoreIndex);
+                return AddToExistingQueue(itemId, currentCoreIndex);
             }
             else
             {
-                Debug.Log("create new queue");
-                AddToFreeCore(itemId);
-
+                if (isDebug)
+                    Debug.Log("create new queue");
+                return AddToFreeCore(itemId);
             }
-            return 1;
         }
 
         int FirstFreeCore(int itemId)
@@ -99,57 +114,61 @@ namespace v1.SO.SOForge
 
         public int ItemCoreIndex(int itemId)
         {
-            var res = -1;
+            var coreIndex = -1;
             if (GetCoreItemId(0) == itemId)
-                res = 0;
+                coreIndex = 0;
             if (GetCoreItemId(1) == itemId)
-                res = 1;
+                coreIndex = 1;
             if (GetCoreItemId(2) == itemId)
-                res = 2;
+                coreIndex = 2;
             if (GetCoreItemId(3) == itemId)
-                res = 3;
+                coreIndex = 3;
             if (GetCoreItemId(4) == itemId)
-                res = 4;
+                coreIndex = 4;
 
-            return res;
+            return coreIndex;
         }
 
-        void AddToExistingQueue(int itemId, int coreIndex)
+        ForgeStatuses AddToExistingQueue(int itemId, int coreIndex)
         {
-            TryAddItemToQueue(itemId, coreIndex);
+            return TryAddItemToQueue(itemId, coreIndex);
         }
 
-        void AddToFreeCore(int itemId)
+        ForgeStatuses AddToFreeCore(int itemId)
         {
             var coreForeItem = FirstFreeCore(itemId);
-            TryAddItemToQueue(itemId, coreForeItem);
+            return TryAddItemToQueue(itemId, coreForeItem);
         }
 
-        bool TryAddItemToQueue(int itemId, int coreIndex)
+        ForgeStatuses TryAddItemToQueue(int itemId, int coreIndex)
         {
-            if (!CanUseCore(coreIndex, itemId))
-                return false;
+            var canUseCore = CanUseCore(coreIndex, itemId);
+            if (canUseCore != ForgeStatuses.Ok)
+                return canUseCore;
             var queue = GetQueuOnCore(coreIndex);
 
             if (queue == null)
             {
-                Debug.Log("TryAddItemToQueue NOT Add queue is null");
-                return false;
+                if (isDebug)
+                    Debug.Log("TryAddItemToQueue NOT Add queue is null");
+                return ForgeStatuses.QueueIsNull;
             }
             else if (queue.Count >= int.Parse(GetLvlAttrValue(ItemAttrType.ForgeMaxQueue)))
             {
-                Debug.Log("TryAddItemToQueue NOT Add queue is full");
-                return false;
+                if (isDebug)
+                    Debug.Log("TryAddItemToQueue NOT Add queue is full");
+                return ForgeStatuses.QueueFull;
             }
 
-            var asset = CreateQueueItem(itemId);
+            var asset = CreateQueueItem(itemId, coreIndex);
             queue.Add(
                 asset
             );
             SetNewQueue(coreIndex, queue);
             SetItemIdOnCoreLable(coreIndex, itemId);
-            Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex);
-            return true;
+            if (isDebug)
+                Debug.Log("ADDED TO QUEUE itemId " + itemId + " coreIndex " + coreIndex);
+            return ForgeStatuses.Ok;
         }
 
         List<ForgeQueueItem> GetQueuOnCore(int coreIndex)
@@ -158,20 +177,22 @@ namespace v1.SO.SOForge
             return res;
         }
 
-        bool CanUseCore(int coreIndex, int itemId)
+        ForgeStatuses CanUseCore(int coreIndex, int itemId)
         {
             int itemIdOnCore = GetCoreItemId(coreIndex);
             if (coreIndex > int.Parse(GetLvlAttrValue(ItemAttrType.ForgeFreeCors)))
             {
-                Debug.Log("CanUseCore FALSE core index out of range " + coreIndex);
-                return false;
+                if (isDebug)
+                    Debug.Log("CanUseCore FALSE core index out of range " + coreIndex);
+                return ForgeStatuses.NoFreeCore;
             }
             if (itemIdOnCore != itemId && itemIdOnCore != -1)
             {
-                Debug.Log("CanUseCore FALSE using by other item " + itemIdOnCore + " || " + itemId);
-                return false;
+                if (isDebug)
+                    Debug.Log("CanUseCore FALSE using by other item " + itemIdOnCore + " || " + itemId);
+                return ForgeStatuses.NoFreeCore;
             }
-            return true;
+            return ForgeStatuses.Ok;
         }
 
         void SetItemIdOnCoreLable(int coreIndex, int itemId)
@@ -179,22 +200,41 @@ namespace v1.SO.SOForge
             PlayerPrefs.SetInt("Core" + coreIndex + "ItemId", itemId);
         }
 
-        ForgeQueueItem CreateQueueItem(int itemId)
+        ForgeQueueItem CreateQueueItem(int itemId, int coreIndex)
         {
-            var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
-                    Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
-                );
+            //var item = AssetDatabase.LoadAssetAtPath<SOItem.SOItem>(
+            //        Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            //    );
+
+            var item = Resources.Load<SOItem.SOItem>(
+                Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), itemId) + ".asset"
+            );
 
             ForgeQueueItem queue = new ForgeQueueItem();
             var timeNow = new DateTimeOffset(DateTime.UtcNow);
-
-            queue.TimeStart = timeNow.ToUnixTimeSeconds();
+            queue.Id = GetUniqId();
+            queue.TimeStart = GetLastTimeInQueue(coreIndex);
             queue.TimeEnd =
-                timeNow.ToUnixTimeSeconds()
+                GetLastTimeInQueue(coreIndex)
                 + Convert.ToInt64(
                     item.GetAttrValue(ItemAttrType.TimeCraftInForge)
                   );
             return queue;
+        }
+
+        public long GetLastTimeInQueue(int coreIndex)
+        {
+            var queue = GetQueuOnCore(coreIndex);
+            if (
+                queue != null
+                &&
+                queue.Count != 0
+                )
+            {
+                var biggest = queue.Aggregate((i1, i2) => i1.TimeEnd < i2.TimeEnd ? i1 : i2);
+                return biggest.TimeEnd;
+            }
+            return new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
         }
 
         public void T_ClearCores()
@@ -204,7 +244,8 @@ namespace v1.SO.SOForge
             ResetCore(2);
             ResetCore(3);
             ResetCore(4);
-            Debug.Log("T_ClearCores");
+            if (isDebug)
+                Debug.Log("T_ClearCores");
         }
 
         void ResetCore(int coreIndex)
@@ -230,7 +271,8 @@ namespace v1.SO.SOForge
             var corePath = Application.persistentDataPath + "/Core" + coreIndex + ".xml";
             if (!File.Exists(corePath))
             {
-                //Debug.Log("Create new core file");
+                if (isDebug)
+                    Debug.Log("Create new core file");
                 CreateCore(corePath);
             }
 
@@ -244,24 +286,37 @@ namespace v1.SO.SOForge
             var core = new Core();
             core.queue = new List<ForgeQueueItem>();
             fileSave.WriteToFile(corePath, core);
-            Debug.Log("created new file => " + corePath);
+            if (isDebug)
+                Debug.Log("created new file => " + corePath);
         }
 
-        void SetNewQueue(int coreIndex, List<ForgeQueueItem> queue)
+        public void SetNewQueue(int coreIndex, List<ForgeQueueItem> queue)
         {
             Core core = new Core();
             core.queue = queue;
             SetNewQueue(coreIndex, core);
         }
 
-        void SetNewQueue(int coreIndex, Core core)
+        public void SetNewQueue(int coreIndex, Core core)
         {
             FileSave fileSave = new FileSave(FileFormat.Xml);
+            //Debug.Log("Data Path " + Application.persistentDataPath);
             fileSave.WriteToFile(
                 Application.persistentDataPath + "/Core" + coreIndex + ".xml",
                 core
             );
         }
 
+        public Core GetCoreForItem(int itemId)
+        {
+            var coreIndex = ItemCoreIndex(itemId);
+            if (CanUseCore(coreIndex, itemId) == ForgeStatuses.Ok)
+            {
+                //Debug.Log("GetCoreForItem CanUseCore");
+                return GetCore(coreIndex);
+            }
+            Debug.Log("GetCoreForItem NOT CanUseCore");
+            return null;
+        }
     }
 }

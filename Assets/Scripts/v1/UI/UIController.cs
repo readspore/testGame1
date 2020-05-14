@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour
     GameObject prevoiusMenu;
     GameObject activeMenu;
     public GameObject forgItemPrefab;
+    public GameObject gameUIAvailableAction;
+    public GameObject availableActionButtonPrefab;
 
     public enum AllMenuPagesEN
     {
@@ -32,9 +34,14 @@ public class UIController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         SetRadioListeners();
+    }
+
+    void OnDisable()
+    {
+        RemoveRadioListeners();
     }
 
     // Update is called once per frame
@@ -47,6 +54,14 @@ public class UIController : MonoBehaviour
     {
         Radio.Radio.onPlayerDeath += PlayerDeadHandler;
         Radio.Radio.OnUpdateDirectionHint += UpdateDirectionHintHandler;
+        Radio.Radio.OnToggleAvailableAction += ToggleAvailableActionHandler;
+    }
+
+    void RemoveRadioListeners()
+    {
+        Radio.Radio.onPlayerDeath -= PlayerDeadHandler;
+        Radio.Radio.OnUpdateDirectionHint -= UpdateDirectionHintHandler;
+        Radio.Radio.OnToggleAvailableAction -= ToggleAvailableActionHandler;
     }
 
     public void ClickedHendler(BtnClickActions action, string info)
@@ -58,32 +73,32 @@ public class UIController : MonoBehaviour
         //Debug.Log(action.ToString());
         switch (action)
         {
-            case BtnClickActions.HomeMenu:
-                ShowMenuPage(BtnClickActions.HomeMenu);
-                break;
-            case BtnClickActions.SkillsHome:
-                ShowMenuPage(BtnClickActions.SkillsHome);
-                break;
-            case BtnClickActions.ForgeMain:
-                ShowMenuPage(BtnClickActions.ForgeMain);
-                break;
-            case BtnClickActions.ForgeUpgradePage:
-                ShowMenuPage(BtnClickActions.ForgeUpgradePage);
-                break;
+            //case BtnClickActions.HomeMenu:
+            //    ShowMenuPage(BtnClickActions.HomeMenu);
+            //    break;
+            //case BtnClickActions.SkillsHome:
+            //    ShowMenuPage(BtnClickActions.SkillsHome);
+            //    break;
+            //case BtnClickActions.ForgeMain:
+            //    ShowMenuPage(BtnClickActions.ForgeMain);
+            //    break;
+            //case BtnClickActions.ForgeUpgradePage:
+            //    ShowMenuPage(BtnClickActions.ForgeUpgradePage);
+            //    break;
+            //case BtnClickActions.TestPage:
+            //    ShowMenuPage(BtnClickActions.TestPage);
+            //    break;
+            //case BtnClickActions.Inventory:
+            //    ShowMenuPage(BtnClickActions.Inventory);
+            //    break;
+            //case BtnClickActions.ShowAllLvl:
+            //    ShowMenuPage(BtnClickActions.ChooseLvl);
+            //    break;
             case BtnClickActions.ForgeUpgradeAction:
                 ForgeUpgradeAction();
                 break;
-            case BtnClickActions.TestPage:
-                ShowMenuPage(BtnClickActions.TestPage);
-                break;
-            case BtnClickActions.Inventory:
-                ShowMenuPage(BtnClickActions.Inventory);
-                break;
             case BtnClickActions.ChooseLvl:
                 LoadLvl(int.Parse(info));
-                break;
-            case BtnClickActions.ShowAllLvl:
-                ShowMenuPage(BtnClickActions.ChooseLvl);
                 break;
             case BtnClickActions.PauseMenu:
                 GameOnPause(true);
@@ -100,8 +115,6 @@ public class UIController : MonoBehaviour
             case BtnClickActions.Create:
                 CreateForgeItemHandler(clickedInfoGO);
                 break;
-
-            // skils
             case BtnClickActions.DeathDeceitActivate:
                 DeathDeceitActivate();
                 break;
@@ -114,6 +127,9 @@ public class UIController : MonoBehaviour
             case BtnClickActions.ArmActivate:
                 ArmActivate();
                 break;
+            default:
+                ShowMenuPage(action);
+                break;
         }
     }
 
@@ -125,6 +141,33 @@ public class UIController : MonoBehaviour
     public void UpdateDirectionHintHandler( string msg)
     {
         Debug.Log(" UIController UpdateDirectionHintHandler msg " + msg);
+    }
+
+    public void ToggleAvailableActionHandler(BtnAvailableAction action)
+    {
+        bool existBtn = gameUIAvailableAction.transform.Find(action.ToString()) == null
+            ? false
+            : true;
+        if (!existBtn)
+        {
+            CreateAvailableActionBtn(action);
+        }
+        else
+        {
+            Destroy(
+                gameUIAvailableAction.transform.Find(action.ToString()).gameObject
+            );
+        }
+    }
+
+    void CreateAvailableActionBtn(BtnAvailableAction action)
+    {
+        GameObject button = (GameObject)Instantiate(availableActionButtonPrefab);
+        button.name = action.ToString();
+        button.GetComponentInChildren<Text>().text = action.ToString();
+        button.transform.position = gameUIAvailableAction.transform.position;
+        button.GetComponent<RectTransform>().SetParent(gameUIAvailableAction.transform);
+        button.GetComponent<Button>().onClick.AddListener(Radio.Radio.ToggleBtnCameraView);
     }
 
     public void ShowMenuPage(BtnClickActions pageName)
