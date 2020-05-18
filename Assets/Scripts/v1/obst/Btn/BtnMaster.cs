@@ -52,6 +52,7 @@ public class BtnMaster : MonoBehaviour
 
     void ToggleBtnCameraViewHandler()
     {
+        Debug.Log("ToggleBtnCameraViewHandler");
         if (m_MainCamera.enabled)
         {
             ShowBtnCamera();
