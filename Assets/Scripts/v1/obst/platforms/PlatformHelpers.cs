@@ -33,7 +33,7 @@ public static class PlatformHelpers
         if (hid)
         {
             platform.GetComponent<Renderer>().enabled = false;
-            Debug.Log("platform " + platform.name);
+            //Debug.Log("platform " + platform.name);
             platform.GetComponent<MeshCollider>().isTrigger = true;
         }
         else
