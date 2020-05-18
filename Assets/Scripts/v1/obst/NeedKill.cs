@@ -7,90 +7,81 @@ public class NeedKill : MonoBehaviour
     public bool neddToKill = false;
     public bool playerInside = false;
     public float timeBeforeStart = 0;
-    public float timeTo1Phase = 1;
-    public float timeTo2Phase = 1.5f;
-    public float timeTo3Phase = 2;
-    //Collision collisionPlayer = null;
+    public float phase1ContinueFor = 1;
+    public float phase2ContinueFor = 1.5f;
+    public float phase3ContinueFor = 2;
 
-
-    // Start is called before the first frame update
     IEnumerator Start()
     {
         if (transform.GetComponent<TrafficLight>() == null)
         {
             transform.gameObject.AddComponent<TrafficLight>();
         }
-        while (true)
+        if (timeBeforeStart != 0)
         {
-            Phase1();
-            yield return new WaitForSeconds(timeTo2Phase);
-            Phase2();
-            yield return new WaitForSeconds(timeTo3Phase);
-            Phase3();
-            yield return new WaitForSeconds(timeTo1Phase);
+            yield return new WaitForSeconds(timeBeforeStart);
         }
-        //yield return new WaitForSeconds(timeBeforeStart);  
-        //if (
-        //    timeTo1Phase != 0 &&
-        //    timeTo2Phase != 0 &&
-        //    timeTo3Phase != 0
-        //)
-        //{
-        //    while (true)
-        //    {
-        //        Phase1();
-        //        yield return new WaitForSeconds(timeTo2Phase);
-        //        Phase2();
-        //        yield return new WaitForSeconds(timeTo3Phase);
-        //        Phase3();
-        //        yield return new WaitForSeconds(timeTo1Phase);
-        //    }
-        //}
+        if (
+            phase1ContinueFor != 0 &&
+            phase2ContinueFor != 0 &&
+            phase3ContinueFor != 0
+        )
+        {
+            while (true)
+            {
+                Phase1();
+                yield return new WaitForSeconds(phase2ContinueFor);
+                Phase2();
+                yield return new WaitForSeconds(phase3ContinueFor);
+                Phase3();
+                yield return new WaitForSeconds(phase1ContinueFor);
+            }
+        }
 
-        //if (
-        //    timeTo1Phase != 0 &&
-        //    timeTo2Phase != 0
-        //)
-        //{
-        //    while (true)
-        //    {
-        //        Phase1();
-        //        yield return new WaitForSeconds(timeTo2Phase);
-        //        Phase2();
-        //        yield return new WaitForSeconds(timeTo1Phase);
-        //    }
-        //}
+        if (
+            phase1ContinueFor != 0 &&
+            phase2ContinueFor != 0
+        )
+        {
+            while (true)
+            {
+                Phase1();
+                yield return new WaitForSeconds(phase2ContinueFor);
+                Phase2();
+                yield return new WaitForSeconds(phase1ContinueFor);
+            }
+        }
 
-        //if (
-        //    timeTo1Phase != 0
-        //)
-        //{
-        //    while (true)
-        //    {
-        //        Phase1();
-        //        yield return new WaitForSeconds(timeTo1Phase);
-        //    }
-        //}
-        //if (
-        //    timeTo2Phase != 0
-        //)
-        //{
-        //    while (true)
-        //    {
-        //        Phase2();
-        //        yield return new WaitForSeconds(timeTo2Phase);
-        //    }
-        //}
-        //if (
-        //    timeTo3Phase != 0
-        //)
-        //{
-        //    while (true)
-        //    {
-        //        Phase3();
-        //        yield return new WaitForSeconds(timeTo3Phase);
-        //    }
-        //}
+        if (
+            phase1ContinueFor != 0
+        )
+        {
+            while (true)
+            {
+                Phase1();
+                yield return new WaitForSeconds(phase1ContinueFor);
+            }
+        }
+        if (
+            phase2ContinueFor != 0
+        )
+        {
+            while (true)
+            {
+                Phase2();
+                yield return new WaitForSeconds(phase2ContinueFor);
+            }
+        }
+        if (
+            phase3ContinueFor != 0
+        )
+        {
+            while (true)
+            {
+                Phase3();
+                yield return new WaitForSeconds(phase3ContinueFor);
+            }
+        }
     }
 
     private void Phase1()
@@ -117,11 +108,6 @@ public class NeedKill : MonoBehaviour
         if (collision.gameObject.layer != Constants.PlayerLayer)
             return;
         playerInside = true;
-        //collisionPlayer = collision;
-        //if (neddToKill && playerInside)
-        //{
-            //collision.gameObject.GetComponent<Player>().PlayerIsDead();
-        //}
     }
 
     private void OnCollisionStay(Collision collision)
@@ -129,11 +115,6 @@ public class NeedKill : MonoBehaviour
         if (collision.gameObject.layer != Constants.PlayerLayer)
             return;
         playerInside = true;
-        //collisionPlayer = collision;
-        //if (neddToKill && playerInside)
-        //{
-            //collision.gameObject.GetComponent<Player>().PlayerIsDead();
-        //}
     }
 
     private void OnCollisionExit(Collision collision)
@@ -148,11 +129,6 @@ public class NeedKill : MonoBehaviour
         if (collision.gameObject.layer != Constants.PlayerLayer)
             return;
         playerInside = true;
-        //collisionPlayer = collision;
-        //if (neddToKill && playerInside)
-        //{
-            //collision.gameObject.GetComponent<Player>().PlayerIsDead();
-        //}
     }
 
     private void OnTriggerStay(Collider collision)
@@ -160,11 +136,6 @@ public class NeedKill : MonoBehaviour
         if (collision.gameObject.layer != Constants.PlayerLayer)
             return;
         playerInside = true;
-        //collisionPlayer = collision;
-        //if (neddToKill && playerInside)
-        //{
-            //collision.gameObject.GetComponent<Player>().PlayerIsDead();
-        //}
     }
 
     private void OnTriggerExit(Collider collision)
@@ -179,7 +150,6 @@ public class NeedKill : MonoBehaviour
         if (playerInside && neddToKill)
         {
             DamageController.GetDamage(999);
-           //   GameObject.Find("Player").gameObject.GetComponent<Player>().PlayerIsDead();
         }
     }
 }
