@@ -29,9 +29,9 @@ public class SphereController : MonoBehaviour, IShapeController
     {
         OnMoveDown(new Vector3(0, -applayedForce));
     }
+
     public void OnMoveDown(Vector3 dir)
     {
-        //Debug.Log("OnMove Down");
         rb.AddForce(dir * speed);
         PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveDown", true);
     }

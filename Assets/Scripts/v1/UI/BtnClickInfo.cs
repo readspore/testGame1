@@ -30,7 +30,11 @@ public enum BtnClickActions
     ShowRespawnPanel,
     ShowRespawnCreate,
     ShowRespawnViewAll,
-    RespawnCreate
+    RespawnCreate,
+    Restart,
+    RestartOnSpawn,
+    DeadMenu,
+    QuitGame
     // ДОБАВЛЯТЬ ТОЛЬКО В КОНЕЦ!!!!
 };
 public class BtnClickInfo : MonoBehaviour

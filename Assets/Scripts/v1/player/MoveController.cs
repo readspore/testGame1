@@ -65,8 +65,8 @@ public class MoveController : MonoBehaviour
                 ShapeController.CurrentShapeControl.OnMoveUp();
                 break;
             case MoveDirection.Down:
-                Radio.Radio.SwipeDown();
                 ShapeController.CurrentShapeControl.OnMoveDown();
+                Radio.Radio.SwipeDown();
                 break;
             case MoveDirection.None:
                 break;

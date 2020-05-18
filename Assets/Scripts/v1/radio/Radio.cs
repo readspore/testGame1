@@ -12,7 +12,7 @@ namespace Radio
         public static event Action onPlayerDeath;
         public static void PlayerDeath()
         {
-            Debug.Log("Radio PlayerDeath");
+            //Debug.Log("Radio PlayerDeath");
             if (onPlayerDeath != null)
                 onPlayerDeath();
         }
@@ -20,7 +20,7 @@ namespace Radio
         public static event Action onTimeScaleEnd;
         public static void TimeScaleEnd()
         {
-            Debug.Log("Radio TimeScaleEnd");
+            //Debug.Log("Radio TimeScaleEnd");
             if (onTimeScaleEnd != null)
                 onTimeScaleEnd();
         }
