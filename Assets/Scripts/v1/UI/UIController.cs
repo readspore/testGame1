@@ -178,6 +178,7 @@ public class UIController : MonoBehaviour
         button.GetComponentInChildren<Text>().text = action.ToString();
         button.transform.position = gameUIAvailableAction.transform.position;
         button.GetComponent<RectTransform>().SetParent(gameUIAvailableAction.transform);
+        button.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         button.GetComponent<Button>().onClick.AddListener(Radio.Radio.ToggleBtnCameraView);
     }
 
