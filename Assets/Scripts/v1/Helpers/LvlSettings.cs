@@ -17,13 +17,11 @@ public class LvlSettings : MonoBehaviour
     void Start()
     {
         
-        //UnityEditor.AssetDatabase.Refresh();
-
-        if (uiEmulateClick != null)
-        {
+        //UnityEditor.AssetDatabase.Re
+        //{
             UIController.ClickedHendler(uiEmulateClick, "");
             //UIController.ClickedHendler(BtnClickActions.ForgeMain, "");
-        }
+        //}
 
         RenderAllRespawns();
     }
