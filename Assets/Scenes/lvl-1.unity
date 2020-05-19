@@ -2122,6 +2122,11 @@ PrefabInstance:
       propertyPath: buttonSize
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 4827379488917439560, guid: a0a89c84bcf3cbf439e4098c33bfe976,
+        type: 3}
+      propertyPath: controllType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4827379488917439561, guid: a0a89c84bcf3cbf439e4098c33bfe976,
         type: 3}
       propertyPath: m_Name

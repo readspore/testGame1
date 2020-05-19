@@ -79,7 +79,13 @@ public class MoveController : MonoBehaviour
     {
         if (MobileJoystick_UI.instance.moveDirection.y > minForceUpDir)
             return MoveDirection.Up;
-        if (MobileJoystick_UI.instance.moveDirection.y < minForceDownDir)
+        if (
+            MobileJoystick_UI.instance.moveDirection.y < minForceDownDir
+            &&
+            MobileJoystick_UI.instance.moveDirection.x < minForceRightDir
+            &&
+            MobileJoystick_UI.instance.moveDirection.x > ( minForceRightDir * -1 ) 
+        )
             return MoveDirection.Down;
         if (MobileJoystick_UI.instance.moveDirection.x > minForceRightDir)
             return MoveDirection.Right;
@@ -97,6 +103,8 @@ public class MoveController : MonoBehaviour
         if (moveDirection == MoveDirection.Up)
         {
             if (!transform.GetComponent<Player>().IsGrounded())
+                return false;
+            if (transform.GetComponent<Rigidbody>().velocity.y > 0)
                 return false;
         }
         return true;
