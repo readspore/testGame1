@@ -1,18 +1,26 @@
 ﻿using UnityEngine;
 
 public enum ControllType {EditTransfotm, AddForce };
-public enum MoveDirection { Left, Right, Up, Down, None };
+public enum MoveDirection { 
+    Left, 
+    Right, 
+    Up, 
+    Down, 
+    None,
+    RightSlow,
+    LeftSlow,
+};
 public class MoveController : MonoBehaviour
 {
     public ControllType controllType = ControllType.EditTransfotm;
-    public float playerSpeed = 1;
-    public float jumpForce = 1;
+    //public float playerSpeed = 1;
+    //public float jumpForce = 1;
     public float minForceUpDir = 0.5f;
     public float minForceDownDir = -0.5f;
     public float minForceLeftDir = -0.5f;
     public float minForceRightDir = 0.5f;
     public float kdApplayForce = 0.02f;
-    MoveDirection lastMoveDirection;
+    //MoveDirection lastMoveDirection;
     float lastTimeAplayedForce = 0;
     // Update is called once per frame
     void Update()
@@ -24,12 +32,7 @@ public class MoveController : MonoBehaviour
     {
         if (MobileJoystick_UI.instance.moveDirection.y == 0 && MobileJoystick_UI.instance.moveDirection.x == 0)
             return;
-        if (controllType == ControllType.EditTransfotm
-            && (
-                MobileJoystick_UI.instance.moveDirection.y != 0
-                || MobileJoystick_UI.instance.moveDirection.x != 0
-            )
-        )
+        if (controllType == ControllType.EditTransfotm)
             CheckMoveViaTransform();
         if (controllType == ControllType.AddForce)
             CheckMoveViaForce();
@@ -37,29 +40,30 @@ public class MoveController : MonoBehaviour
 
     void CheckMoveViaTransform()
     {
-        var moveDirection = GetMoveForceDirection();
-        if (!IsAvailableTransformMove()) return;
+        //var moveDirection = GetMoveDirection();
+        //if (!IsAvailableTransformMove()) return;
         ShapeController.CurrentShapeControl.OnMoveJoystick();
     }
 
-    bool IsAvailableTransformMove()
-    {
-        return MobileJoystick_UI.instance.moveDirection.y != 0
-                || MobileJoystick_UI.instance.moveDirection.x != 0;
-    }
+    //bool IsAvailableTransformMove()
+    //{
+    //    return MobileJoystick_UI.instance.moveDirection.y != 0
+    //            || MobileJoystick_UI.instance.moveDirection.x != 0;
+    //}
 
 
     void CheckMoveViaForce()
     {
-        var moveDirection = GetMoveForceDirection();
+        var moveDirection = GetMoveDirection();
         if (!IsAvailableForceMove(moveDirection)) return;
+        lastTimeAplayedForce = Time.time;
         switch (moveDirection)
         {
             case MoveDirection.Left:
                 ShapeController.CurrentShapeControl.OnMoveLeft();
                 break;
             case MoveDirection.Right:
-                ShapeController.CurrentShapeControl.OnMoveRight();
+                    ShapeController.CurrentShapeControl.OnMoveRight();
                 break;
             case MoveDirection.Up:
                 ShapeController.CurrentShapeControl.OnMoveUp();
@@ -68,14 +72,20 @@ public class MoveController : MonoBehaviour
                 ShapeController.CurrentShapeControl.OnMoveDown();
                 Radio.Radio.SwipeDown();
                 break;
+            case MoveDirection.LeftSlow:
+                ShapeController.CurrentShapeControl.OnMoveJoystick();
+                lastTimeAplayedForce = 0;
+                break;
+            case MoveDirection.RightSlow:
+                ShapeController.CurrentShapeControl.OnMoveJoystick();
+                lastTimeAplayedForce = 0;
+                break;
             case MoveDirection.None:
                 break;
         }
-        lastMoveDirection = moveDirection;
-        lastTimeAplayedForce = Time.time;
     }
 
-    MoveDirection GetMoveForceDirection()
+    MoveDirection GetMoveDirection()
     {
         if (MobileJoystick_UI.instance.moveDirection.y > minForceUpDir)
             return MoveDirection.Up;
@@ -89,8 +99,12 @@ public class MoveController : MonoBehaviour
             return MoveDirection.Down;
         if (MobileJoystick_UI.instance.moveDirection.x > minForceRightDir)
             return MoveDirection.Right;
+        if (MobileJoystick_UI.instance.moveDirection.x > 0)
+            return MoveDirection.RightSlow;
         if (MobileJoystick_UI.instance.moveDirection.x < minForceLeftDir)
             return MoveDirection.Left;
+        if (MobileJoystick_UI.instance.moveDirection.x < 0)
+            return MoveDirection.LeftSlow;
         return MoveDirection.None;
     }
 
