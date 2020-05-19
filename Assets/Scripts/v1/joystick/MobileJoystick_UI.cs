@@ -41,6 +41,14 @@ public class MobileJoystick_UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+#if UNITY_EDITOR
+    circleSize = 120;
+    buttonSize = 40;
+    //How far the joystick should be placed from the side of the screen
+    marginLeft = 10;
+    //How far the joystick should be placed from the bottom of the screen
+    marginBottom = 10;
+#endif
         if (instance != null)
         {
             //There is another instance already present, remove this one
