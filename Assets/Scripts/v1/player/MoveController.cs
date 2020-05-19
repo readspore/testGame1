@@ -103,10 +103,25 @@ public class MoveController : MonoBehaviour
         if (moveDirection == MoveDirection.Up)
         {
             if (!transform.GetComponent<Player>().IsGrounded())
+            {
                 return false;
-            if (transform.GetComponent<Rigidbody>().velocity.y > 0)
+            }
+            if (
+                transform.GetComponent<Rigidbody>().velocity.y > 0.1
+            )
+            {
+                //Debug.Log("velocity.y > 0.1 " + transform.GetComponent<Rigidbody>().velocity.y);
                 return false;
+            }
+            if (
+                transform.GetComponent<Rigidbody>().velocity.y < -0.01
+            )
+            {
+                //Debug.Log("velocity.y < -0.01 " + transform.GetComponent<Rigidbody>().velocity.y);
+                return false;
+            }
         }
+        //Debug.Log("Rigidbody " + transform.GetComponent<Rigidbody>().velocity.y);
         return true;
     }
 }
