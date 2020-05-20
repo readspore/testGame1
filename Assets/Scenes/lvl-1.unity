@@ -23690,8 +23690,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.0054626465
-        value: 0.013889736
+        time: 0.007923126
+        value: 0.0013927873
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -23703,7 +23703,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 0.85882354, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -23795,6 +23795,7 @@ MonoBehaviour:
   - {fileID: 367411562}
   - {fileID: 543665179}
   childBtnsActivePositions: []
+  newPos: {x: 0, y: 0, z: 0}
 --- !u!43 &995365471
 Mesh:
   m_ObjectHideFlags: 0
