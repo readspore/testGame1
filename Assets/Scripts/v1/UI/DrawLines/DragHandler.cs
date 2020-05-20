@@ -13,6 +13,7 @@ public class DragHandler :
     public GameObject lastHoveredItem;
     public LineRenderer lineRenderer;
     public List<GameObject> childBtns;
+    public List<Vector3> childBtnsActivePositions;
 
     void Start()
     {
@@ -26,12 +27,15 @@ public class DragHandler :
         //lineRenderer.SetPosition(1, itemTarget.transform.position);
         //Debug.Log("root " + lineRenderer.GetPosition(0));
         //Debug.Log("target " + lineRenderer.GetPosition(1));
+   
+        HidChildBtns();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, rootItem.transform.position);
+        ShowChildBtns();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -61,6 +65,25 @@ public class DragHandler :
         }
         //lineRenderer.SetPosition(1, rootItem.transform.position);
         lineRenderer.positionCount = 0;
+        HidChildBtns();
     }
 
+    void HidChildBtns()
+    {
+        foreach (var btn in childBtns)
+        {
+            childBtnsActivePositions.Add(btn.transform.position);
+            btn.transform.position = rootItem.transform.position;
+            btn.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        }
+    }
+
+    void ShowChildBtns()
+    {
+        for (int i = 0; i < childBtns.Count; i++)
+        {
+            childBtns[i].transform.position = childBtnsActivePositions[i];
+            childBtns[i].transform.localScale = Vector3.one;
+        }
+    }
 }
