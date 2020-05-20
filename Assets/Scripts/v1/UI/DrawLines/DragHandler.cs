@@ -14,11 +14,12 @@ public class DragHandler :
     public LineRenderer lineRenderer;
     public List<GameObject> childBtns;
     public List<Vector3> childBtnsActivePositions;
-
+    public Vector3 newPos;
     void Start()
     {
         rootItem = transform.gameObject;
         lineRenderer.positionCount = 0;
+        lineRenderer.material.color = Color.white;
         //lineRenderer.positionCount = 2;
         //lineRenderer.startWidth = 0.1f;
         //lineRenderer.endWidth = 0.2f;
@@ -34,13 +35,27 @@ public class DragHandler :
     public void OnBeginDrag(PointerEventData eventData)
     {
         lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, rootItem.transform.position);
+        lineRenderer.SetPosition(0, transform.position);
         ShowChildBtns();
+    }
+
+    void Update()
+    {
+        if (lineRenderer.positionCount == 1)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+        }
+        else if (lineRenderer.positionCount == 2)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, (newPos == null ? transform.position : newPos));
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        var newPos = eventData.pointerCurrentRaycast.worldPosition;
+        lineRenderer.SetPosition(0, transform.position);
+        newPos = eventData.pointerCurrentRaycast.worldPosition;
         var hoveredObj = eventData.pointerCurrentRaycast;
         if (childBtns.Contains(hoveredObj.gameObject))
         {

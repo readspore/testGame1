@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
         //StartCoroutine("TDL");
 
-        //Bank.PickUpCoin(Currency.Silver, 1000);
+        Bank.PickUpCoin(Currency.Silver, 10000);
 
         //Invulnerability.TryUpgradeInvulnerability(Currency.Silver);
         //Arm.TryUpgradeArm(Currency.Silver);
