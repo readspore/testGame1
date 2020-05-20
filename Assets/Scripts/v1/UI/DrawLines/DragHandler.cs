@@ -27,7 +27,7 @@ public class DragHandler :
         //lineRenderer.SetPosition(1, itemTarget.transform.position);
         //Debug.Log("root " + lineRenderer.GetPosition(0));
         //Debug.Log("target " + lineRenderer.GetPosition(1));
-   
+
         HidChildBtns();
     }
 
@@ -65,7 +65,7 @@ public class DragHandler :
         }
         //lineRenderer.SetPosition(1, rootItem.transform.position);
         lineRenderer.positionCount = 0;
-        HidChildBtns();
+        //HidChildBtns();
     }
 
     void HidChildBtns()

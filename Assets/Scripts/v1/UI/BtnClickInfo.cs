@@ -45,12 +45,17 @@ public class BtnClickInfo : MonoBehaviour
 
     void Start()
     {
-        transform.GetComponent<Button>().onClick.AddListener(ThisClickedHandler);
+        transform.GetComponent<Button>()?.onClick.AddListener(ThisClickedHandler);
         clickedInfoGO = clickedInfoGO ?? transform.gameObject;
     }
 
     void ThisClickedHandler()
     {
         GameObject.Find("MenuCanvas").GetComponent<UIController>().ClickedHendler(clickAction, clickedInfo, clickedInfoGO);
+    }
+
+    public void EmulateClick()
+    {
+        ThisClickedHandler();
     }
 }

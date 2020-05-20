@@ -21,5 +21,6 @@ public class BtnChildDragHandler : MonoBehaviour
     {
         Debug.Log("Choose " + transform.name);
         IsHovered(false);
+        transform.GetComponent<BtnClickInfo>().EmulateClick();
     }
 }
