@@ -65,16 +65,17 @@ public class DragHandler :
         }
         //lineRenderer.SetPosition(1, rootItem.transform.position);
         lineRenderer.positionCount = 0;
-        //HidChildBtns();
+        HidChildBtns();
     }
 
     void HidChildBtns()
     {
         foreach (var btn in childBtns)
         {
-            childBtnsActivePositions.Add(btn.transform.position);
-            btn.transform.position = rootItem.transform.position;
-            btn.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            btn.SetActive(false);
+            //childBtnsActivePositions.Add(btn.transform.position);
+            //btn.transform.position = rootItem.transform.position;
+            //btn.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
     }
 
@@ -82,8 +83,9 @@ public class DragHandler :
     {
         for (int i = 0; i < childBtns.Count; i++)
         {
-            childBtns[i].transform.position = childBtnsActivePositions[i];
-            childBtns[i].transform.localScale = Vector3.one;
+            childBtns[i].SetActive(true);
+            //childBtns[i].transform.position = childBtnsActivePositions[i];
+            //childBtns[i].transform.localScale = Vector3.one;
         }
     }
 }
