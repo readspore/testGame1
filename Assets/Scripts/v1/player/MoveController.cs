@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
-public enum ControllType {EditTransfotm, AddForce };
-public enum MoveDirection { 
-    Left, 
-    Right, 
-    Up, 
-    Down, 
+public enum ControllType { EditTransfotm, AddForce };
+public enum MoveDirection
+{
+    Left,
+    Right,
+    Up,
+    Down,
     None,
     RightSlow,
     LeftSlow,
@@ -40,16 +41,56 @@ public class MoveController : MonoBehaviour
 
     void CheckMoveViaTransform()
     {
-        //var moveDirection = GetMoveDirection();
-        //if (!IsAvailableTransformMove()) return;
+        var moveDirection = GetMoveDirection();
+        if (!IsAvailableTransformMove(moveDirection)) return;
+        if (
+             moveDirection == MoveDirection.Down
+             ||
+             moveDirection == MoveDirection.Up
+             )
+        {
+            lastTimeAplayedForce = Time.time;
+        }
+
+        Debug.Log("moveDirection " + moveDirection);
         ShapeController.CurrentShapeControl.OnMoveJoystick();
+
     }
 
-    //bool IsAvailableTransformMove()
-    //{
-    //    return MobileJoystick_UI.instance.moveDirection.y != 0
-    //            || MobileJoystick_UI.instance.moveDirection.x != 0;
-    //}
+    bool IsAvailableTransformMove(MoveDirection moveDirection)
+    {
+        if (
+           moveDirection == MoveDirection.Down
+           ||
+           moveDirection == MoveDirection.Up
+           )
+        {
+            if ((lastTimeAplayedForce + kdApplayForce) > Time.time)
+                return false;
+        }
+        if (moveDirection == MoveDirection.Up)
+        {
+            if (!transform.GetComponent<Player>().IsGrounded())
+            {
+                return false;
+            }
+            if (
+                transform.GetComponent<Rigidbody>().velocity.y > 0.1
+            )
+            {
+                //Debug.Log("velocity.y > 0.1 " + transform.GetComponent<Rigidbody>().velocity.y);
+                return false;
+            }
+            if (
+                transform.GetComponent<Rigidbody>().velocity.y < -0.01
+            )
+            {
+                //Debug.Log("velocity.y < -0.01 " + transform.GetComponent<Rigidbody>().velocity.y);
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     void CheckMoveViaForce()
@@ -63,7 +104,7 @@ public class MoveController : MonoBehaviour
                 ShapeController.CurrentShapeControl.OnMoveLeft();
                 break;
             case MoveDirection.Right:
-                    ShapeController.CurrentShapeControl.OnMoveRight();
+                ShapeController.CurrentShapeControl.OnMoveRight();
                 break;
             case MoveDirection.Up:
                 ShapeController.CurrentShapeControl.OnMoveUp();
@@ -94,7 +135,7 @@ public class MoveController : MonoBehaviour
             &&
             MobileJoystick_UI.instance.moveDirection.x < minForceRightDir
             &&
-            MobileJoystick_UI.instance.moveDirection.x > ( minForceRightDir * -1 ) 
+            MobileJoystick_UI.instance.moveDirection.x > (minForceRightDir * -1)
         )
             return MoveDirection.Down;
         if (MobileJoystick_UI.instance.moveDirection.x > minForceRightDir)
@@ -114,7 +155,9 @@ public class MoveController : MonoBehaviour
             return false;
         if ((lastTimeAplayedForce + kdApplayForce) > Time.time)
             return false;
-        if (moveDirection == MoveDirection.Up)
+        if (
+            moveDirection == MoveDirection.Up
+        )
         {
             if (!transform.GetComponent<Player>().IsGrounded())
             {

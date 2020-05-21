@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
 
     void PlayerIsDead()
     {
-        Radio.Radio.PlayerDeath();
+        //Radio.Radio.PlayerDeath();
         //Radio.Radio.UpdateDirectionHint("my MSG");
     }
 
