@@ -12,10 +12,10 @@ public class Stairs : MonoBehaviour
             return;
         oldGravity = Physics.gravity;
         Physics.gravity = Vector3.zero;
-        var playerMoveControl = GameObject.FindObjectOfType<MoveController>();
-        playerMoveControl.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        oldControllType = playerMoveControl.controllType;
-        playerMoveControl.controllType = ControllType.EditTransfotm;
+        //var playerMoveControl = GameObject.FindObjectOfType<MoveController>();
+        //playerMoveControl.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //oldControllType = playerMoveControl.controllType;
+        //playerMoveControl.controllType = ControllType.EditTransfotm;
     }
 
     private void OnTriggerExit(Collider other)
@@ -23,6 +23,6 @@ public class Stairs : MonoBehaviour
         if (other.gameObject.layer != Constants.PlayerLayer)
             return;
         Physics.gravity = oldGravity;
-        GameObject.FindObjectOfType<MoveController>().controllType = oldControllType;
+        //GameObject.FindObjectOfType<MoveController>().controllType = oldControllType;
     }
 }

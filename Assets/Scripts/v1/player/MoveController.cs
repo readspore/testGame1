@@ -11,6 +11,8 @@ public enum MoveDirection
     RightSlow,
     LeftSlow,
 };
+namespace oldVersion1
+{
 public class MoveController : MonoBehaviour
 {
     public ControllType controllType = ControllType.EditTransfotm;
@@ -181,4 +183,5 @@ public class MoveController : MonoBehaviour
         //Debug.Log("Rigidbody " + transform.GetComponent<Rigidbody>().velocity.y);
         return true;
     }
+}
 }
