@@ -48,10 +48,12 @@ public class BtnMaster : MonoBehaviour
     void OnSwipeDown()
     {
         btnSlave.GetComponent<IBTNSlave>().ExecAction();
+        //PlatformHelpers.IgnorePlayerPlatform(true, "OnSwipeDown btn master", false);
     }
 
     void ToggleBtnCameraViewHandler()
     {
+
         if (m_MainCamera.enabled)
         {
             ShowBtnCamera();

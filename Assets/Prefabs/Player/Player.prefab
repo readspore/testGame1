@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applayedForce: 10
   speed: 3
-  upMoveKoef: 4
+  upMoveKoef: 11
 --- !u!1 &4827379488917439561
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,9 +214,11 @@ GameObject:
   - component: {fileID: 4827379488917439560}
   - component: {fileID: 4827379488917439562}
   - component: {fileID: 4827379488917439557}
+  - component: {fileID: 1773095466}
+  - component: {fileID: 1773095467}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,7 +230,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4827379488917439561}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -256,6 +258,7 @@ MonoBehaviour:
   minForceDownDir: -0.5
   minForceLeftDir: -0.5
   minForceRightDir: 0.5
+  kdApplayForce: 0.02
 --- !u!54 &4827379488917439562
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -289,6 +292,34 @@ MonoBehaviour:
   timeScale: {fileID: 4827379490042223323}
   deathDeceit: {fileID: 4827379488639012994}
   armGO: {fileID: 4827379490303802047}
+--- !u!114 &1773095466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827379488917439561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c0386840883784e86c7e7e19ad6b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1773095467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4827379488917439561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c7345a9faff164c99b6817b0eccf08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navigationCircle: {fileID: 21300000, guid: 54628aafa20f64b40ae661038ee7abf0, type: 3}
+  navigationButton: {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
+  parentForJoyskick: {fileID: 0}
+  moveDirection: {x: 0, y: 0}
 --- !u!1 &4827379489515796956
 GameObject:
   m_ObjectHideFlags: 0

@@ -127,6 +127,15 @@ public class UIController : MonoBehaviour
             case BtnClickActions.ArmActivate:
                 ArmActivate();
                 break;
+            case BtnClickActions.Restart:
+                Restart();
+                break;
+            case BtnClickActions.RestartOnSpawn:
+                RestartOnSpawn();
+                break;
+            case BtnClickActions.QuitGame:
+                QuitGame();
+                break;
             default:
                 ShowMenuPage(action);
                 break;
@@ -135,6 +144,8 @@ public class UIController : MonoBehaviour
 
     public void PlayerDeadHandler()
     {
+        Time.timeScale = 0;
+        ShowMenuPage(BtnClickActions.DeadMenu);
         Debug.Log(" UIController PlayerDeadHandler");
     }
 
@@ -167,6 +178,7 @@ public class UIController : MonoBehaviour
         button.GetComponentInChildren<Text>().text = action.ToString();
         button.transform.position = gameUIAvailableAction.transform.position;
         button.GetComponent<RectTransform>().SetParent(gameUIAvailableAction.transform);
+        button.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         button.GetComponent<Button>().onClick.AddListener(Radio.Radio.ToggleBtnCameraView);
     }
 
@@ -270,5 +282,20 @@ public class UIController : MonoBehaviour
     void ForgeUpgradeAction()
     {
         Debug.Log("ForgeUpgradeAction");
+    }
+
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void RestartOnSpawn()
+    {
+
+    }
+
+    void QuitGame()
+    {
+        Application.Quit();
     }
 }

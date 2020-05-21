@@ -77,8 +77,8 @@ public class Player : MonoBehaviour
 
         //string[] guids2 = AssetDatabase.FindAssets("Arm", new[] { Constants.pathToSOImplementationItems });
         //var armAsset = AssetDatabase.LoadAssetAtPath<ItemSO>(Constants.pathToSOImplementationItems + "/" + Enum.GetName(typeof(SOItemObjId), 0) + ".asset");
-        var forgeAsset = Resources.Load<SOForge>(Constants.pathToSOImplementationForge + "/ForgeData.asset");
-        forgeAsset.T_ClearCores();
+        //var forgeAsset = Resources.Load<SOForge>(Constants.pathToSOImplementationForge + "/ForgeData.asset");
+        //forgeAsset.T_ClearCores();
 
         //GameObject.Find("TEST_SO ").GetComponent<Text>().text = "Forge id: " + forgeAsset.QueuId;
         //GameObject.Find("TEST_btn_so ").GetComponent<Button>().onClick.AddListener(CreateQueue);
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
         //StartCoroutine("TDL");
 
-        //Bank.PickUpCoin(Currency.Silver, 1000);
+        Bank.PickUpCoin(Currency.Silver, 10000);
 
         //Invulnerability.TryUpgradeInvulnerability(Currency.Silver);
         //Arm.TryUpgradeArm(Currency.Silver);
@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
 
     void PlayerIsDead()
     {
-        Radio.Radio.PlayerDeath();
+        //Radio.Radio.PlayerDeath();
         //Radio.Radio.UpdateDirectionHint("my MSG");
     }
 

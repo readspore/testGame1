@@ -16,7 +16,7 @@ public class SphereController : MonoBehaviour, IShapeController
 
     public void OnMoveUp()
     {
-        OnMoveUp(new Vector3(0, applayedForce));
+        OnMoveUp(new Vector3(0, applayedForce, 0));
     }
     public void OnMoveUp(Vector3 dir)
     {
@@ -29,11 +29,11 @@ public class SphereController : MonoBehaviour, IShapeController
     {
         OnMoveDown(new Vector3(0, -applayedForce));
     }
+
     public void OnMoveDown(Vector3 dir)
     {
-        //Debug.Log("OnMove Down");
         rb.AddForce(dir * speed);
-        PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveDown", true);
+        PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveDown", false);
     }
 
     public void OnMoveLeft()
@@ -72,7 +72,21 @@ public class SphereController : MonoBehaviour, IShapeController
         }
         if (MobileJoystick_UI.instance.moveDirection.y != 0)
         {
-            vectorNormal.y += Time.deltaTime * 2.45f * MobileJoystick_UI.instance.moveDirection.y;
+            if (
+                MobileJoystick_UI.instance.moveDirection.y > 0
+                //&&
+                //MobileJoystick_UI.instance.moveDirection.y < player.GetComponent<MoveController>().minForceUpDir
+                )
+            {
+                OnMoveUp();
+                //vectorNormal.y += Time.deltaTime * 2.45f * MobileJoystick_UI.instance.moveDirection.y;
+                return;
+            }
+            else if (MobileJoystick_UI.instance.moveDirection.y < 0)
+            {
+                OnMoveDown();
+                return;
+            }
         }
         player.transform.Translate(vectorNormal, Space.World);
     }
