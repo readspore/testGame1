@@ -115,7 +115,7 @@ public class MoveController : MonoBehaviour
                 ShapeController.CurrentShapeControl.OnMoveDown();
                 Radio.Radio.SwipeDown();
                 break;
-            case MoveDirection.LeftSlow:
+                case MoveDirection.LeftSlow:
                 ShapeController.CurrentShapeControl.OnMoveJoystick();
                 lastTimeAplayedForce = 0;
                 break;

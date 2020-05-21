@@ -46,7 +46,7 @@ public class PlayerMoveController : MonoBehaviour
         {
             Jump();
         }
-        else if (joyStick.Result.y >= jsMinYVal)
+        else if (joyStick.Result.y <= jsMinYVal * -1)
         {
             MoveDown();
         }
@@ -57,6 +57,7 @@ public class PlayerMoveController : MonoBehaviour
     {
         if (!isGrounded())
             return;
+        PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveUp");
         rb.AddForce(new Vector3(0, jumpForce,0));
     }
 
@@ -64,7 +65,9 @@ public class PlayerMoveController : MonoBehaviour
     {
         if (!isGrounded())
             return;
+        PlatformHelpers.IgnorePlayerPlatform(true, "OnMoveDown", true);
         rb.AddForce(new Vector3(0, moveDowmForce, 0));
+        Radio.Radio.SwipeDown();
     }
 
     bool isGrounded()

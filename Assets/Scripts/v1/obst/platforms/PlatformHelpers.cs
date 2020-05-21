@@ -15,7 +15,7 @@ public static class PlatformHelpers
     {
         if (!WaitForPlatformExit)
         {
-            SetHelperText(flag, course);
+            //Debug.Log(flag + " " + course);
             //Debug.Log("PL Ignore " + flag + " course " + course);
             Physics.IgnoreLayerCollision(Constants.PlayerLayer, Constants.PlatformsLayer, flag);
         }
@@ -23,9 +23,10 @@ public static class PlatformHelpers
 
     public static void IgnorePlayerPlatform(bool flag, string course, bool waitForExit)
     {
-        WaitForPlatformExit = waitForExit;
+        // waitForExit used for prevent "course" - "rb.velocity.y < 0"
         SetHelperText(flag, course);
         IgnorePlayerPlatform(flag, course);
+        WaitForPlatformExit = waitForExit;
     }
 
     public static void DoTrigger(bool isTrigger, GameObject platform)
