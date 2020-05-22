@@ -2013,12 +2013,12 @@ MonoBehaviour:
   itemType: 0
   btnBuy: {fileID: 8719878670930601043}
   btnCreate: {fileID: 8719878671118438017}
-  takeReadyItems: {fileID: 7436767703203192860}
-  amountToCreate: {fileID: 6122012954835514335}
-  progressBar: {fileID: 4335311272707369274}
+  takeReadyItems: {fileID: 910136307987319}
+  amountToCreate: {fileID: 5374049280484588881}
+  progressBar: {fileID: 0}
   countDown: {fileID: 766376111342600389}
-  amountInCreation: {fileID: 328023729199030308}
-  amountReady: {fileID: 7273635594638478353}
+  amountInCreation: {fileID: 0}
+  amountReady: {fileID: 0}
 --- !u!1 &8719878671432766216
 GameObject:
   m_ObjectHideFlags: 0

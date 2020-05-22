@@ -124,7 +124,7 @@ public class GOForgeItem : MonoBehaviour
                 .FindAll(i => !i.IsReady)
                 .Aggregate((i1, i2) => i1.TimeEnd < i2.TimeEnd ? i1 : i2);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException)
         {
             //Debug.Log("TryShowProgress InvalidOperationException");
             return;
@@ -241,8 +241,12 @@ public class GOForgeItem : MonoBehaviour
             ? core.queue.Count - createdItems
             : 0;
 
-        amountInCreation.text = inCreation.ToString();
-        amountReady.text = createdItems.ToString();
+        // !!!!!!!!!!!!!!!!!! раскоментировать начало! !!!!!!!!!!!!!!!!!! 
+
+        //amountInCreation.text = inCreation.ToString();
+        //amountReady.text = createdItems.ToString();
+
+        // !!!!!!!!!!!!!!!!!!  раскоментировать конец! !!!!!!!!!!!!!!!!!! 
         if (createdItems != 0)
         {
             ShowTakeReady(true);
@@ -264,8 +268,13 @@ public class GOForgeItem : MonoBehaviour
 
     void ResetProgressBar()
     {
-        RectTransform rt = (RectTransform)progressBar.transform;
-        rt.offsetMax = new Vector2(-ProgressMaxWidth, rt.offsetMax.y);
+        // !!!!!!!!!!!!!!!!!! раскоментировать начало! !!!!!!!!!!!!!!!!!! 
+
+        //RectTransform rt = (RectTransform)progressBar.transform;
+        //rt.offsetMax = new Vector2(-ProgressMaxWidth, rt.offsetMax.y);
+
+        // !!!!!!!!!!!!!!!!!!  раскоментировать конец! !!!!!!!!!!!!!!!!!! 
+
         //Debug.Log("ResetProgressBar " + (-progressMaxWidth));
     }
 }

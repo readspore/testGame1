@@ -29,6 +29,9 @@ namespace v1.SO
     {
         Arm = 0,
         Invulnerability = 1,
+        TimeScale = 2,
+        DeathDeceit = 3,
+        Respawn = 4
     }
 
     [Serializable]
