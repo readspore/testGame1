@@ -38,7 +38,7 @@ namespace v1.SO.SOForge
         public int GetUniqId()
         {
             var id = PlayerPrefs.GetInt("GetUniqId");
-            id = id == null ? 0 : id;
+            //id = id == null ? 0 : id;
             PlayerPrefs.SetInt("GetUniqId", id + 1);
             return id + 1;
         }

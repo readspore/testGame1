@@ -52,20 +52,20 @@ public static class PlatformHelpers
     static void SetHelperText(bool flag, string course)
     {
         return;
-        switch (T_c % 3)
-        {
-            case 0:
-                GameObject.Find("Test_Text1").GetComponent<Text>().text = flag.ToString() + " C " + course + " " + T_c;
-                break;
-            case 1:
-                GameObject.Find("Test_Text2").GetComponent<Text>().text = flag.ToString() + " C " + course + " " + T_c;
-                break;
-            case 2:
-                GameObject.Find("Test_Text3").GetComponent<Text>().text = flag.ToString() + " C " + course + " " + T_c;
-                break;
-            default:
-                break;
-        }
-        ++T_c;
+        //switch (T_c % 3)
+        //{
+        //    case 0:
+        //        GameObject.Find("Test_Text1").GetComponent<Text>().text = flag.ToString() + " C " + course + " " + T_c;
+        //        break;
+        //    case 1:
+        //        GameObject.Find("Test_Text2").GetComponent<Text>().text = flag.ToString() + " C " + course + " " + T_c;
+        //        break;
+        //    case 2:
+        //        GameObject.Find("Test_Text3").GetComponent<Text>().text = flag.ToString() + " C " + course + " " + T_c;
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //++T_c;
     }
 }
