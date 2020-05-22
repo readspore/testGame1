@@ -7,27 +7,23 @@ using UnityEngine.UI;
 public class UIMoneyValueController : MonoBehaviour
 {
     [SerializeField]
-    Text moneyTextSilver;
-    [SerializeField]
-    Text moneyTextGold;
+    Currency textForCurrency;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Radio.Radio.OnUpdateMoneyValueHandler += UpdateMoneyValueHandler;
     }
 
+    private void OnDestroy()
+    {
+        Radio.Radio.OnUpdateMoneyValueHandler -= UpdateMoneyValueHandler;
+    }
+
     void UpdateMoneyValueHandler(Currency currency, int newVal)
     {
-        switch (currency)
+        if (currency == textForCurrency)
         {
-            case Currency.Gold:
-                moneyTextGold.text = newVal.ToString();
-                break;
-            case Currency.Silver:
-                moneyTextSilver.text = newVal.ToString();
-                break;
-            default:
-                break;
+            transform.GetComponent<Text>().text = newVal.ToString();
         }
     }
 }

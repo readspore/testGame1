@@ -205,7 +205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3149392345296630452}
-  - component: {fileID: 8699661718303377845}
   m_Layer: 0
   m_Name: MoneyWrap
   m_TagString: Untagged
@@ -228,20 +227,6 @@ Transform:
   m_Father: {fileID: 2880720969455329221}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8699661718303377845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7200200518976904563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc40baef4050b8488698c63b1dd021e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyTextSilver: {fileID: 4932824621604638613}
-  moneyTextGold: {fileID: 0}
 --- !u!1 &7344352369459676680
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +238,7 @@ GameObject:
   - component: {fileID: 785313520916636475}
   - component: {fileID: 1002678956765740417}
   - component: {fileID: 4932824621604638613}
+  - component: {fileID: 5091004726731325755}
   m_Layer: 0
   m_Name: MoneyValueSilver
   m_TagString: Untagged
@@ -319,6 +305,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &5091004726731325755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344352369459676680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc40baef4050b8488698c63b1dd021e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textForCurrency: 1
 --- !u!1 &8772880817711184337
 GameObject:
   m_ObjectHideFlags: 0

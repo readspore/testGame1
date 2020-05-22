@@ -60,7 +60,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //UnityEditor.AssetDatabase.Refresh();
 
         rb = transform.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
