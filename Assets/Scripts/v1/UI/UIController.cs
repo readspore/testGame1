@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,14 +13,14 @@ public class UIController : MonoBehaviour
     public GameObject gameUIAvailableAction;
     public GameObject availableActionButtonPrefab;
 
-    public enum AllMenuPagesEN
-    {
-        HomeMenu,
-        ChooseLvl,
-        ForgeMain,
-        PauseMenu,
-        GameUi
-    }
+    //public enum AllMenuPagesEN
+    //{
+    //    HomeMenu,
+    //    ChooseLvl,
+    //    ForgeMain,
+    //    PauseMenu,
+    //    GameUi
+    //}
     public List<GameObject> AllMenuPages =  new List<GameObject>();
 
     public GameObject ForgItemPrefab {
@@ -136,10 +137,18 @@ public class UIController : MonoBehaviour
             case BtnClickActions.QuitGame:
                 QuitGame();
                 break;
+            case BtnClickActions.HomeMenu:
+                ShowHomeMenu();
+                break;
             default:
                 ShowMenuPage(action);
                 break;
         }
+    }
+
+    private void ShowHomeMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void PlayerDeadHandler()

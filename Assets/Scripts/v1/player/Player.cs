@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
         get => health;
         set
         {
-            Debug.Log("Health set " + value);
             health = value;
             if (health <= 0)
             {
@@ -43,6 +42,7 @@ public class Player : MonoBehaviour
                     PlayerIsDead();
                 }
             }
+            Radio.Radio.UpdateHealth(health, maxHealth);
         }
     }
 

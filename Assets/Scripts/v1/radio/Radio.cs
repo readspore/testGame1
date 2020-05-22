@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Radio
 {
+    public delegate void UpdateHealthHandler(int newHealth, int maxHP);
     public delegate void DirectionHintHandler(string message);
     public delegate void ToggleAvailableAction(BtnAvailableAction action);
     public static class Radio
@@ -23,6 +24,13 @@ namespace Radio
             //Debug.Log("Radio TimeScaleEnd");
             if (onTimeScaleEnd != null)
                 onTimeScaleEnd();
+        }
+
+        public static event UpdateHealthHandler OnUpdateHealthHandler;
+        public static void UpdateHealth(int newHealth, int maxHP)
+        {
+            if (OnUpdateHealthHandler != null)
+                OnUpdateHealthHandler(newHealth, maxHP);
         }
 
         public static event DirectionHintHandler OnUpdateDirectionHint;
