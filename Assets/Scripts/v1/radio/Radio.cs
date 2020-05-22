@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Radio
 {
     public delegate void UpdateHealthHandler(int newHealth, int maxHP);
+    public delegate void UpdateMoneyValueHandler(Currency currency,int moneyCount);
     public delegate void DirectionHintHandler(string message);
     public delegate void ToggleAvailableAction(BtnAvailableAction action);
     public static class Radio
@@ -24,6 +25,13 @@ namespace Radio
             //Debug.Log("Radio TimeScaleEnd");
             if (onTimeScaleEnd != null)
                 onTimeScaleEnd();
+        }
+
+        public static event UpdateMoneyValueHandler OnUpdateMoneyValueHandler;
+        public static void UpdateMoneyValue(Currency currency, int moneyCount)
+        {
+            if (OnUpdateMoneyValueHandler != null)
+                OnUpdateMoneyValueHandler(currency, moneyCount);
         }
 
         public static event UpdateHealthHandler OnUpdateHealthHandler;

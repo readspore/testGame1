@@ -15,6 +15,7 @@ public static class Bank
     {
         int currencyCount = PlayerPrefs.GetInt(currency.ToString());
         PlayerPrefs.SetInt(currency.ToString(), currencyCount + value);
+        Radio.Radio.UpdateMoneyValue(currency, currencyCount);
     }
 
     public static bool Pay(Currency currency, int value)

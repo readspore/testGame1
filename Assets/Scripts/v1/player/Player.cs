@@ -62,12 +62,14 @@ public class Player : MonoBehaviour
     {
         //UnityEditor.AssetDatabase.Refresh();
 
-
         rb = transform.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
         mainCamera.gameObject.AddComponent<CameraControll>().TheStart(this.gameObject);
         ShapeController.player = transform.gameObject;
         ShapeController.CurrentShapeType = CurrentShapeType.Sphere;
+
+        Bank.PickUpCoin(Currency.Silver, 0); //render silver count
+
 
         //var fq = Forge.T_AddToQueue(99);
         //var fq2 = Forge.T_AddToQueue(100);
@@ -113,7 +115,6 @@ public class Player : MonoBehaviour
         //Debug.Log("ReduceDamage lvl " + PlayerPrefs.GetInt("ReduceDamage"));
         //StartCoroutine("TDL");
 
-        Bank.PickUpCoin(Currency.Silver, 10000);
 
         //Invulnerability.TryUpgradeInvulnerability(Currency.Silver);
         //Arm.TryUpgradeArm(Currency.Silver);
