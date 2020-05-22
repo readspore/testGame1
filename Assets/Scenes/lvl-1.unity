@@ -2088,7 +2088,7 @@ MonoBehaviour:
   jsMinXVal: 0.1
   jsMinYVal: 0.5
   jumpForce: 500
-  moveDowmForce: 100
+  moveDowmForce: -100
   sphereCollider: {fileID: 104845709}
   distanceToGround: 0
 --- !u!135 &104845709 stripped
